@@ -2,6 +2,7 @@
   "name": "crux",
   "private": true,
   "dependencies": {
+    "@material/icon-button": "^0.44.1",
     "@rails/webpacker": "3.5"
   },
   "devDependencies": {
