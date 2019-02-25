@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_25_163058) do
+ActiveRecord::Schema.define(version: 2019_02_25_170628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,14 +26,10 @@ ActiveRecord::Schema.define(version: 2019_02_25_163058) do
     t.string "location"
     t.float "coord_long"
     t.float "coord_lat"
-    t.bigint "activity_id"
-    t.bigint "trip_id"
-    t.bigint "itinerary_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "activity_id"
     t.index ["activity_id"], name: "index_basecamps_on_activity_id"
-    t.index ["itinerary_id"], name: "index_basecamps_on_itinerary_id"
-    t.index ["trip_id"], name: "index_basecamps_on_trip_id"
   end
 
   create_table "basecamps_itienraries", force: :cascade do |t|
@@ -110,8 +106,6 @@ ActiveRecord::Schema.define(version: 2019_02_25_163058) do
   end
 
   add_foreign_key "basecamps", "activities"
-  add_foreign_key "basecamps", "itineraries"
-  add_foreign_key "basecamps", "trips"
   add_foreign_key "basecamps_itienraries", "basecamps"
   add_foreign_key "basecamps_itienraries", "itineraries"
   add_foreign_key "itineraries", "activities"
