@@ -1,8 +1,5 @@
 class Basecamp < ApplicationRecord
   belongs_to :activity
-  belongs_to :trip
-  belongs_to :itinerary
-  has_many :trips
-  has_one :activity
-  has_many :itineraries
+  has_many :trips_basecamps
+  has_many :itineraries, through: :basecamp_itineraries
 end
