@@ -3,7 +3,8 @@
   "private": true,
   "dependencies": {
     "@material/icon-button": "^0.44.1",
-    "@rails/webpacker": "3.5"
+    "@rails/webpacker": "3.5",
+    "materialize-css": "^1.0.0"
   },
   "devDependencies": {
     "webpack-dev-server": "2.11.2"
