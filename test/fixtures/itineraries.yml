@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  content: MyText
+  coord_x: MyString
+  coord_y: MyString
+  difficulty: MyString
+  elevation_max: 1
+  height_diff_up: 1
+  engagement_rating: MyString
+  equipment_rating: MyString
+  orientations: MyString
+  number_of_outing: 1
+  picture_url: MyString
+  coord_long: 1.5
+  coord_lat: 1.5
+  activity: one
+
+two:
+  name: MyString
+  content: MyText
+  coord_x: MyString
+  coord_y: MyString
+  difficulty: MyString
+  elevation_max: 1
+  height_diff_up: 1
+  engagement_rating: MyString
+  equipment_rating: MyString
+  orientations: MyString
+  number_of_outing: 1
+  picture_url: MyString
+  coord_long: 1.5
+  coord_lat: 1.5
+  activity: two

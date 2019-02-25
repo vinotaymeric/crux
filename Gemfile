@@ -19,7 +19,7 @@ gem 'webpacker'
 # gem 'mini_racer', platforms: :ruby
 gem 'bootstrap-sass'
 gem 'simple_form'
-gem 'device'
+gem 'devise'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
