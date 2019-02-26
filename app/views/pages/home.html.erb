@@ -6,13 +6,15 @@
         <%= form_tag basecamps_path, method: :get, class: "form-group" do %>
           <%= text_field_tag :location,
           params[:location],
-          class: "form-control",
           id: "basecamp_location",
           placeholder: "Adresse de départ"
           %>
+        <%= date_field_tag 'start_date', nil, placeholder: 'Date de départ' %>
+        <%= date_field_tag 'end_date', nil, placeholder: 'Date de retour' %>
+        </div>
         <%= submit_tag "Créer une sortie", class: "btn-outline" %>
-      <% end %>
-    </div>
+
+    <% end %>
   </div>
 </div>
 

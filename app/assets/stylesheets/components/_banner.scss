@@ -19,3 +19,17 @@
     margin-bottom: 1em;
   }
 }
+
+.banner-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .form-group {
+      padding: 0.5em;
+      width: 40%;
+      background-color: rgba(230, 230, 230, 0.2);
+      border-radius: 5px;
+      color: rgba(230, 230, 230, 0.8);
+    }
+}
