@@ -9,5 +9,7 @@ Rails.application.routes.draw do
     resources :trips, only: [:new, :create]
   end
 
+  resources :user_activities, only: [:create, :update]
+
   resources :trips, only: [:show, :index, :edit, :update]
 end

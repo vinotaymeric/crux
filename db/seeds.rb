@@ -20,6 +20,7 @@ puts "Seeding Itineraries..."
 
 def api_call(itinerary, id)
   url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"
+  p url
   JSON.parse(open(url).read)
 end
 
@@ -47,6 +48,14 @@ end
 # Seeding itineraries
 
 itinerary_ids.each do |id|
+
+  # begin
+
+  # # rescue Exception => e
+  # #   puts "#{id} a pété"
+  # #   puts e.messages
+  # # end
+
   itinerary_hash = api_call("routes", id)
   itinerary = Itinerary.new
 

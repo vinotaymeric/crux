@@ -14,12 +14,23 @@
   <div class="banner-content">
     <h1>L'aventure t'attend</h1>
     <p>Crux analyse les conditions parmi des milliers d'itinéraires. Et te dit où aller.</p>
-    <%= link_to('Je crée mon profil', new_user_session_path, class: "btn waves-effect waves-light") %>
+    <%= link_to('Je crée mon profil', user_activities_path, method: :post, class: "btn waves-effect waves-light") %>
   </div>
 </div>
 
 <div class="container">
   <div class="row">
+
+    <% @user_activities.each do |user_activity| %>
+      <div class="col s12 m6">
+        <div class="input-field col s12">
+        <%= simple_form_for user_activity, remote: true do |f| %>
+          <%= f.input  :level, :collection => ["Excellent", "Fort", "Moyen", "Débutant"], label: user_activity.activity.name, input_html: { class: user_activity.activity.name.split(" ")[0]} %>
+          <%= f.hidden_field  :activity_id %>
+        <% end %>
+        </div>
+      </div>
+    <% end %>
 
     <h2>Les meilleurs conditions t'attendent là-bas</h2>
 
