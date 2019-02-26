@@ -86,7 +86,11 @@ itinerary_ids.each do |id|
 
   # Setting the difficulty, handling ski exception
 
-  if itinerary_hash["ski_rating"].first == "2"
+  if itinerary_hash["ski_rating"].nil? && itinerary_hash["global_rating"].nil?
+    itinerary.difficulty = nil
+  elsif itinerary_hash["ski_rating"].nil?
+    itinerary.difficulty = itinerary_hash["global_rating"]
+  elsif itinerary_hash["ski_rating"].first == "2"
     itinerary.difficulty = "PD"
   elsif itinerary_hash["ski_rating"].first == "3"
     itinerary.difficulty = "AD"
@@ -94,8 +98,6 @@ itinerary_ids.each do |id|
     itinerary.difficulty = "D"
   elsif itinerary_hash["ski_rating"].first == "5"
     itinerary.difficulty = "TD"
-  else
-    itinerary.difficulty = itinerary_hash["global_rating"]
   end
 
   # Other details about the itinerary
