@@ -2,7 +2,7 @@
   <div class="banner-content text-center">
     <h1>Crux</h1>
     <p>Tout ce que vous voulez savoir avant votre sortie en montagne</p>
-     <div style="position: relative; height: 155px; width: 400px;">
+     <div class="banner-form">
         <%= form_tag basecamps_path, method: :get, class: "form-group" do %>
           <%= text_field_tag :location,
           params[:location],
@@ -10,7 +10,6 @@
           id: "basecamp_location",
           placeholder: "Adresse de départ"
           %>
-
         <%= submit_tag "Créer une sortie", class: "btn-outline" %>
       <% end %>
     </div>
