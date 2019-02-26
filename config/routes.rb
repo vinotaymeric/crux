@@ -10,6 +10,4 @@ Rails.application.routes.draw do
   end
 
   resources :trips, only: [:show, :index, :edit, :update]
-
-
 end
