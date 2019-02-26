@@ -1,0 +1,39 @@
+<h1>Basecamps#index</h1>
+<p>Find me in app/views/basecamps/index.html.erb</p>
+
+
+<div class="container">
+  <div class="row">
+
+  <% @basecamps.each do |basecamp| %>
+    <div class="col s12 m6">
+      <h2 class="header"><%= basecamp.name %></h2>
+      <div class="card horizontal small">
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1483482699581-077cbc1b4c9f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1552&q=80">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <h4>Cascade de glace</h4>
+            <br>
+            <p><strong>14</strong> itinéraires</p>
+            <br>
+            <p><i class="fas fa-car"></i> 1h30</p>
+            <br>
+            <p><i class="fas fa-exclamation-triangle"></i> Risque 3</p>
+            <br>
+            <p><i class="fas fa-cloud-sun"></i> Beau temps, 3°C</p>
+          </div>
+          <div class="card-action">
+            <div class="left-align">
+              <%= link_to "En savoir plus", root_path %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end  %>
+
+
+  </div>
+</div>

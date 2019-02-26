@@ -1,135 +1,20 @@
-<nav>
-  <div class="nav-wrapper">
-    <div class="container">
-    <a href="#" class="brand-logo">Crux</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a href="sass.html">Se connecter</a></li>
-      <li><a href="sass.html">Itinéraires</a></li>
-    </ul>
-  </div>
-  </div>
-</nav>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.pexels.com/photos/414459/pexels-photo-414459.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');">
+  <div class="banner-content text-center">
+    <h1>Crux</h1>
+    <p>Tout ce que vous voulez savoir avant votre sortie en montagne</p>
+     <div style="position: relative; height: 155px; width: 400px;">
+        <%= form_tag basecamps_path, method: :get, class: "form-group" do %>
+          <%= text_field_tag :location,
+          params[:location],
+          class: "form-control",
+          id: "basecamp_location",
+          placeholder: "Adresse de départ"
+          %>
 
-<div class="container">
-  <div class="row">
-
-    <div class="col s12 m6">
-      <h2 class="header">Chamonix</h2>
-      <div class="card horizontal small">
-        <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1483482699581-077cbc1b4c9f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1552&q=80">
-        </div>
-        <div class="card-stacked">
-          <div class="card-content">
-            <h4>Cascade de glace</h4>
-            <br>
-            <p><strong>14</strong> itinéraires</p>
-            <br>
-            <p><i class="fas fa-car"></i> 1h30</p>
-            <br>
-            <p><i class="fas fa-exclamation-triangle"></i> Risque 3</p>
-            <br>
-            <p><i class="fas fa-cloud-sun"></i> Beau temps, 3°C</p>
-          </div>
-          <div class="card-action">
-            <div class="left-align">
-              <a href="#"">En savoir plus</a>
-            </div>
-          </div>
-        </div>
-      </div>
+        <%= submit_tag "Créer une sortie", class: "btn-outline" %>
+      <% end %>
     </div>
-
-    <div class="col s12 m6">
-      <h2 class="header">Chamonix</h2>
-      <div class="card horizontal small">
-        <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1483482699581-077cbc1b4c9f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1552&q=80">
-        </div>
-        <div class="card-stacked">
-          <div class="card-content">
-            <h4>Cascade de glace</h4>
-            <br>
-            <p><strong>14</strong> itinéraires</p>
-            <br>
-            <p><i class="fas fa-car"></i> 1h30</p>
-            <br>
-            <p><i class="fas fa-exclamation-triangle"></i> Risque 3</p>
-            <br>
-            <p><i class="fas fa-cloud-sun"></i> Beau temps, 3°C</p>
-          </div>
-          <div class="card-action">
-            <div class="left-align">
-              <a href="#"">En savoir plus</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col s12 m6">
-      <h2 class="header">Chamonix</h2>
-      <div class="card horizontal small">
-        <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1483482699581-077cbc1b4c9f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1552&q=80">
-        </div>
-        <div class="card-stacked">
-          <div class="card-content">
-            <h4>Cascade de glace</h4>
-            <br>
-            <p><strong>14</strong> itinéraires</p>
-            <br>
-            <p><i class="fas fa-car"></i> 1h30</p>
-            <br>
-            <p><i class="fas fa-exclamation-triangle"></i> Risque 3</p>
-            <br>
-            <p><i class="fas fa-cloud-sun"></i> Beau temps, 3°C</p>
-          </div>
-          <div class="card-action">
-            <div class="left-align">
-              <a href="#"">En savoir plus</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col s12 m6">
-      <h2 class="header">Chamonix</h2>
-      <div class="card horizontal small">
-        <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1483482699581-077cbc1b4c9f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1552&q=80">
-        </div>
-        <div class="card-stacked">
-          <div class="card-content">
-            <h4>Cascade de glace</h4>
-            <br>
-            <p><strong>14</strong> itinéraires</p>
-            <br>
-            <p><i class="fas fa-car"></i> 1h30</p>
-            <br>
-            <p><i class="fas fa-exclamation-triangle"></i> Risque 3</p>
-            <br>
-            <p><i class="fas fa-cloud-sun"></i> Beau temps, 3°C</p>
-          </div>
-          <div class="card-action">
-            <div class="left-align">
-              <a href="#"">En savoir plus</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
 
 
-<footer class="page-footer">
-  <div class="footer-copyright">
-    <div class="container">
-    © 2019 Copyright Crux
-    <a class="grey-text text-lighten-4 right" href="#!">Social stuff</a>
-    </div>
-  </div>
-</footer>
