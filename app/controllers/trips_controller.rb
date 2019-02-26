@@ -3,9 +3,9 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
-    @trip.itinerary = @itinerary
+    @trip.basecamps = @basecamps
     @trip.user = current_user
-    @itinerary = Itinerary.find(params[:itinerary_id])
+    @basecamps = Basecamp.select(params[:basecamp_id])
   end
 
   def index
@@ -16,7 +16,7 @@ class TripsController < ApplicationController
     @trip = Trip.new(trip_params)
     @trip.user = current_user
     @trip.save
-    @trip.itinerary = Itinerary.find(params[:itinerary_id])
+    @trip.basecamps = Basecamp.select(params[:basecamp_id])
     @trip.user = current_user
     @trip.save!
     redirect_to trips_path
