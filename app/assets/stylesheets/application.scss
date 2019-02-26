@@ -55,6 +55,11 @@ a:hover {
   text-decoration: none;
 }
 
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+  color:#26a69a;
+}
+
 nav ul a {
   font-size: 1em;
 }
+
