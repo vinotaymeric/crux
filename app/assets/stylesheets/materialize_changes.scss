@@ -1,0 +1,42 @@
+nav {
+ background-color: #23B5D3;
+}
+
+.page-footer {
+ background-color: #23B5D3;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+  color: rgb(38,166,154);
+}
+
+.tabs .tab a {
+  color: rgba(38, 166, 154, 0.7);
+}
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+  background-color: rgba(38, 166, 154, 0.2);
+  outline: none;
+}
+
+.tabs .tab.disabled a,
+.tabs .tab.disabled a:hover {
+  color: rgba(38, 166, 154, 0.4);
+  cursor: default;
+}
+
+.tabs .indicator {
+  background-color: #23B5D3;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+  color:#26a69a;
+}
+
+nav ul a {
+  font-size: 1em;
+}
