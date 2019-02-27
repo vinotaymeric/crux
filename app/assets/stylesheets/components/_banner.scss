@@ -1,0 +1,39 @@
+.banner {
+  height: 50vh;
+  color: white;
+  text-align: center;
+  /* if you have a 70px navbar => height: calc(100vh - 70px); */
+  background-size: cover !important;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), image-url("https://images.pexels.com/photos/414459/pexels-photo-414459.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-size: cover;
+  background-position: center;
+  h1 {
+    color: white;
+    font-weight: bold;
+    font-size: 3em;
+  }
+  p {
+    color: white;
+    opacity: .8;
+    font-size: 1.5em;
+    font-weight: lighter;
+    margin-bottom: 1em;
+  }
+}
+
+.banner-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .form-group {
+      padding: 0.5em;
+      width: 40%;
+      background-color: rgba(230, 230, 230, 0.2);
+      border-radius: 5px;
+      color: rgba(230, 230, 230, 0.8);
+    }
+}

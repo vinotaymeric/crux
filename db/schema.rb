@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_25_132855) do
+ActiveRecord::Schema.define(version: 2019_02_27_140234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,14 +26,19 @@ ActiveRecord::Schema.define(version: 2019_02_25_132855) do
     t.string "location"
     t.float "coord_long"
     t.float "coord_lat"
-    t.bigint "activity_id"
-    t.bigint "trip_id"
-    t.bigint "itinerary_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "activity_id"
     t.index ["activity_id"], name: "index_basecamps_on_activity_id"
-    t.index ["itinerary_id"], name: "index_basecamps_on_itinerary_id"
-    t.index ["trip_id"], name: "index_basecamps_on_trip_id"
+  end
+
+  create_table "basecamps_itineraries", force: :cascade do |t|
+    t.bigint "itinerary_id"
+    t.bigint "basecamp_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["basecamp_id"], name: "index_basecamps_itineraries_on_basecamp_id"
+    t.index ["itinerary_id"], name: "index_basecamps_itineraries_on_itinerary_id"
   end
 
   create_table "itineraries", force: :cascade do |t|
@@ -57,6 +62,19 @@ ActiveRecord::Schema.define(version: 2019_02_25_132855) do
     t.index ["activity_id"], name: "index_itineraries_on_activity_id"
   end
 
+  create_table "mountain_ranges", force: :cascade do |t|
+    t.string "name"
+    t.string "rosace_url"
+    t.string "fresh_snow_url"
+    t.string "snow_image_url"
+    t.string "snow_quality"
+    t.string "stability"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "x_lat"
+    t.float "y_lat"
+  end
+
   create_table "trips", force: :cascade do |t|
     t.string "title"
     t.date "start_date"
@@ -67,6 +85,15 @@ ActiveRecord::Schema.define(version: 2019_02_25_132855) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_trips_on_user_id"
+  end
+
+  create_table "trips_basecamps", force: :cascade do |t|
+    t.bigint "trip_id"
+    t.bigint "basecamp_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["basecamp_id"], name: "index_trips_basecamps_on_basecamp_id"
+    t.index ["trip_id"], name: "index_trips_basecamps_on_trip_id"
   end
 
   create_table "user_activities", force: :cascade do |t|
@@ -92,10 +119,12 @@ ActiveRecord::Schema.define(version: 2019_02_25_132855) do
   end
 
   add_foreign_key "basecamps", "activities"
-  add_foreign_key "basecamps", "itineraries"
-  add_foreign_key "basecamps", "trips"
+  add_foreign_key "basecamps_itineraries", "basecamps"
+  add_foreign_key "basecamps_itineraries", "itineraries"
   add_foreign_key "itineraries", "activities"
   add_foreign_key "trips", "users"
+  add_foreign_key "trips_basecamps", "basecamps"
+  add_foreign_key "trips_basecamps", "trips"
   add_foreign_key "user_activities", "activities"
   add_foreign_key "user_activities", "users"
 end
