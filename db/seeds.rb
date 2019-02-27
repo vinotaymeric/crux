@@ -1,5 +1,5 @@
 require_relative 'bra_functions'
-require_relative 'lib/basecamp_seeding'
+require_relative 'lib/basecamp'
 require 'json'
 require 'open-uri'
 require 'nokogiri'
@@ -130,7 +130,7 @@ itinerary_ids.each do |id|
   itinerary.number_of_outing = api_call("outings", id)["associations"]["recent_outings"]["total"]
   itinerary.save!
   print "."
-  break if Itinerary.count > 9000
+  break if Itinerary.count > 10
   sleep(1)
   rescue Exception => e
     puts "#{id} a pété"
@@ -178,7 +178,7 @@ p "nbr de bra #{bra_ranges.length}, date  #{date}}"
 bra_ranges.each do |bra_range|
 
   MountainRange.create!(
-    name:bra_range[:range_name],
+    name: bra_range[:range_name],
     bra_date: bra_range[:bra_date_validity],
     rosace_url: bra_range[:rosace_image_url],
     fresh_snow_url: bra_range[:fresh_snow_image_url],
@@ -194,11 +194,10 @@ puts "####MountainRange seeding completed###"
 puts "Seeding basecamps..."
 NB_INHAB = 20_000 # Change this param if needed
 SCOPE_DEPARTMENTS = %w[74 38 73 04 05 06].freeze # Change this param if needed
-MAX_DIST_FROM_MOUTAIN_RANGE = 80 # max distance (km) between a moutain_range and a basecamp
+MAX_DIST_FROM_MOUNTAIN_RANGE = 80 # max distance (km) between a mountain_range and a basecamp
 
 cities = csv_to_cities('db/csv_repos/french_cities.csv')
 cities = filter_on_cities(cities, NB_INHAB, SCOPE_DEPARTMENTS)
-seed_basecamps(cities, MAX_DIST_FROM_MOUTAIN_RANGE)
+feed_basecamps(cities, MAX_DIST_FROM_MOUNTAIN_RANGE)
 
 puts "Basecamps seeding completed"
-## SEED BASECAMPS
