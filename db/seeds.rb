@@ -1,5 +1,5 @@
-require_relative 'lib/basecamp_seeding'
 require_relative 'bra_functions'
+require_relative 'lib/basecamp_seeding'
 require 'json'
 require 'open-uri'
 require 'nokogiri'
@@ -8,7 +8,7 @@ require 'date'
 require 'pry'
 require "base64"
 
-puts "Seeding Activities..."
+# puts "Seeding Activities..."
 
 if Activity.count == 0
   Activity.create!(name: "ski de randonnée")
@@ -51,16 +51,21 @@ end
 itinerary_ids.map! { |id| id.to_i }
 itinerary_ids.select! { |id| id > 49833 }
 
+
+itinerary_ids.map! { |id| id.to_i }
+itinerary_ids.select! { |id| id > 53958 }
+
+
 # Seeding itineraries
 
 itinerary_ids.each do |id|
 
   # begin
 
-  # # rescue Exception => e
-  # #   puts "#{id} a pété"
-  # #   puts e.messages
-  # # end
+#   # Exclude activites we don't care about. Define activites in French, only taking the main activity
+#   activities = ["skitouring", "snow_ice_mixed", "mountain_climbing", "rock_climbing", "ice_climbing"]
+#   next if activities.exclude?(itinerary_hash["activities"][0])
+  begin
 
   itinerary_hash = api_call("routes", id)
   itinerary = Itinerary.new
@@ -94,25 +99,15 @@ itinerary_ids.each do |id|
     itinerary.activity = Activity.find_by(name: "casacade de glace")
   end
 
-  p itinerary.activity
 
-  next if itinerary_hash["associations"]["images"][0] == nil
-  itinerary.picture_url = "https://media.camptocamp.org/c2corg-active/#{itinerary_hash["associations"]["images"][0]["filename"]}"
-
-  # Setting the difficulty, handling ski exception
-
-  if itinerary_hash["ski_rating"].nil? && itinerary_hash["global_rating"].nil?
-    itinerary.difficulty = nil
-  elsif itinerary_hash["ski_rating"].nil?
-    itinerary.difficulty = itinerary_hash["global_rating"]
-  elsif itinerary_hash["ski_rating"].first == "2"
-    itinerary.difficulty = "PD"
-  elsif itinerary_hash["ski_rating"].first == "3"
-    itinerary.difficulty = "AD"
-  elsif itinerary_hash["ski_rating"].first == "4"
-    itinerary.difficulty = "D"
-  elsif itinerary_hash["ski_rating"].first == "5"
-    itinerary.difficulty = "TD"
+  if activity == "skitouring"
+    itinerary.activity = Activity.find_by(name: "ski de randonnée")
+  elsif activity == "snow_ice_mixed" || activity == "mountain_climbing"
+    itinerary.activity = Activity.find_by(name: "alpinisme")
+  elsif activity == "rock_climbing"
+    itinerary.activity = Activity.find_by(name: "escalade")
+  elsif activity == "ice_climbing"
+    itinerary.activity = Activity.find_by(name: "casacade de glace")
   end
 
   # Other details about the itinerary
@@ -135,14 +130,15 @@ itinerary_ids.each do |id|
   itinerary.number_of_outing = api_call("outings", id)["associations"]["recent_outings"]["total"]
   itinerary.save!
   print "."
-  break if Itinerary.count > 10
-  sleep(2)
+  break if Itinerary.count > 9000
+  sleep(1)
+  rescue Exception => e
+    puts "#{id} a pété"
+    puts e.message
+  end
 end
 
 puts "Itineraries seeding completed"
-
-
-
 
 ## SEED FAKE USERS
 puts "Seeding users..."
@@ -158,43 +154,41 @@ puts "User seeding completed"
 
 
 ## SEED RANGES
-
 puts "###Seeding MountainRange#### "
-MountainRange.destroy_all
+#MountainRange.destroy_all
 
-date = 20190225
+## initilization of mountainRange
+puts "initilization of mountainRange"
 
+RANGES.each do |range|
+  MountainRange.create!(
+    name: range[0],
+    coord_lat: range[2],
+    coord_long: range[3]
+    )
+end
+
+######
+date = 20190220
 ##bra de tous les ranges
 bra_ranges = bra_all_ranges_per_date(date)
 
 p "nbr de bra #{bra_ranges.length}, date  #{date}}"
 
 bra_ranges.each do |bra_range|
+
   MountainRange.create!(
     name:bra_range[:range_name],
+    bra_date: bra_range[:bra_date_validity],
     rosace_url: bra_range[:rosace_image_url],
     fresh_snow_url: bra_range[:fresh_snow_image_url],
     snow_image_url: bra_range[:snow_image_url],
     snow_quality: bra_range[:snow_quality],
     stability: bra_range[:stability]
     )
-
 end
 
-##bra par range
-# bra_mont_blanc = bra_per_range_per_date("MONT-BLANC",date)
-## create MountainRange MONT-BLANC
-# MountainRange.create!(
-#   name:bra_mont_blanc[:range_name],
-#   rosace_url: bra_mont_blanc[:rosace_image_url],
-#   fresh_snow_url: bra_mont_blanc[:fresh_snow_image_url],
-#   snow_image_url: bra_mont_blanc[:snow_image_url],
-#   snow_quality: bra_mont_blanc[:snow_quality],
-#   stability: bra_mont_blanc[:stability]
-#   )
-
 puts "####MountainRange seeding completed###"
-
 
 ## SEED BASECAMPS
 puts "Seeding basecamps..."
