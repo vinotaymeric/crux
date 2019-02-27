@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+      <% @user_activities.each do |user_activity| %>
+      <div class="input-field col s12 m6">
+        <%= simple_form_for user_activity, remote: true do |f| %>
+          <%= f.input  :level, :collection => ["Excellent", "Fort", "Moyen", "Débutant"], label: user_activity.activity.name, input_html: { class: user_activity.activity.name.split(" ")[0]} %>
+          <%= f.hidden_field  :activity_id %>
+        <% end %>
+      </div>
+      <% end %>
+      <div class="input-field col s12 m12">
+        <%= simple_form_for @trip do |f| %>
+          <%= text_field_tag :location,
+            params[:address],
+            class: "form-control",
+            id: "trip_address",
+            placeholder: "Adresse de départ"
+          %>
+          <%= f.input  :start_date, wrapper_html: { class: 'm6 s12' } %>
+          <%= f.input  :end_date %>
+          <%= f.button :submit, class: "waves-effect waves-light btn" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
