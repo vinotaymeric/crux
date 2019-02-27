@@ -4,9 +4,9 @@ class PagesController < ApplicationController
 
   def home
     if current_user != nil
-    @user_activities = current_user.user_activities 
+      @user_activities = current_user.user_activities
     else
-      @user_activities =[]
+      @user_activities = []
     end
   end
 end
