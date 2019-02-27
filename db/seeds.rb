@@ -1,14 +1,5 @@
-
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-
 require_relative 'bra_functions'
+require_relative 'lib/basecamp_seeding'
 require 'json'
 require 'open-uri'
 require 'nokogiri'
@@ -16,6 +7,16 @@ require 'date'
 require 'date'
 require 'pry'
 require "base64"
+
+## BASECAMPS SEEDING
+NB_INHAB = 20_000 # Change this param if needed
+SCOPE_DEPARTMENTS = %w[74 38 73 04 05 06].freeze # Change this param if needed
+
+cities = csv_to_cities('db/csv_repos/french_cities.csv')
+cities = filter_on_cities(cities, NB_INHAB, SCOPE_DEPARTMENTS)
+
+p feed_basecamps(cities)
+
 
 # puts "Seeding Activities..."
 
@@ -251,4 +252,3 @@ end
 #   )
 
 puts "####MountainRange seeding completed###"
-
