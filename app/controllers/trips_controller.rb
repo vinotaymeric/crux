@@ -1,11 +1,12 @@
 class TripsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:show, :index, :new, :create]
 
   def new
+    if current_user != nil
+      @user_activities = current_user.user_activities
+    else
+      @user_activities = []
+    end
     @trip = Trip.new
-    @trip.basecamps = @basecamps
-    @trip.user = current_user
-    @basecamps = Basecamp.select(params[:basecamp_id])
   end
 
   def index
@@ -15,11 +16,8 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
-    @trip.save
-    @trip.basecamps = Basecamp.select(params[:basecamp_id])
-    @trip.user = current_user
     @trip.save!
-    redirect_to trips_path
+    redirect_to root_path
   end
 
   def show
@@ -34,7 +32,7 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:start_date, :end_date, :title)
+    params.require(:trip).permit(:start_date, :end_date, :location)
   end
 
 end
