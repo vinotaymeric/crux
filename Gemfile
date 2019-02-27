@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
-
+gem 'geocoder', '~> 1.3', '>= 1.3.7'
 gem 'awesome_print'
 gem 'redcarpet'
 
