@@ -168,53 +168,61 @@ require "base64"
 
 ## SEED RANGES
 puts "###Seeding MountainRange#### "
+#MountainRange.destroy_all
+
 ## initilization of mountainRange
 puts "initilization of mountainRange"
 
-NAME;CTC_ID;COORD_LAT;COORD_LONG
-# MountainRange.destroy_all
+RANGES.each do |range|
+  MountainRange.create!(
+    name: range[0], 
+    coord_lat: range[2],
+    coord_long: range[3]
+    )
+end
+
 
 date = 20190220
-
 ##bra de tous les ranges
 bra_ranges = bra_all_ranges_per_date(date)
 
 p "nbr de bra #{bra_ranges.length}, date  #{date}}"
 
 bra_ranges.each do |bra_range|
-  if MountainRange.count == 0
+  #if MountainRange.count == 0
   MountainRange.create!(
     name:bra_range[:range_name], 
+    bra_date: bra_range[:bra_date_validity],
     rosace_url: bra_range[:rosace_image_url], 
     fresh_snow_url: bra_range[:fresh_snow_image_url],
     snow_image_url: bra_range[:snow_image_url],
     snow_quality: bra_range[:snow_quality],
     stability: bra_range[:stability]
     )
-  else
-    # MountainRange.(
-    #   name:bra_range[:range_name], 
-    #   rosace_url: bra_range[:rosace_image_url], 
-    #   fresh_snow_url: bra_range[:fresh_snow_image_url],
-    #   snow_image_url: bra_range[:snow_image_url],
-    #   snow_quality: bra_range[:snow_quality],
-    #   stability: bra_range[:stability]
-    #   )
-    p "#{bra_range[:range_name]} not created!"
-  end
+  # else
+  #   # MountainRange.(
+  #   #   name:bra_range[:range_name], 
+  #   #   rosace_url: bra_range[:rosace_image_url], 
+  #   #   fresh_snow_url: bra_range[:fresh_snow_image_url],
+  #   #   snow_image_url: bra_range[:snow_image_url],
+  #   #   snow_quality: bra_range[:snow_quality],
+  #   #   stability: bra_range[:stability]
+  #   #   )
+  #   p "#{bra_range[:range_name]} not created!"
+  # end
 end
 
-##bra par range 
-# bra_mont_blanc = bra_per_range_per_date("MONT-BLANC",date)
-## create MountainRange MONT-BLANC
-# MountainRange.create!(
-#   name:bra_mont_blanc[:range_name], 
-#   rosace_url: bra_mont_blanc[:rosace_image_url], 
-#   fresh_snow_url: bra_mont_blanc[:fresh_snow_image_url],
-#   snow_image_url: bra_mont_blanc[:snow_image_url],
-#   snow_quality: bra_mont_blanc[:snow_quality],
-#   stability: bra_mont_blanc[:stability]
-#   )
+# ##bra par range 
+# # bra_mont_blanc = bra_per_range_per_date("MONT-BLANC",date)
+# ## create MountainRange MONT-BLANC
+# # MountainRange.create!(
+# #   name:bra_mont_blanc[:range_name], 
+# #   rosace_url: bra_mont_blanc[:rosace_image_url], 
+# #   fresh_snow_url: bra_mont_blanc[:fresh_snow_image_url],
+# #   snow_image_url: bra_mont_blanc[:snow_image_url],
+# #   snow_quality: bra_mont_blanc[:snow_quality],
+# #   stability: bra_mont_blanc[:stability]
+# #   )
 
 puts "####MountainRange seeding completed###"
 

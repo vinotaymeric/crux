@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_27_140234) do
+ActiveRecord::Schema.define(version: 2019_02_27_143517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,8 +71,9 @@ ActiveRecord::Schema.define(version: 2019_02_27_140234) do
     t.string "stability"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "x_lat"
-    t.float "y_lat"
+    t.float "coord_lat"
+    t.float "coord_long"
+    t.date "bra_date"
   end
 
   create_table "trips", force: :cascade do |t|
