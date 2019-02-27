@@ -30,7 +30,7 @@ def convert_epsg_3857_to_4326(web_mercator_x, web_mercator_y)
   { long: response["x"], lat: response["y"] }
 end
 
-Itinerary.destroy_all
+# Itinerary.destroy_all
 
 sitemap0 = Nokogiri::HTML(open("https://www.camptocamp.org/sitemaps/r/0.xml"))
 sitemap1 = Nokogiri::HTML(open("https://www.camptocamp.org/sitemaps/r/1.xml"))
@@ -44,6 +44,8 @@ sitemap1.xpath("//loc").each do |url|
   itinerary_ids << url.to_s.split("/")[4]
 end
 
+itinerary_ids.map! { |id| id.to_i }
+itinerary_ids.select! { |id| id > 49833 }
 
 # Seeding itineraries
 
