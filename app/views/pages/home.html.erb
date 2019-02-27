@@ -1,22 +1,21 @@
-<nav>
-  <div class="nav-wrapper">
-    <div class="container">
-    <a href="#" class="brand-logo">Crux</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a href="sass.html">Se connecter</a></li>
-      <li><a href="sass.html">Itinéraires</a></li>
-    </ul>
-  </div>
-  </div>
-</nav>
 
-<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('https://images.unsplash.com/photo-1516535852376-683407a5cb11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');">
-  <div class="banner-content">
-    <h1>L'aventure t'attend</h1>
-    <p>Crux analyse les conditions parmi des milliers d'itinéraires. Et te dit où aller.</p>
-    <%= link_to('Je crée mon profil', user_activities_path, method: :post, class: "btn waves-effect waves-light") %>
-  </div>
-</div>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.pexels.com/photos/414459/pexels-photo-414459.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');">
+  <div class="banner-content text-center">
+    <h1>Crux</h1>
+    <p>Tout ce que vous voulez savoir avant votre sortie en montagne</p>
+     <div class="banner-form">
+        <%= form_tag basecamps_path, method: :get, class: "form-group" do %>
+          <%= text_field_tag :location,
+          params[:location],
+          id: "basecamp_location",
+          placeholder: "Adresse de départ"
+          %>
+        <%= date_field_tag 'start_date', nil, placeholder: 'Date de départ' %>
+        <%= date_field_tag 'end_date', nil, placeholder: 'Date de retour' %>
+        </div>
+        <%= submit_tag "Créer une sortie", class: "btn-outline" %>
+    <% end %>
+
 
 <div class="container">
   <div class="row">
@@ -141,16 +140,7 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
 
-<footer class="page-footer">
-  <div class="footer-copyright">
-    <div class="container">
-    © 2019 Copyright Crux
-    <a class="grey-text text-lighten-4 right" href="#!">Social stuff</a>
-    </div>
-  </div>
-</footer>
