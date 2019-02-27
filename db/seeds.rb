@@ -1,13 +1,4 @@
-
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-
+require_relative 'lib/basecamp_seeding'
 require_relative 'bra_functions'
 require 'json'
 require 'open-uri'
@@ -144,7 +135,7 @@ itinerary_ids.each do |id|
   itinerary.number_of_outing = api_call("outings", id)["associations"]["recent_outings"]["total"]
   itinerary.save!
   print "."
-  break if Itinerary.count > 9000
+  break if Itinerary.count > 10
   sleep(2)
 end
 
@@ -180,22 +171,22 @@ p "nbr de bra #{bra_ranges.length}, date  #{date}}"
 
 bra_ranges.each do |bra_range|
   MountainRange.create!(
-    name:bra_range[:range_name], 
-    rosace_url: bra_range[:rosace_image_url], 
+    name:bra_range[:range_name],
+    rosace_url: bra_range[:rosace_image_url],
     fresh_snow_url: bra_range[:fresh_snow_image_url],
     snow_image_url: bra_range[:snow_image_url],
     snow_quality: bra_range[:snow_quality],
     stability: bra_range[:stability]
     )
-  
+
 end
 
-##bra par range 
+##bra par range
 # bra_mont_blanc = bra_per_range_per_date("MONT-BLANC",date)
 ## create MountainRange MONT-BLANC
 # MountainRange.create!(
-#   name:bra_mont_blanc[:range_name], 
-#   rosace_url: bra_mont_blanc[:rosace_image_url], 
+#   name:bra_mont_blanc[:range_name],
+#   rosace_url: bra_mont_blanc[:rosace_image_url],
 #   fresh_snow_url: bra_mont_blanc[:fresh_snow_image_url],
 #   snow_image_url: bra_mont_blanc[:snow_image_url],
 #   snow_quality: bra_mont_blanc[:snow_quality],
@@ -204,3 +195,16 @@ end
 
 puts "####MountainRange seeding completed###"
 
+
+## SEED BASECAMPS
+puts "Seeding basecamps..."
+NB_INHAB = 20_000 # Change this param if needed
+SCOPE_DEPARTMENTS = %w[74 38 73 04 05 06].freeze # Change this param if needed
+
+cities = csv_to_cities('db/csv_repos/french_cities.csv')
+cities = filter_on_cities(cities, NB_INHAB, SCOPE_DEPARTMENTS)
+
+p feed_basecamps(cities)
+
+puts "Basecamps seeding completed"
+## SEED BASECAMPS
