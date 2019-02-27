@@ -11,13 +11,8 @@
       <% end %>
       <div class="input-field col s12 m12">
         <%= simple_form_for @trip do |f| %>
-          <%= text_field_tag :location,
-            params[:address],
-            class: "form-control",
-            id: "trip_address",
-            placeholder: "Adresse de départ"
-          %>
-          <%= f.input  :start_date, wrapper_html: { class: 'm6 s12' } %>
+          <%= f.input  :location, input_html: { id: "trip_address", placeholder: "Adresse de départ" }, label: false %>
+          <%= f.input  :start_date, wrapper_html: { class: 'datepicker' } %>
           <%= f.input  :end_date %>
           <%= f.button :submit, class: "waves-effect waves-light btn" %>
         <% end %>

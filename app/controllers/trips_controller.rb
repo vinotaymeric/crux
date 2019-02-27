@@ -1,5 +1,4 @@
 class TripsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:show, :index, :new, :create]
 
   def new
     if current_user != nil
@@ -33,7 +32,7 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:start_date, :end_date, :title)
+    params.require(:trip).permit(:start_date, :end_date, :location)
   end
 
 end

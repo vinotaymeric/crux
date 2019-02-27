@@ -58,7 +58,7 @@ sitemap1.xpath("//loc").each do |url|
 end
 
 itinerary_ids.map! { |id| id.to_i }
-itinerary_ids.select! { |id| id > 49833 }
+itinerary_ids.select! { |id| id > 53936 }
 
 # Seeding itineraries
 
@@ -145,7 +145,7 @@ itinerary_ids.each do |id|
   itinerary.save!
   print "."
   break if Itinerary.count > 9000
-  sleep(2)
+  sleep(1)
 end
 
 puts "Itineraries seeding completed"
@@ -180,22 +180,22 @@ p "nbr de bra #{bra_ranges.length}, date  #{date}}"
 
 bra_ranges.each do |bra_range|
   MountainRange.create!(
-    name:bra_range[:range_name], 
-    rosace_url: bra_range[:rosace_image_url], 
+    name:bra_range[:range_name],
+    rosace_url: bra_range[:rosace_image_url],
     fresh_snow_url: bra_range[:fresh_snow_image_url],
     snow_image_url: bra_range[:snow_image_url],
     snow_quality: bra_range[:snow_quality],
     stability: bra_range[:stability]
     )
-  
+
 end
 
-##bra par range 
+##bra par range
 # bra_mont_blanc = bra_per_range_per_date("MONT-BLANC",date)
 ## create MountainRange MONT-BLANC
 # MountainRange.create!(
-#   name:bra_mont_blanc[:range_name], 
-#   rosace_url: bra_mont_blanc[:rosace_image_url], 
+#   name:bra_mont_blanc[:range_name],
+#   rosace_url: bra_mont_blanc[:rosace_image_url],
 #   fresh_snow_url: bra_mont_blanc[:fresh_snow_image_url],
 #   snow_image_url: bra_mont_blanc[:snow_image_url],
 #   snow_quality: bra_mont_blanc[:snow_quality],
