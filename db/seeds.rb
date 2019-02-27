@@ -58,18 +58,13 @@ sitemap1.xpath("//loc").each do |url|
 end
 
 itinerary_ids.map! { |id| id.to_i }
-itinerary_ids.select! { |id| id > 53936 }
+itinerary_ids.select! { |id| id > 53958 }
 
 # Seeding itineraries
 
 itinerary_ids.each do |id|
 
-  # begin
-
-  # # rescue Exception => e
-  # #   puts "#{id} a pété"
-  # #   puts e.messages
-  # # end
+  begin
 
   itinerary_hash = api_call("routes", id)
   itinerary = Itinerary.new
@@ -99,7 +94,7 @@ itinerary_ids.each do |id|
     itinerary.activity = Activity.find_by(name: "alpinisme")
   elsif activity == "rock_climbing"
     itinerary.activity = Activity.find_by(name: "escalade")
-  else
+  elsif activity == "ice_climbing"
     itinerary.activity = Activity.find_by(name: "casacade de glace")
   end
 
@@ -146,6 +141,10 @@ itinerary_ids.each do |id|
   print "."
   break if Itinerary.count > 9000
   sleep(1)
+  rescue Exception => e
+  puts "#{id} a pété"
+  puts e.message
+  end
 end
 
 puts "Itineraries seeding completed"
