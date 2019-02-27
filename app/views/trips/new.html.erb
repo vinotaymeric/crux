@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-sm-offset-4 form-frame">
+    <h4>Profil aventurier</h4>
+      <% @user_activities.each do |user_activity| %>
+      <div class="input-field col s12 m6">
+        <%= simple_form_for user_activity, remote: true do |f| %>
+          <%= f.input  :level, :collection => ["Mutant", "Solide", "Amateur", "Padawan"], label: user_activity.activity.name.capitalize, input_html: { class: user_activity.activity.name.split(" ")[0]} %>
+          <%= f.hidden_field  :activity_id %>
+        <% end %>
+      </div>
+      <% end %>
+      <h4>Mon voyage</h4>
+      <div class="input-field col s12 m12">
+        <%= simple_form_for @trip do |f| %>
+          <%= f.input  :location, input_html: { id: "trip_address", placeholder: "Adresse de départ" }, label: false %>
+          <%= f.input  :start_date, as: :string, input_html: { class: 'datepicker', placeholder: "Date de début" }, label: false %>
+          <%= f.input  :end_date, as: :string, input_html: { class: 'datepicker', placeholder: "Date de fin" }, label: false %>
+          <div class="right-align"><%= f.button :submit, class: "waves-effect waves-light btn" %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
