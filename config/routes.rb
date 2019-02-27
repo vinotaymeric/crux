@@ -10,5 +10,9 @@ Rails.application.routes.draw do
     end
   # end
 
-  resources :trips, only: [:show, :index, :new, :create]
+
+  resources :user_activities, only: [:create, :update]
+
+  resources :trips, only: [:show, :index, :edit, :update]
+
 end

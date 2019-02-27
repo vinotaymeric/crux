@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_25_172411) do
+ActiveRecord::Schema.define(version: 2019_02_26_151910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,17 @@ ActiveRecord::Schema.define(version: 2019_02_25_172411) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["activity_id"], name: "index_itineraries_on_activity_id"
+  end
+
+  create_table "mountain_ranges", force: :cascade do |t|
+    t.string "name"
+    t.string "rosace_url"
+    t.string "fresh_snow_url"
+    t.string "snow_image_url"
+    t.string "snow_quality"
+    t.string "stability"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "trips", force: :cascade do |t|
