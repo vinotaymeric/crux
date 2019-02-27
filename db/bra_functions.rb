@@ -6,12 +6,12 @@ require 'nokogiri'
 require 'pry'
 require "base64"
 
-RANGES =["VANOISE","ASPE-OSSAU","AURE-LOURON","HAUTE-BIGORRE","PAYS-BASQUE","CINTO-ROTONDO","RENOSO-INCUDINE","ARAVIS",
-  "CHABLAIS","MONT-BLANC","BELLEDONNE","CHARTREUSE","GRANDES-ROUSSES","OISANS","VERCORS","ANDORRE","CAPCIR-PUYMORENS",
-  "CERDAGNE-CANIGOU","COUSERANS","HAUTE-ARIEGE","ORLU__ST_BARTHELEMY","CHAMPSAUR","DEVOLUY","EMBRUNAIS-PARPAILLON",
- "HAUT-VAR_HAUT-VERDON","MERCANTOUR","PELVOUX","QUEYRAS","THABOR","UBAYE","BAUGES","BEAUFORTAIN","HAUTE-MAURIENNE","HAUTE-TARENTAISE",
- "MAURIENNE",
- ]
+# RANGES =["VANOISE","ASPE-OSSAU","AURE-LOURON","HAUTE-BIGORRE","PAYS-BASQUE","CINTO-ROTONDO","RENOSO-INCUDINE","ARAVIS",
+#   "CHABLAIS","MONT-BLANC","BELLEDONNE","CHARTREUSE","GRANDES-ROUSSES","OISANS","VERCORS","ANDORRE","CAPCIR-PUYMORENS",
+#   "CERDAGNE-CANIGOU","COUSERANS","HAUTE-ARIEGE","ORLU__ST_BARTHELEMY","CHAMPSAUR","DEVOLUY","EMBRUNAIS-PARPAILLON",
+#  "HAUT-VAR_HAUT-VERDON","MERCANTOUR","PELVOUX","QUEYRAS","THABOR","UBAYE","BAUGES","BEAUFORTAIN","HAUTE-MAURIENNE","HAUTE-TARENTAISE",
+#  "MAURIENNE",
+#  ]
 
 # bra de toutes les massifs le : date
 def bra_per_day(date)
@@ -21,12 +21,29 @@ def bra_per_day(date)
   JSON.parse(open(url).read)
 end 
 
-#bra_key
-def bra_key(range,date) 
+# ranges in the bra of meteo france per date
+def ranges(date)
+  ranges =[]
   bra_doc = bra_per_day(date)
   bra_doc.each do |element|
-    return element if element["massif"]== range 
-  end
+     element
+    ranges << element["massif"]
+  end 
+ ranges
+end 
+
+#bra_key
+def bra_key(range,date) 
+ bra_doc = bra_per_day(date)
+ bra_doc.each do |element|
+    element
+   #return element if element["massif"]== range 
+   if element["massif"]== range
+     return element
+   else
+     "range not exist ! "
+   end
+ end
 end
 
 # nokogiri xml
@@ -37,7 +54,7 @@ end
 
 #
 def bra_per_range(bra_keys={})
-    url ="https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/BRA.#{bra_keys['massif']}.#{bra_keys['heures'].last}.xml"
+  ap url ="https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/BRA.#{bra_keys['massif']}.#{bra_keys['heures'].last}.xml"
   xml_noko_doc = xml_nokogiri_doc(url)
   #return bra_range_inf
    rosace = xml_noko_doc.xpath("//ImageCartoucheRisque ").text
@@ -69,10 +86,10 @@ def bra_per_range(bra_keys={})
    return bra_range_inf
  end
   
-# bra tous les ranges 
 def bra_all_ranges_per_date(date)
   bra_all_ranges = []
-  RANGES.each do |range|
+  ranges = ranges(date)
+  ranges.each do |range|
       bra_all_ranges << bra_per_range(bra_key(range,date))   
   end
   bra_all_ranges
