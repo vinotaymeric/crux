@@ -6,21 +6,35 @@ require 'date'
 require 'pry'
 require "base64"
 
-puts "Seeding Weather..."
-
-Basecamp.where(activity_id: 13).each do |basecamp|
-
-end
-
-
-
-
-
-def api_call(itinerary, id)
-  url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"
-  p url
+def api_call(lat, lon)
+  url = "https://api.apixu.com/v1/forecast.json?key=3a0aef724b764f6cb35161705192702&q=#{lat},#{lon}&days=7"
   JSON.parse(open(url).read)
 end
+
+puts "initilization of weather..."
+
+Weather.destroy_all
+
+Basecamp.where(activity_id: 13).each do |basecamp|
+  Weather.create!(basecamp: basecamp)
+end
+
+# Daily cron to get weather
+
+Weather.all.each do |weather|
+  basecamp = weather.basecamp
+  weather_hash = api_call(basecamp.lat, basecamp.lon)
+  score = 0
+  weather_hash["forecast"]["forecastday"].each do |day|
+    score += day["avgtemp_c"].to_i + day["avgvis_km"].to_i - day["maxwind_kph"].to_i - day["totalprecip_mm"].to_i
+  end
+  weather.weekend_score = score
+
+end
+
+
+
+
 
 def convert_epsg_3857_to_4326(web_mercator_x, web_mercator_y)
   url = "https://epsg.io/trans?x=#{web_mercator_x}&y=#{web_mercator_y}&s_srs=3857&t_srs=4326"
@@ -42,8 +56,6 @@ sitemap1.xpath("//loc").each do |url|
   itinerary_ids << url.to_s.split("/")[4]
 end
 
-itinerary_ids.map! { |id| id.to_i }
-itinerary_ids.select! { |id| id > 49833 }
 
 
 itinerary_ids.map! { |id| id.to_i }
