@@ -20,10 +20,25 @@ def filter_on_cities(cities, min_inhab = 0, departments = [])
   cities
 end
 
-def feed_basecamps(cities)
+def set_moutain_range(basecamp, max_dist)
+  moutain_ranges = MountainRange.all
+  moutain_ranges.each do |moutain_range|
+    if basecamp.moutain_range.nil?
+      basecamp.moutain_range = mountain_range unless basecamp.distance_from(moutain_range) > max_dist
+    elsif basecamp.distance_from(moutain_range) < basecamp.distance_from(basecamp.moutain_range)
+      basecamp.moutain_range = moutain_range
+  end
+end
+
+def feed_basecamps(cities, max_dist_from_mountain_range)
   cities.each do |city|
-    Basecamp.create!(name: city[:name],
-                     coord_long: city[:coord_long],
-                     coord_lat: city[:coord_lat])
+    new_basecamp = Basecamp.new(
+      name: city[:name],
+      coord_long: city[:coord_long],
+      coord_lat: city[:coord_lat],
+      city_inhab: city[:inhab]
+    )
+    set_moutain_range(new_basecamp, max_dist_from_mountain_range)
+    new_basecamp.save!
   end
 end

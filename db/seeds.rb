@@ -200,11 +200,11 @@ puts "####MountainRange seeding completed###"
 puts "Seeding basecamps..."
 NB_INHAB = 20_000 # Change this param if needed
 SCOPE_DEPARTMENTS = %w[74 38 73 04 05 06].freeze # Change this param if needed
+MAX_DIST_FROM_MOUTAIN_RANGE = 80 # max distance (km) between a moutain_range and a basecamp
 
 cities = csv_to_cities('db/csv_repos/french_cities.csv')
 cities = filter_on_cities(cities, NB_INHAB, SCOPE_DEPARTMENTS)
-
-p feed_basecamps(cities)
+seed_basecamps(cities, MAX_DIST_FROM_MOUTAIN_RANGE)
 
 puts "Basecamps seeding completed"
 ## SEED BASECAMPS
