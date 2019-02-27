@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2019_02_27_163742) do
 
   # These are extensions that must be enabled in order to support this database
@@ -29,7 +30,10 @@ ActiveRecord::Schema.define(version: 2019_02_27_163742) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "activity_id"
+    t.integer "city_inhab"
+    t.bigint "mountain_range_id"
     t.index ["activity_id"], name: "index_basecamps_on_activity_id"
+    t.index ["mountain_range_id"], name: "index_basecamps_on_mountain_range_id"
   end
 
   create_table "basecamps_itineraries", force: :cascade do |t|
@@ -126,6 +130,7 @@ ActiveRecord::Schema.define(version: 2019_02_27_163742) do
   end
 
   add_foreign_key "basecamps", "activities"
+  add_foreign_key "basecamps", "mountain_ranges"
   add_foreign_key "basecamps_itineraries", "basecamps"
   add_foreign_key "basecamps_itineraries", "itineraries"
   add_foreign_key "itineraries", "activities"

@@ -8,22 +8,7 @@ require 'date'
 require 'pry'
 require "base64"
 
-
-
-
-## BASECAMPS SEEDING
-NB_INHAB = 20_000 # Change this param if needed
-SCOPE_DEPARTMENTS = %w[74 38 73 04 05 06].freeze # Change this param if needed
-
-cities = csv_to_cities('db/csv_repos/french_cities.csv')
-cities = filter_on_cities(cities, NB_INHAB, SCOPE_DEPARTMENTS)
-
-
-p feed_basecamps(cities)
-
-
 # puts "Seeding Activities..."
-
 
 if Activity.count == 0
   Activity.create!(name: "ski de randonnée")
@@ -142,22 +127,14 @@ itinerary_ids.each do |id|
     end
   end
 
-
-  itinerary.number_of_outing = api_call("outings", id)["associations"]["recent_outings"]["total"]
-  itinerary.save!
-  print "."
-  break if Itinerary.count > 9000
-  sleep(2)
-end
-
   itinerary.number_of_outing = api_call("outings", id)["associations"]["recent_outings"]["total"]
   itinerary.save!
   print "."
   break if Itinerary.count > 9000
   sleep(1)
   rescue Exception => e
-  puts "#{id} a pété"
-  puts e.message
+    puts "#{id} a pété"
+    puts e.message
   end
 end
 
@@ -185,7 +162,7 @@ puts "initilization of mountainRange"
 
 RANGES.each do |range|
   MountainRange.create!(
-    name: range[0], 
+    name: range[0],
     coord_lat: range[2],
     coord_long: range[3]
     )
@@ -201,10 +178,9 @@ p "nbr de bra #{bra_ranges.length}, date  #{date}}"
 bra_ranges.each do |bra_range|
 
   MountainRange.create!(
-
-    name:bra_range[:range_name], 
+    name:bra_range[:range_name],
     bra_date: bra_range[:bra_date_validity],
-    rosace_url: bra_range[:rosace_image_url], 
+    rosace_url: bra_range[:rosace_image_url],
     fresh_snow_url: bra_range[:fresh_snow_image_url],
     snow_image_url: bra_range[:snow_image_url],
     snow_quality: bra_range[:snow_quality],
@@ -212,17 +188,17 @@ bra_ranges.each do |bra_range|
     )
 end
 
-# ##bra par range 
-# # bra_mont_blanc = bra_per_range_per_date("MONT-BLANC",date)
-# ## create MountainRange MONT-BLANC
-# # MountainRange.create!(
-# #   name:bra_mont_blanc[:range_name], 
-# #   rosace_url: bra_mont_blanc[:rosace_image_url], 
-# #   fresh_snow_url: bra_mont_blanc[:fresh_snow_image_url],
-# #   snow_image_url: bra_mont_blanc[:snow_image_url],
-# #   snow_quality: bra_mont_blanc[:snow_quality],
-# #   stability: bra_mont_blanc[:stability]
-# #   )
-
-
 puts "####MountainRange seeding completed###"
+
+## SEED BASECAMPS
+puts "Seeding basecamps..."
+NB_INHAB = 20_000 # Change this param if needed
+SCOPE_DEPARTMENTS = %w[74 38 73 04 05 06].freeze # Change this param if needed
+MAX_DIST_FROM_MOUTAIN_RANGE = 80 # max distance (km) between a moutain_range and a basecamp
+
+cities = csv_to_cities('db/csv_repos/french_cities.csv')
+cities = filter_on_cities(cities, NB_INHAB, SCOPE_DEPARTMENTS)
+seed_basecamps(cities, MAX_DIST_FROM_MOUTAIN_RANGE)
+
+puts "Basecamps seeding completed"
+## SEED BASECAMPS

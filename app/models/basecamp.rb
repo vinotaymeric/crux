@@ -4,4 +4,6 @@ class Basecamp < ApplicationRecord
   belongs_to :weather
   has_many :trips, through: :trips_basecamps
   has_many :itineraries, through: :basecamps_itineraries
+  belongs_to :moutain_range
+  geocoded_by :address, latitude: :coord_lat, longitude: :coord_long
 end
