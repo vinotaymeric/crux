@@ -4,7 +4,7 @@
     <h1>Crux</h1>
     <p>Tout ce que vous voulez savoir avant votre sortie en montagne</p>
      <div class="banner-form">
-        <%= form_tag basecamps_path, method: :get, class: "form-group" do %>
+        <%= form_tag trips_path, method: :get, class: "form-group" do %>
           <%= text_field_tag :location,
           params[:location],
           id: "basecamp_location",

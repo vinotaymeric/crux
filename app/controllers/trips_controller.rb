@@ -9,7 +9,8 @@ class TripsController < ApplicationController
   end
 
   def index
-    @trips = Trip.where(user_id: current_user.id).order('trips.created_at desc')
+    # @trips = Trip.where(user_id: current_user.id).order('trips.created_at desc')
+    @trips = Trip.all
   end
 
   def create

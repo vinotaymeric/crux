@@ -24,8 +24,15 @@ nav {
  background-color: #23B5D3;
 }
 
+
+
 .page-footer {
- background-color: #23B5D3;
+  background-color: #23B5D3;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 4em;
+  width: 100%
 }
 
 .tabs .tab a:hover, .tabs .tab a.active {
