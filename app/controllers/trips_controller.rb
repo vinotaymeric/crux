@@ -36,13 +36,7 @@ class TripsController < ApplicationController
   def edit
   end
 
-  def activityy(activity_id)
-    Activity.find(activity_id).name
-  end
-
   private
-
-
 
   def trip_params
     params.require(:trip).permit(:start_date, :end_date, :title)

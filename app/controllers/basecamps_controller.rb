@@ -15,5 +15,6 @@ class BasecampsController < ApplicationController
 
   def show
     @basecamp = Basecamp.find(params[:id])
+    @itineraries = @basecamp.itineraries
   end
 end
