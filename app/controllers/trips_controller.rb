@@ -10,7 +10,8 @@ class TripsController < ApplicationController
   end
 
   def index
-    @trips = Trip.where(user_id: current_user.id).order('trips.created_at desc')
+    # @trips = Trip.where(user_id: current_user.id).order('trips.created_at desc')
+    @trips = Trip.all
   end
 
   def create
@@ -21,6 +22,10 @@ class TripsController < ApplicationController
   end
 
   def show
+    # Pour l'instant on les affiche tous, il faudra ajouter les conditions de localisations/ météo / activités / niveau
+    @basecamps = Basecamp.all
+
+
   end
 
   def update

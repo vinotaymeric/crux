@@ -4,12 +4,8 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
-  resources :trips do
-    resources :basecamps, only: [:index, :show]
-  end
-
+  resources :trips
+  resources :basecamps, only: [:index, :show]
   resources :itineraries, only: [:show, :index]
-
-
   resources :user_activities, only: [:create, :update]
 end
