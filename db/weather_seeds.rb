@@ -36,3 +36,4 @@ Weather.all.each do |weather|
   end
 
 end
+
