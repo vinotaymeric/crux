@@ -9,5 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :itineraries, only: [:show, :index]
+
+
   resources :user_activities, only: [:create, :update]
 end
