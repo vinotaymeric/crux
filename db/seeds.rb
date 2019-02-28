@@ -1,5 +1,5 @@
 require_relative 'bra_functions'
-require_relative 'lib/basecamp_seeding'
+require_relative 'lib/basecamp'
 require 'json'
 require 'open-uri'
 require 'nokogiri'
@@ -16,64 +16,6 @@ require "base64"
 #   Activity.create!(name: "escalade")
 #   Activity.create!(name: "cascade de glace")
 # end
-
-# # SEED ITINERARIES FROM CAMP_TO_CAMP
-
-
-# puts "Seeding Itineraries..."
-
-# def api_call(itinerary, id)
-#   url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"
-#   p url
-#   JSON.parse(open(url).read)
-# end
-
-# def convert_epsg_3857_to_4326(web_mercator_x, web_mercator_y)
-#   url = "https://epsg.io/trans?x=#{web_mercator_x}&y=#{web_mercator_y}&s_srs=3857&t_srs=4326"
-#   response = JSON.parse(open(url).read)
-#   { long: response["x"], lat: response["y"] }
-# end
-
-# # Itinerary.destroy_all
-
-# sitemap0 = Nokogiri::HTML(open("https://www.camptocamp.org/sitemaps/r/0.xml"))
-# sitemap1 = Nokogiri::HTML(open("https://www.camptocamp.org/sitemaps/r/1.xml"))
-# itinerary_ids = []
-
-# sitemap0.xpath("//loc").each do |url|
-#   itinerary_ids << url.to_s.split("/")[4]
-# end
-
-# sitemap1.xpath("//loc").each do |url|
-#   itinerary_ids << url.to_s.split("/")[4]
-# end
-
-# itinerary_ids.map! { |id| id.to_i }
-# itinerary_ids.select! { |id| id > 49833 }
-
-
-# itinerary_ids.map! { |id| id.to_i }
-# itinerary_ids.select! { |id| id > 53958 }
-
-
-# # Seeding itineraries
-
-# itinerary_ids.each do |id|
-
-#   # begin
-
-# #   # Exclude activites we don't care about. Define activites in French, only taking the main activity
-# #   activities = ["skitouring", "snow_ice_mixed", "mountain_climbing", "rock_climbing", "ice_climbing"]
-# #   next if activities.exclude?(itinerary_hash["activities"][0])
-#   begin
-
-#   itinerary_hash = api_call("routes", id)
-#   itinerary = Itinerary.new
-
-#   #CHECK DISTANCE FROM THE ALPS
-#   #Feed epsg 3857 coords
-#   itinerary.coord_x = itinerary_hash["geometry"]["geom"][17..-1].split(",")[0]
-#   itinerary.coord_y = itinerary_hash["geometry"]["geom"][17..-1].split(",")[1][1..-2]
 
 #   #Add gps coords
 #   gps_coords = convert_epsg_3857_to_4326(itinerary.coord_x, itinerary.coord_y)
@@ -155,8 +97,6 @@ require "base64"
 
 ## SEED RANGES
 puts "###Seeding MountainRange#### "
-#MountainRange.destroy_all
-
 ## initilization of mountainRange
 puts "initilization of mountainRange"
 
@@ -168,22 +108,22 @@ RANGES.each do |range|
     )
 end
 
-######
+## update mountainRnages 
 date = 20190224
 ### 
 ap "update mountain_ranges at Date : #{date}"
 update_mountain_ranges(date)
 puts "####MountainRange seeding completed###"
 
-# ## SEED BASECAMPS
-# puts "Seeding basecamps..."
-# NB_INHAB = 20_000 # Change this param if needed
-# SCOPE_DEPARTMENTS = %w[74 38 73 04 05 06].freeze # Change this param if needed
-# MAX_DIST_FROM_MOUTAIN_RANGE = 80 # max distance (km) between a moutain_range and a basecamp
+## SEED BASECAMPS
+puts "Seeding basecamps..."
+NB_INHAB = 20_000 # Change this param if needed
+SCOPE_DEPARTMENTS = %w[74 38 73 04 05 06].freeze # Change this param if needed
+MAX_DIST_FROM_MOUNTAIN_RANGE = 80 # max distance (km) between a mountain_range and a basecamp
 
-# cities = csv_to_cities('db/csv_repos/french_cities.csv')
-# cities = filter_on_cities(cities, NB_INHAB, SCOPE_DEPARTMENTS)
-# seed_basecamps(cities, MAX_DIST_FROM_MOUTAIN_RANGE)
+cities = csv_to_cities('db/csv_repos/french_cities.csv')
+cities = filter_on_cities(cities, NB_INHAB, SCOPE_DEPARTMENTS)
+feed_basecamps(cities, MAX_DIST_FROM_MOUNTAIN_RANGE)
 
-# puts "Basecamps seeding completed"
-# ## SEED BASECAMPS
+puts "Basecamps seeding completed"
+

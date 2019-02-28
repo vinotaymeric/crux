@@ -1,9 +1,9 @@
 <nav>
   <div class="nav-wrapper">
     <div class="container">
-    <a href="#" class="brand-logo">Crux</a>
+    <%= link_to "Crux", root_path, class: "brand-logo" %>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a href="sass.html">Se connecter</a></li>
+      <li> <%= link_to "Se connecter", new_user_session_path %> </li>
       <li><a href="sass.html">Itinéraires</a></li>
     </ul>
   </div>
