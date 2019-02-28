@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2019_02_28_093850) do
-
+ActiveRecord::Schema.define(version: 2019_02_28_105956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +42,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_093850) do
     t.bigint "basecamp_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "itinerary_count"
     t.index ["activity_id"], name: "index_basecamps_activities_on_activity_id"
     t.index ["basecamp_id"], name: "index_basecamps_activities_on_basecamp_id"
   end
@@ -104,6 +103,15 @@ ActiveRecord::Schema.define(version: 2019_02_28_093850) do
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
+  create_table "trips_basecamps", force: :cascade do |t|
+    t.bigint "trip_id"
+    t.bigint "basecamp_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["basecamp_id"], name: "index_trips_basecamps_on_basecamp_id"
+    t.index ["trip_id"], name: "index_trips_basecamps_on_trip_id"
+  end
+
   create_table "trips_basecamps_activities", force: :cascade do |t|
     t.bigint "basecamps_activity_id"
     t.bigint "trip_id"
@@ -151,6 +159,8 @@ ActiveRecord::Schema.define(version: 2019_02_28_093850) do
   add_foreign_key "basecamps_activities_itineraries", "itineraries"
   add_foreign_key "itineraries", "activities"
   add_foreign_key "trips", "users"
+  add_foreign_key "trips_basecamps", "basecamps"
+  add_foreign_key "trips_basecamps", "trips"
   add_foreign_key "trips_basecamps_activities", "basecamps_activities"
   add_foreign_key "trips_basecamps_activities", "trips"
   add_foreign_key "user_activities", "activities"
