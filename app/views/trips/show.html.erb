@@ -6,6 +6,8 @@
 
   <% @basecamps_activities.each do |basecamps_activity| %>
     <% basecamp = basecamps_activity.basecamp %>
+    <% activity =  basecamps_activity.activity %>
+    <% itineraries = basecamps_activity.itineraries %>
     <div class="col s12 m6">
       <h2 class="header"><%= basecamp.name %></h2>
       <div class="card horizontal small">
@@ -14,10 +16,10 @@
         </div>
         <div class="card-stacked">
           <div class="card-content">
-            <h4><%= basecamps_activity.activity.name.capitalize %></h4>
+            <h4><%= activity.name.capitalize %></h4>
             <br>
 
-            <p><strong> <%= basecamps_activity.itineraries.count %></strong> itinéraires</p>
+            <p><strong> <%= itineraries.count %></strong> itinéraires</p>
             <br>
             <p><i class="fas fa-car"></i> 1h30</p>
             <br>
