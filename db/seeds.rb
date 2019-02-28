@@ -96,6 +96,7 @@ require "base64"
 
 
 ## SEED RANGES
+MountainRange.destroy_all
 puts "###Seeding MountainRange#### "
 ## initilization of mountainRange
 puts "initilization of mountainRange"
@@ -107,23 +108,24 @@ RANGES.each do |range|
     coord_long: range[3]
     )
 end
+puts "initilization of mountainRange completed"
 
 ## update mountainRnages 
-date = 20190224
+date = 20190225
 ### 
 ap "update mountain_ranges at Date : #{date}"
-update_mountain_ranges(date)
+#update_mountain_ranges(date)
 puts "####MountainRange seeding completed###"
 
 ## SEED BASECAMPS
-puts "Seeding basecamps..."
-NB_INHAB = 20_000 # Change this param if needed
-SCOPE_DEPARTMENTS = %w[74 38 73 04 05 06].freeze # Change this param if needed
-MAX_DIST_FROM_MOUNTAIN_RANGE = 80 # max distance (km) between a mountain_range and a basecamp
+# puts "Seeding basecamps..."
+# NB_INHAB = 20_000 # Change this param if needed
+# SCOPE_DEPARTMENTS = %w[74 38 73 04 05 06].freeze # Change this param if needed
+# MAX_DIST_FROM_MOUNTAIN_RANGE = 80 # max distance (km) between a mountain_range and a basecamp
 
-cities = csv_to_cities('db/csv_repos/french_cities.csv')
-cities = filter_on_cities(cities, NB_INHAB, SCOPE_DEPARTMENTS)
-feed_basecamps(cities, MAX_DIST_FROM_MOUNTAIN_RANGE)
+# cities = csv_to_cities('db/csv_repos/french_cities.csv')
+# cities = filter_on_cities(cities, NB_INHAB, SCOPE_DEPARTMENTS)
+# feed_basecamps(cities, MAX_DIST_FROM_MOUNTAIN_RANGE)
 
-puts "Basecamps seeding completed"
+# puts "Basecamps seeding completed"
 
