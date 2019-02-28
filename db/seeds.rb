@@ -155,7 +155,7 @@ require "base64"
 
 ## SEED RANGES
 puts "###Seeding MountainRange#### "
-MountainRange.destroy_all
+#MountainRange.destroy_all
 
 ## initilization of mountainRange
 puts "initilization of mountainRange"
@@ -169,7 +169,7 @@ RANGES.each do |range|
 end
 
 ######
-date = 20190225
+date = 20190224
 ### 
 ap "update mountain_ranges at Date : #{date}"
 update_mountain_ranges(date)
