@@ -3,8 +3,9 @@ class ItinerariesController < ApplicationController
   # before_action :init_mark_down_parser, only: :show
 
   def index
-    basecamp = params[:basecamp_id]
-    @itineraries = Itinerary.where(basecamp_id: basecamp.id)
+    # basecamp = params[:basecamp_id]
+    # @itineraries = Itinerary.where(basecamp_id: basecamp.id)
+    @itineraries = Itinerary.where(activity_id: 13)[-50..-1]
   end
 
   def show

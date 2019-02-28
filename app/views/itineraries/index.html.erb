@@ -1,24 +1,27 @@
-<h1>Itineraries#index</h1>
-<p>Find me in app/views/itineraries/index.html.erb</p>
+<div class="container">
+  <div class="row">
 
-<% @itineraries.each do |itinerary| %>
-  <ul>
-    <li><%= itinerary.name %></li>
-    <li><%= itinerary.content %></li>
-    <li><%= itinerary.coord_x %></li>
-    <li><%= itinerary.coord_y %></li>
-    <li><%= itinerary.difficulty %></li>
-    <li><%= itinerary.elevation_max %></li>
-    <li><%= itinerary.height_diff_up %></li>
-    <li><%= itinerary.engagement_rating %></li>
-    <li><%= itinerary.equipment_rating %></li>
-    <li><%= itinerary.orientations %></li>
-    <li><%= itinerary.number_of_outing %></li>
-    <li><%= itinerary.picture_url %></li>
-    <li><%= itinerary.coord_long %></li>
-    <li><%= itinerary.coord_lat %></li>
-    <li><%= itinerary.activity_id %></li>
-  </ul>
+  <% @itineraries.each do |itinerary| %>
+    <% next if itinerary.name.nil? %>
+    <div class="col s12 m4">
+      <div class="card small">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator" src="<%= itinerary.picture_url %>">
+        </div>
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4"><%= itinerary.name.split("-")[0] %><i class="material-icons right">more_vert</i></span>
+          <p><%= itinerary.name.split("-")[1..-1].join(" ") %> - <%= itinerary.elevation_max %></p>
+          <p>| <%= itinerary.difficulty %> | - | <%= itinerary.orientations %> | - | <%= itinerary.equipment_rating %> |</p>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4"><%= itinerary.name %><i class="material-icons right">close</i></span>
+          <p><%= itinerary.content %></p>
+        </div>
+      </div>
+    </div>
 
-<% end %>
+  <% end %>
+ </div>
+</div>
+
 

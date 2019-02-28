@@ -3,9 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
-
-gem 'redcarpet'
+gem 'geocoder', '~> 1.3', '>= 1.3.7'
 gem 'awesome_print'
+gem 'redcarpet'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'

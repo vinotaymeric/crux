@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_26_151910) do
+
+ActiveRecord::Schema.define(version: 2019_02_28_093850) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,16 +31,30 @@ ActiveRecord::Schema.define(version: 2019_02_26_151910) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "activity_id"
+    t.integer "city_inhab"
+    t.bigint "mountain_range_id"
+    t.bigint "weather_id"
     t.index ["activity_id"], name: "index_basecamps_on_activity_id"
+    t.index ["mountain_range_id"], name: "index_basecamps_on_mountain_range_id"
+    t.index ["weather_id"], name: "index_basecamps_on_weather_id"
   end
 
-  create_table "basecamps_itineraries", force: :cascade do |t|
-    t.bigint "itinerary_id"
+  create_table "basecamps_activities", force: :cascade do |t|
+    t.bigint "activity_id"
     t.bigint "basecamp_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["basecamp_id"], name: "index_basecamps_itineraries_on_basecamp_id"
-    t.index ["itinerary_id"], name: "index_basecamps_itineraries_on_itinerary_id"
+    t.index ["activity_id"], name: "index_basecamps_activities_on_activity_id"
+    t.index ["basecamp_id"], name: "index_basecamps_activities_on_basecamp_id"
+  end
+
+  create_table "basecamps_activities_itineraries", force: :cascade do |t|
+    t.bigint "itinerary_id"
+    t.bigint "basecamps_activity_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["basecamps_activity_id"], name: "index_basecamps_activities_itineraries_on_basecamps_activity_id"
+    t.index ["itinerary_id"], name: "index_basecamps_activities_itineraries_on_itinerary_id"
   end
 
   create_table "itineraries", force: :cascade do |t|
@@ -71,6 +87,9 @@ ActiveRecord::Schema.define(version: 2019_02_26_151910) do
     t.string "stability"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "coord_lat"
+    t.float "coord_long"
+    t.date "bra_date"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -85,13 +104,13 @@ ActiveRecord::Schema.define(version: 2019_02_26_151910) do
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
-  create_table "trips_basecamps", force: :cascade do |t|
+  create_table "trips_basecamps_activities", force: :cascade do |t|
+    t.bigint "basecamps_activity_id"
     t.bigint "trip_id"
-    t.bigint "basecamp_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["basecamp_id"], name: "index_trips_basecamps_on_basecamp_id"
-    t.index ["trip_id"], name: "index_trips_basecamps_on_trip_id"
+    t.index ["basecamps_activity_id"], name: "index_trips_basecamps_activities_on_basecamps_activity_id"
+    t.index ["trip_id"], name: "index_trips_basecamps_activities_on_trip_id"
   end
 
   create_table "user_activities", force: :cascade do |t|
@@ -116,13 +135,24 @@ ActiveRecord::Schema.define(version: 2019_02_26_151910) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "weathers", force: :cascade do |t|
+    t.integer "weekend_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "forecast"
+  end
+
   add_foreign_key "basecamps", "activities"
-  add_foreign_key "basecamps_itineraries", "basecamps"
-  add_foreign_key "basecamps_itineraries", "itineraries"
+  add_foreign_key "basecamps", "mountain_ranges"
+  add_foreign_key "basecamps", "weathers"
+  add_foreign_key "basecamps_activities", "activities"
+  add_foreign_key "basecamps_activities", "basecamps"
+  add_foreign_key "basecamps_activities_itineraries", "basecamps_activities"
+  add_foreign_key "basecamps_activities_itineraries", "itineraries"
   add_foreign_key "itineraries", "activities"
   add_foreign_key "trips", "users"
-  add_foreign_key "trips_basecamps", "basecamps"
-  add_foreign_key "trips_basecamps", "trips"
+  add_foreign_key "trips_basecamps_activities", "basecamps_activities"
+  add_foreign_key "trips_basecamps_activities", "trips"
   add_foreign_key "user_activities", "activities"
   add_foreign_key "user_activities", "users"
 end
