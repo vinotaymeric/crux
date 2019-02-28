@@ -1,8 +1,9 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.pexels.com/photos/414459/pexels-photo-414459.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');">
+<div class="banner banner-not-home" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.pexels.com/photos/414459/pexels-photo-414459.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');">
   <div class="banner-content text-center">
     <div class="container">
       <div class="row">
         <h2>Connexion</h2>
+        <div class="form-container">
         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="form-inputs">
           <%= f.input :email,
@@ -17,10 +18,12 @@
           label: "Mot de passe:" %>
         </div>
         <div class="form-actions">
-          <%= f.button :submit, "S'inscrire", class: "outline" %>
+          <%= f.button :submit, "Se connecter" %>
         </div>
         <% end %>
+        </div>
         <%= render "devise/shared/links" %>
+
       </div>
     </div>
   </div>
