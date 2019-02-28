@@ -15,6 +15,6 @@ class BasecampsController < ApplicationController
 
   def show
     @basecamp = Basecamp.find(params[:id])
-    @itineraries = @basecamp.itineraries
+    @mountain_range = MountainRange.find(1)
   end
 end

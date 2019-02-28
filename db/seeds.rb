@@ -24,8 +24,8 @@ require "base64"
 # end
 # puts "initilization of mountainRange completed"
 
-## update mountainRnages
-date = 20190225
+# update mountainRnages
+date = 20190227
 ###
 ap "update mountain_ranges at Date : #{date}"
 update_mountain_ranges(date)
