@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_02_28_093850) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_093850) do
     t.bigint "basecamp_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "itinerary_count"
     t.index ["activity_id"], name: "index_basecamps_activities_on_activity_id"
     t.index ["basecamp_id"], name: "index_basecamps_activities_on_basecamp_id"
   end
