@@ -1,12 +1,42 @@
-<h1>Je suis le show trip, voici mes basecamps</h1>
-<p>Pour l'instant on affiche tous les basecamps, il faudra ajouter les conditions de localisations/ météo / activités / niveau</p>
 
 <div class="container">
+  <h1>Choisis ton camp de base</h1>
   <div class="row">
 
-  <%= raw(ap @basecamps_activities) %>
+  <% @basecamps_activities.each do |base| %>
+    <div class="col s12 m4">
+      <h4 class="header"><%= base.basecamp.name %></h4>
+      <div class="card horizontal small">
+        <div class="card-image">
+          <% if base.activity.name == "ski de randonnée" %>
+            <%= image_tag "ski.jpg" %>
+          <% elsif base.activity.name == "alpinisme" %>
+            <%= image_tag "alpi.jpg" %>
+          <% elsif base.activity.name == "escalade" %>
+            <%= image_tag "escalade.jpg" %>
+          <% end %>
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <h4><%= base.activity.name.capitalize.split(" ")[0] %></h4>
+            <br>
+            <p><strong><%= base.nb_itineraries %></strong> itinéraires</p>
+            <br>
+            <p><i class="fas fa-car"></i> 1h30</p>
+            <br>
+            <p><img src="<%= "http:" + base.basecamp.weather.forecast[0]["day"]["condition"]["icon"].to_s %>" style="width: 32px; height: 32px;"> <%= base.basecamp.weather.forecast[0]["day"]["avgtemp_c"].to_s.gsub(".", ",") %>°C</p>
+          </div>
+          <div class="card-action">
+            <div class="left-align">
+              <%= link_to "Go !", basecamps_activity_path(base), class: "waves-effect waves-light btn" %>
+              <button class="waves-effect waves-light btn" style="background-color: white; color: #26A69A;">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
-
-
-  <%= @basecamps_activities.to_a.size %>
+  </div>
+</div>
 

@@ -14,3 +14,4 @@ MAX_DIST_FROM_MOUNTAIN_RANGE = 80 # max distance (km) between a mountain_range a
 Basecamp.all.each do |basecamp|
   set_mountain_range(basecamp, MAX_DIST_FROM_MOUNTAIN_RANGE).save!
 end
+
