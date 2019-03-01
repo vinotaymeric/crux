@@ -1,0 +1,19 @@
+.avalanche {
+  background-color: #fff;
+  transition: box-shadow .25s, -webkit-box-shadow .25s;
+  border-radius: 2px;
+  box-shadow: 1px 1px 12px #555;
+  padding: 0 1rem;
+}
+
+
+.avalanche-infos {
+  text-align:center;
+
+}
+
+.avalanche-pic {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
