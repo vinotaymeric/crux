@@ -44,7 +44,7 @@ class TripsController < ApplicationController
 
     # Take only top 10
 
-    @basecamps_activities = basecamps_activities.reverse[0..10]
+    @basecamps_activities = basecamps_activities.reverse[0..11]
 
   end
 
