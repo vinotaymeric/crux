@@ -10,6 +10,7 @@ require "base64"
 
 Trip.destroy_all
 User.destroy_all
+BasecampsActivitiesItinerary.destroy_all
 BasecampsActivity.destroy_all
 Basecamp.destroy_all
 MountainRange.destroy_all
