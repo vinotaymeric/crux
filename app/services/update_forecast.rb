@@ -55,7 +55,7 @@ class UpdateForecast
     bra_doc.each do |element|
       ranges << element["massif"]
     end 
-    ranges
+    p ranges
   end 
   
   #bra_key
@@ -130,7 +130,7 @@ class UpdateForecast
     bra_ranges.each do |bra_range|
       moutain_range_to_update = MountainRange.where(name: bra_range[:range_name])
         moutain_range_to_update.each do |m|
-          ap " #{m.name} updated"
+          p " #{m.name} updated"
           m.bra_date = date
           m.rosace_url = bra_range[:rosace_image_url]
           m.fresh_snow_url = bra_range[:fresh_snow_image_url]
@@ -145,7 +145,7 @@ class UpdateForecast
   
   ##### UPADATE WEATHER  ####
   def api_call(lat, lon)
-    url = "https://api.apixu.com/v1/forecast.json?key=3a0aef724b764f6cb35161705192702&q=#{lat},#{lon}&days=7"
+   p url = "https://api.apixu.com/v1/forecast.json?key=3a0aef724b764f6cb35161705192702&q=#{lat},#{lon}&days=7"
     JSON.parse(open(url).read)
   end
 
