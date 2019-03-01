@@ -177,23 +177,8 @@ end
 
 ######
 date = 20190220
-##bra de tous les ranges
-bra_ranges = bra_all_ranges_per_date(date)
 
-p "nbr de bra #{bra_ranges.length}, date  #{date}}"
-
-bra_ranges.each do |bra_range|
-
-  MountainRange.create!(
-    name: bra_range[:range_name],
-    bra_date: bra_range[:bra_date_validity],
-    rosace_url: bra_range[:rosace_image_url],
-    fresh_snow_url: bra_range[:fresh_snow_image_url],
-    snow_image_url: bra_range[:snow_image_url],
-    snow_quality: bra_range[:snow_quality],
-    stability: bra_range[:stability]
-    )
-end
+update_mountain_ranges(date)
 
 puts "####MountainRange seeding completed###"
 
