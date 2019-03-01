@@ -1,0 +1,22 @@
+<div class="avalanche">
+  <h2>Estimation du risque d'avalanche</h2>
+  <h3>Stabilité du manteau neigeux</h3>
+  <p> <%= mountain_range.stability %></p>
+  <h3>Qualité de la neige</h3>
+  <p> <%= mountain_range.snow_quality %></p>
+  <div class="avalanche-infos">
+    <h3>Estimation des risques</h3>
+    <%= image_tag("rosace_#{mountain_range.name}.jpg")%>
+    <p>Indices de risque : 5 très fort - 4 fort - 3 marqué - 2 limité - 1 faible -- En noir : les pentes les plus dangereuses</p>
+  </div>
+  <div class="avalanche-pic">
+    <div class="avalanche-infos">
+      <h3>Epaisseur de neige hors-piste</h3>
+      <%= image_tag("snow_#{mountain_range.name}.jpg")%>
+    </div>
+    <div class="avalanche-infos">
+      <h3>Neige Fraîche à 1800m</h3>
+      <%= image_tag("fresh_snow_#{mountain_range.name}.jpg")%>
+    </div>
+  </div>
+</div>
