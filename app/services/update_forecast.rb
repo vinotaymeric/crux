@@ -3,6 +3,7 @@ require 'open-uri'
 require "base64"
 
 class UpdateForecast
+  ## UPDATE BRA 
   RANGES=[
     ["ARAVIS",14417,45.846413,6.334947],
     ["CHABLAIS",14411,46.318140,6.626145],
@@ -31,14 +32,9 @@ class UpdateForecast
 
   def update_mountain_ranges_cron
     begin
-    #date_today = Date.today.to_s.delete("-").to_i
     date = Date.today.prev_day.to_s.delete("-").to_i
-    #date_today = 20190228
-    p " avant update"
     update_mountain_ranges(date)
-    p "après update"
     rescue Exception => e
-      p e 
       puts "bra_meteo_france indisponible "
     end
   end
@@ -46,7 +42,7 @@ class UpdateForecast
   # BRA json keys all ranges per day
   def bra_per_day(date)
     date = date.to_i
-      p url = "https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/bra.#{date}.json"
+    url = "https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/bra.#{date}.json"
     JSON.parse(open(url).read)
   end 
   # variable globale 
@@ -66,8 +62,6 @@ class UpdateForecast
   def bra_key(range,date) 
     bra_doc = bra_per_day(date)
     bra_doc.each do |element|
-      element
-      #return element if element["massif"]== range 
       if element["massif"]== range
         return element
       else
@@ -88,14 +82,9 @@ class UpdateForecast
     xml_noko_doc = xml_nokogiri_doc(url)
     #return bra_range_inf
       rosace = xml_noko_doc.xpath("//ImageCartoucheRisque ").text
-    #  if exist?("app/assets/images/rosace_#{bra_keys['massif']}.jpg")
-    
       File.open("app/assets/images/rosace_#{bra_keys['massif']}.jpg", "wb") { |f| f.write(Base64.decode64(rosace)) }
       rosace_image_url = "app/assets/images/rosace_#{bra_keys['massif']}.jpg"
-      
-      moutain_range = 
-    
-  
+
       # snow
       snow = xml_noko_doc.xpath("//ImageEnneigement").text
       File.open("app/assets/images/snow_#{bra_keys['massif']}.jpg", "wb") { |f| f.write(Base64.decode64(snow)) }
@@ -117,9 +106,9 @@ class UpdateForecast
         fresh_snow_image_url: fresh_snow_image_url
       }
       return bra_range_inf
-    end
+  end
   
-    # bra all ranges per date 
+  # bra all ranges per date 
   def bra_all_ranges_per_date(date)
     bra_all_ranges = []
     ranges(date).each do |range|
@@ -152,7 +141,9 @@ class UpdateForecast
         end
     end
   end
-
+  ##### END UPDATE BRA ########
+  
+  ##### UPADATE WEATHER  ####
   def api_call(lat, lon)
     url = "https://api.apixu.com/v1/forecast.json?key=3a0aef724b764f6cb35161705192702&q=#{lat},#{lon}&days=7"
     JSON.parse(open(url).read)
@@ -173,10 +164,10 @@ class UpdateForecast
       weather.save!
   
       # Adding a rescue so that it works even a call fails
-  
       rescue Exception => e
       puts "#weather {weather.id} a pété"
       end
     end
   end
+  ## END UPDATE WEATHER ##
 end
