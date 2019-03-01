@@ -31,14 +31,15 @@ RANGES=[
 ["MAURIENNE",0,45.290803,6.311035],
 ["VANOISE",0,45.354104,6.594064]
 ]
-# bra de toutes les massifs le : date
+# BRA json keys all ranges per day
 def bra_per_day(date)
-  # convertir la date au format yearmonthday(integer)
   date = date.to_i
-  url = "https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/bra.#{date}.json"
+   p url = "https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/bra.#{date}.json"
   JSON.parse(open(url).read)
 end 
-
+# variable globale 
+#bra_doc = bra_per_day(date)
+#p $bra_doc = bra_per_day(date)
 # ranges in the bra of meteo france per date
 def ranges(date)
   ranges =[]
@@ -48,25 +49,6 @@ def ranges(date)
   end 
   ranges
 end 
-
-# # extraire les ranges des RANGES
-# def rangesWithCoord
-#   ranges_with_coord =[]
-#   RANGES.each do |element|
-#     ranges_with_coord << element[0]
-#   end
-#   ap ranges_with_coord
-# end
-
-# # ranges to user
-# def rangesToUse(date)
-#   array =[]
-#   #update ranges with coord
-#   ranges(date).each do |element|
-     
-#   end
-   
-# end
 
 #bra_key
 def bra_key(range,date) 
@@ -94,6 +76,7 @@ def bra_per_range(bra_keys={})
   xml_noko_doc = xml_nokogiri_doc(url)
   #return bra_range_inf
    rosace = xml_noko_doc.xpath("//ImageCartoucheRisque ").text
+  #  if exist?("app/assets/images/rosace_#{bra_keys['massif']}.jpg")
    File.open("app/assets/images/rosace_#{bra_keys['massif']}.jpg", "wb") { |f| f.write(Base64.decode64(rosace)) }
    rosace_image_url = "app/assets/images/rosace_#{bra_keys['massif']}.jpg"
   
@@ -154,3 +137,18 @@ def update_mountain_ranges(date)
       end
  end
 end
+
+#cron update mountain _ranges_cron 
+def update_mountain_ranges_cron
+  begin
+  #date_today = Date.today.to_s.delete("-").to_i
+  date = Date.today.prev_day.to_s.delete("-").to_i
+  #date_today = 20190228
+  p " avant update"
+  update_mountain_ranges(date)
+  p "après update"
+  rescue Exception => e
+    p e 
+    puts "bra_meteo_france indisponible "
+  end
+end 
