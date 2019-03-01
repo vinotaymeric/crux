@@ -1,5 +1,6 @@
 class BasecampsActivitiesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :index]
+  before_action :init_mark_down_parser, only: :show
 
   def index
     @basecamps_activity = BasecampsActivity.all
@@ -14,11 +15,18 @@ class BasecampsActivitiesController < ApplicationController
   end
 
   def show
-    ## Dynamic mountain range to be done
-    @mountain_range = MountainRange.first
     @basecamp_activity = BasecampsActivity.find(params[:id])
     @basecamp = @basecamp_activity.basecamp
     @activity = @basecamp_activity.activity
     @itineraries = @basecamp_activity.itineraries
+    @mountain_range = @basecamp.mountain_range
   end
+
+  private
+
+  def init_mark_down_parser
+    renderer = Redcarpet::Render::HTML.new(no_images: true)
+    @markdown = Redcarpet::Markdown.new(renderer)
+  end
+
 end

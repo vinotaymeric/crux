@@ -1,0 +1,16 @@
+<div class="col s12 m4">
+  <div class="card small">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="<%= itinerary.picture_url %>">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4"><%= itinerary.name.split("-")[0] %><i class="material-icons right">more_vert</i></span>
+      <p><%= itinerary.name.split("-")[1..-1].join(" ") %> - <%= itinerary.elevation_max %></p>
+      <p>| <%= itinerary.difficulty %> | - | <%= itinerary.orientations %> | - | <%= itinerary.equipment_rating %> |</p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4"><%= itinerary.name %><i class="material-icons right">close</i></span>
+      <p><%= render partial: "itinerary_description", locals: {itinerary: itinerary} %></p>
+    </div>
+  </div>
+</div>

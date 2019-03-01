@@ -29,6 +29,7 @@ def set_mountain_range(basecamp, max_dist)
       basecamp.mountain_range = mountain_range
     end
   end
+  basecamp
 end
 
 def feed_basecamps(cities, max_dist_from_mountain_range)
