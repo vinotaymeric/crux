@@ -18,14 +18,20 @@ class TripsController < ApplicationController
     @trip = Trip.new(trip_params)
     @trip.user = current_user
     @trip.save!
-    redirect_to root_path
+    redirect_to trip_path(@trip)
   end
 
   def show
-    # Pour l'instant on les affiche tous, il faudra ajouter les conditions de localisations/ météo / activités / niveau
-    @basecamps = Basecamp.all
+    @user = current_user
+    @trip = Trip.find(params[:id])
 
-
+    @basecamps_activities = BasecampsActivity.select("basecamps_activities.*, COUNT(basecamps_activities_itineraries.itinerary_id) as nb_itineraries").joins(:itineraries)
+      .joins("INNER JOIN user_activities ON user_activities.activity_id = itineraries.activity_id")
+      .where(user_activities: {user_id: current_user.id})
+      .where("user_activities.level = itineraries.level")
+      .group("basecamps_activities.id")
+      .order("COUNT(basecamps_activities_itineraries.itinerary_id) DESC")
+      .limit(4)
   end
 
   def update
