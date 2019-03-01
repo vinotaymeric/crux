@@ -141,14 +141,9 @@ end
 #cron update mountain _ranges_cron 
 def update_mountain_ranges_cron
   begin
-  #date_today = Date.today.to_s.delete("-").to_i
   date = Date.today.prev_day.to_s.delete("-").to_i
-  #date_today = 20190228
-  p " avant update"
   update_mountain_ranges(date)
-  p "après update"
   rescue Exception => e
-    p e 
     puts "bra_meteo_france indisponible "
   end
 end 
