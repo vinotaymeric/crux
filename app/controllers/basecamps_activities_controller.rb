@@ -18,8 +18,9 @@ class BasecampsActivitiesController < ApplicationController
     @basecamp_activity = BasecampsActivity.find(params[:id])
     @basecamp = @basecamp_activity.basecamp
     @activity = @basecamp_activity.activity
-    @itineraries = @basecamp_activity.itineraries
     @mountain_range = @basecamp.mountain_range
+    user_level_for_activity = current_user.user_activities.find_by(activity_id: @activity.id).level
+    @itineraries = @basecamp_activity.itineraries.where(level: user_level_for_activity )[0..20]
   end
 
   private

@@ -5,7 +5,7 @@
 
   <% @basecamps_activities.each do |base| %>
     <div class="col s12 m4">
-      <h4 class="header"><%= base.basecamp.name %></h4>
+      <h4 class="header"><%= base.basecamp.name.encode("iso-8859-1").force_encoding("utf-8")%></h4>
       <div class="card horizontal small">
         <div class="card-image">
           <% if base.activity.name == "ski de randonnée" %>
@@ -29,7 +29,7 @@
           <div class="card-action">
             <div class="left-align">
               <%= link_to "Go !", basecamps_activity_path(base), class: "waves-effect waves-light btn" %>
-              <button class="waves-effect waves-light btn" style="background-color: white; color: #26A69A;">+</button>
+              <button class="waves-effect waves-light btn secondary">+</button>
             </div>
           </div>
         </div>

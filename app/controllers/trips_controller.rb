@@ -42,7 +42,7 @@ class TripsController < ApplicationController
       # + trip.distance_from(base.basecamp)
     end
 
-    # Take only top 10
+    # Take only top 12
 
     @basecamps_activities = basecamps_activities.reverse[0..11]
 
