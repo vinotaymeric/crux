@@ -16,6 +16,7 @@
 @import "layouts/index";
 @import "components/index";
 @import "pages/index";
+@import "basecamps_activities";
 
 
 // Below: parts of materialized which I customed
@@ -78,4 +79,21 @@ nav ul a {
 
 label {
   font-size: 1.5rem;
+}
+
+.scale-down {
+  object-fit: scale-down;
+}
+
+li {
+  list-style-type: none;
+}
+
+.cover {
+  object-fit: cover;
+}
+
+.card.horizontal .card-image img {
+    max-width: 100px;
+    height: 190px;
 }
