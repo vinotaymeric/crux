@@ -23,9 +23,13 @@ label {
   padding: 1em;
 }
 
+::-webkit-input-placeholder {
+  color: white;
+}
 
 #user_email {
   background-color: rgb(232, 240, 254);
+
 }
 
 #user_password {
@@ -58,4 +62,15 @@ label {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
   margin-top: 10px;
   background: rgba(230, 230, 230, 0.3);
+}
+
+
+.datepicker-day-button {
+  color: black;
+}
+
+
+.open {
+    background-color: rgba(255, 255, 255, 0);
+    height: 58%;
 }
