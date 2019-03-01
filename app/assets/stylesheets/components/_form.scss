@@ -23,8 +23,20 @@ label {
   padding: 1em;
 }
 
-::-webkit-input-placeholder {
-  color: white;
+
+
+#new_trip ::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+  &:hover {
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+.ap-input-icon svg {
+  fill: rgba(255, 255, 255, 0.8);
+  &:hover {
+    fill: rgba(255, 255, 255, 0.9);
+  }
 }
 
 #user_email {
@@ -41,7 +53,18 @@ label {
 }
 
 #trip_address {
-  background-color: rgba(232, 240, 254, 0.5);
+  color: white;
+}
+
+#trip_start_date {
+  color: white;
+}
+
+#trip_end_date {
+  color: white;
+}
+
+.ap-dropdown-menu {
   color: black;
 }
 
