@@ -160,6 +160,26 @@ puts "User seeding completed"
 
 
 ## SEED RANGES
+# MountainRange.destroy_all
+# puts "###Seeding MountainRange#### "
+# ## initilization of mountainRange
+# puts "initilization of mountainRange"
+
+# RANGES.each do |range|
+#   MountainRange.create!(
+#     name: range[0],
+#     coord_lat: range[2],
+#     coord_long: range[3]
+#     )
+# end
+# puts "initilization of mountainRange completed"
+
+# update mountainRnages
+date = 20190227
+###
+ap "update mountain_ranges at Date : #{date}"
+update_mountain_ranges(date)
+
 puts "###Seeding MountainRange#### "
 
 ## initilization of mountainRange
@@ -193,6 +213,7 @@ bra_ranges.each do |bra_range|
     )
 end
 
+>>>>>>> master
 puts "####MountainRange seeding completed###"
 
 ## SEED BASECAMPS
