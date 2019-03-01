@@ -15,7 +15,7 @@ class BasecampsActivitiesController < ApplicationController
 
   def show
     ## Dynamic mountain range to be done
-    @mountain_range = MountainRange.find(1)
+    @mountain_range = MountainRange.first
     @basecamp_activity = BasecampsActivity.find(params[:id])
     @basecamp = @basecamp_activity.basecamp
     @activity = @basecamp_activity.activity
