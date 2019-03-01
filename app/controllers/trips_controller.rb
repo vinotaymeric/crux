@@ -23,7 +23,7 @@ class TripsController < ApplicationController
 
   def show
     # Pour l'instant on les affiche tous, il faudra ajouter les conditions de localisations/ météo / activités / niveau
-    @basecamps = Basecamp.all
+    @basecamps_activities = BasecampsActivity.all
 
 
   end

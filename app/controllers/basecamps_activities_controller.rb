@@ -1,8 +1,8 @@
-class BasecampsController < ApplicationController
+class BasecampsActivitiesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :index]
 
   def index
-    @basecamps = Basecamp.all
+    @basecamps_activity = BasecampsActivity.all
     # Pour l'instant on les affiche tous, il faudra ajouter les conditions de localisations/ météo / activités / niveau
     # if params[:location].present? && params[:activity].present?
     #   @basecamps = Basecamp.near(params[:location], 300).order("distance")
@@ -14,7 +14,11 @@ class BasecampsController < ApplicationController
   end
 
   def show
-    @basecamp = Basecamp.find(params[:id])
+    ## Dynamic mountain range to be done
     @mountain_range = MountainRange.find(1)
+    @basecamp_activity = BasecampsActivity.find(params[:id])
+    @basecamp = @basecamp_activity.basecamp
+    @activity = @basecamp_activity.activity
+    @itineraries = @basecamp_activity.itineraries
   end
 end
