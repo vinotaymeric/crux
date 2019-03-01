@@ -1,1 +1,24 @@
-<h1>Je suis l'index trip</h1>
+<div class="container">
+
+<% if @trips.count == 0 %>
+  <p>Aucune sortie prévue pour l'instant.</p>
+<% else %>
+  <% @trips.each do |trip| %>
+    <div class="card">
+      <ul class=list-inline">
+        <li class=list-inline-item">Nom: <%= trip.start_date %></li>
+        <li class=list-inline-item">Date de départ: <%= trip.start_date %></li>
+        <li class=list-inline-item">Date de retour: <%= trip.end_date %></li>
+        <li class=list-inline-item">Point de départ: <%= trip.location %></li>
+        <li class=list-inline-item">Camps de bases: <%= trip.location %></li>
+        <li class=list-inline-item">itinéraires: <%= trip.location %></li>
+      </ul>
+    </div>
+  <% end %>
+
+
+<% end %>
+
+
+
+</div>
