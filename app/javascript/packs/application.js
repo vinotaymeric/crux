@@ -5,11 +5,11 @@ import 'materialize-css/dist/css/materialize.css';
 import M from 'materialize-css';
 
 // Other imports
-
+import incrementor from '../components/increment';
 import initAutocomplete from '../plugins/init_autocomplete';
 
 // Launch js
-
+incrementor();
 initAutocomplete();
 
 // Init materialize JS components
