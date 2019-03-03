@@ -6,12 +6,12 @@
         <div class="col-xs-12 col-sm-4 col-sm-offset-4 form-frame">
           <h4>Profil aventurier</h4>
           <% @user_activities.each do |user_activity| %>
-          <div class="input-field col s12 m6">
-            <%= simple_form_for user_activity, remote: true do |f| %>
-            <%= f.input  :level, :collection => ["Mutant", "Intermédiaire", "Padawan"], label: user_activity.activity.name.capitalize, input_html: { class: user_activity.activity.name.split(" ")[0]} %>
-            <%= f.hidden_field  :activity_id %>
-            <% end %>
-          </div>
+            <div class="input-field col s12 m6">
+              <%= simple_form_for user_activity, remote: true do |f| %>
+              <%= f.input  :level, :collection => ["Padawan","Intermédiaire","Mutant"], label: user_activity.activity.name.capitalize, input_html: { class: user_activity.activity.name.split(" ")[0]} %>
+              <%= f.hidden_field  :activity_id %>
+              <% end %>
+            </div>
           <% end %>
           <h4>Mon voyage</h4>
           <div class="input-field col s12 m12">

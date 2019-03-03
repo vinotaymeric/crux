@@ -1,11 +1,6 @@
 class TripsController < ApplicationController
-
   def new
-    if current_user != nil
-      @user_activities = current_user.user_activities
-    else
-      @user_activities = []
-    end
+    @user_activities = current_user.nil? ? [] : current_user.user_activities.order(:activity_id)
     @trip = Trip.new
   end
 
