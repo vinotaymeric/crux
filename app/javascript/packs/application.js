@@ -7,10 +7,12 @@ import M from 'materialize-css';
 // Other imports
 
 import initAutocomplete from '../plugins/init_autocomplete';
+import initDrivingTimeOnTrips from './init_driving_time_on_trips'
 
 // Launch js
 
 initAutocomplete();
+initDrivingTimeOnTrips();
 
 // Init materialize JS components
 const tabs = document.querySelector('.tabs');
@@ -36,9 +38,3 @@ activities.forEach( (element) => {
     e.currentTarget.closest('form').submit();
   });
 });
-
-
-
-
-
-
