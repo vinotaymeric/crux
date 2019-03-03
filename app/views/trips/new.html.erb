@@ -19,7 +19,7 @@
             <%= f.input  :location, input_html: { id: "trip_address", placeholder: "Adresse de départ" }, label: false %>
             <%= f.input  :start_date, as: :string, input_html: { class: 'datepicker', placeholder: "Date de début" }, label: false %>
             <%= f.input  :end_date, as: :string, input_html: { class: 'datepicker', placeholder: "Date de fin" }, label: false %>
-            <div class="right-align"><%= f.button :submit, class: "waves-effect waves-light btn" %></div>
+            <div class="right-align"><%= f.submit "Let's go!", class: "waves-effect waves-light btn" %></div>
             <% end %>
           </div>
         </div>
