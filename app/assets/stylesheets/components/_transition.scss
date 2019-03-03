@@ -1,3 +1,19 @@
+ .curtain {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: red;
+  height: 0%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+
+
+
+
  .tourne {
     left: 50%;
     width: 120px;
@@ -10,3 +26,6 @@
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
+
