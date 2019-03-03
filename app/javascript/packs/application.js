@@ -6,12 +6,11 @@ import M from 'materialize-css';
 
 // Other imports
 // import initTransition from '../components/increment';
-import { initTransition, incrementor} from '../components/increment';
+import { initTransition} from '../components/increment';
 import initAutocomplete from '../plugins/init_autocomplete';
 
 // Launch js
 initTransition();
-incrementor();
 initAutocomplete();
 
 // Init materialize JS components

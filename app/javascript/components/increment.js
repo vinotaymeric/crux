@@ -5,27 +5,24 @@ const boussole = document.querySelector('.boussole')
 const curtain = document.querySelector('.curtain')
 const footer = document.querySelector('.page-footer')
 const greenButton = document.querySelector('#new_trip')
+const list = document.querySelector('.list')
 
-
-const initTransition = () => {
-  if (button == null) {
-    return ;
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
   }
-    button.addEventListener('click', (e) => {
-      console.log("toto1")
-      greenButton.classList.add("transparent");
-      // footer.classList.add("transparent");
-      curtain.classList.add("curtain-up");
-      boussole.classList.add("tourne");
-});
 }
+
 
 const incrementor = () => {
   $('.count').each(function () {
     $(this).prop('Counter',0).animate({
         Counter: $(this).text()
     }, {
-        duration: 10000,
+        duration: 12000,
         easing: 'swing',
         step: function (now) {
             $(this).text(Math.ceil(now));
@@ -35,5 +32,20 @@ const incrementor = () => {
 };
 
 
+const initTransition = () => {
+  if (button == null) {
+    return ;
+  }
+    button.addEventListener('click', (e) => {
+      greenButton.classList.add("transparent");
+      // footer.classList.add("transparent");
+      curtain.classList.add("curtain-up");
+      boussole.classList.add("tourne");
+      incrementor();
+  });
+}
+
+
+
 // export default initTransition;
-export { initTransition, incrementor};
+export { initTransition};
