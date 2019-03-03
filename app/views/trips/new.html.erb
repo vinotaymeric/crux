@@ -21,8 +21,8 @@
             <%= f.input  :end_date, as: :string, input_html: { class: 'datepicker', placeholder: "Date de fin" }, label: false %>
             <div class="right-align"><%= f.button :submit, class: "waves-effect waves-light btn" %></div>
             <% end %>
-            <button id="test-transition" class="btn btn-lg btn-primary">Hello test</button>
           </div>
+          <button id="test-transition" class="btn btn-lg btn-primary">test transition</button>
         </div>
       </div>
     </div>
@@ -30,11 +30,11 @@
   </div>
    <div class="curtain">
     <div class="curtain-content text-center">
-    <%= image_tag("boussole.png", size: "120x120",class: "boussole") %>
+    <%= image_tag("boussole.png",class: "boussole") %>
     <ul class="list">
-      <li>Analyse de <span id="itinerary-count" class="count"> <%= Itinerary.count %> </span> itinéraires...</li>
-      <li>Analyse de <span id="massif-count" class="count"><%=  MountainRange.count %></span> massifs...</li>
-      <li>Analyse de <span id="basecamp-count" class="count"><%=  Basecamp.count %></span> camps de base...</li>
+      <li class="transparent" id="row-iti">Analyse de <span id="itinerary-count"> <%= Itinerary.count %> </span> itinéraires...</li>
+      <li class="transparent" id="row-basecamp">Analyse de <span id="basecamp-count"><%=  Basecamp.count %></span> camps de base...</li>
+      <li class="transparent" id="row-massif">Analyse des données météos de <span id="massif-count"><%=  MountainRange.count %></span> massifs...</li>
     </ul>
     </div>
 
