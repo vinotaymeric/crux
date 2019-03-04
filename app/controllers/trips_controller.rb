@@ -33,7 +33,7 @@ class TripsController < ApplicationController
     # Compute score also considering weather and localisation ater
 
     basecamps_activities.sort_by! do |base|
-      Math.log(base.nb_itineraries) + base.weather.weekend_score
+      Math.log(base.nb_itineraries) + Math.log(base.weather.weekend_score.magnitude + 1)
       # + trip.distance_from(base.basecamp)
     end
 
