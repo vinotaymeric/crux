@@ -1,10 +1,10 @@
-<div class="banner banner-not-home" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.pexels.com/photos/414459/pexels-photo-414459.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');">
+<div class="banner banner-not-home" style="background-image: linear-gradient(rgba(0,0,0,0.80), rgba(0,0,0,0.85)), url('https://images.pexels.com/photos/414459/pexels-photo-414459.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');">
   <div class="banner-content text-center">
 
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 form-frame">
-          <h4>Profil aventurier</h4>
+          <h4>Mon profil aventurier</h4>
           <% @user_activities.each do |user_activity| %>
             <div class="input-field col s12 m6">
               <%= simple_form_for user_activity, remote: true do |f| %>
@@ -20,7 +20,7 @@
             <%= f.input  :start_date, as: :string, input_html: { class: 'datepicker datepicker-start', placeholder: "Date de début"}, label: false %>
             <%= f.input  :end_date, as: :string, input_html: { class: 'datepicker datepicker-end', placeholder: "Date de fin"}, label: false %>
             <div id="empty-field-message" class="transparent"><p>Ces champs ne peuvent pas être vides.</p></div>
-            <div class="right-align"><input type="submit" value="Let's go!" class="btn"></div>
+            <div class="center-align"><input type="submit" value="Let's go!" class="btn"></div>
             <% end %>
           </div>
         </div>
