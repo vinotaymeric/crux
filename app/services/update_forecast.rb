@@ -145,7 +145,9 @@ class UpdateForecast
   
   ##### UPADATE WEATHER  ####
   def api_call(lat, lon)
-   p url = "https://api.apixu.com/v1/forecast.json?key=3a0aef724b764f6cb35161705192702&q=#{lat},#{lon}&days=7"
+    #url = "https://api.apixu.com/v1/forecast.json?key=3a0aef724b764f6cb35161705192702&q=#{lat},#{lon}&days=7"
+    p ENV['WEATHER_KEY']
+   p url = "https://api.apixu.com/v1/forecast.json?key=#{ENV['WEATHER_KEY']}&q=#{lat},#{lon}&days=7"
     JSON.parse(open(url).read)
   end
 
