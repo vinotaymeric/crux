@@ -16,3 +16,9 @@
     max-width: 100%;
   }
 }
+
+.itineraries-container:after {
+  clear: both;
+  content: "";
+  display: block;
+}

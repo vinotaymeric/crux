@@ -11,30 +11,25 @@
           <li class="tab col s1"><a class="" href="#avalanche">Avalanche</a></li>
         <% end %>
       </ul>
-    </div>
 
-    <div id="itineraries">
-    <br><br>
-    <div class="card-panel cta">
-      <span class="black-text text-darken-2 flex-container">Sélectionnez les itinéraires qui vous intéressent.</span>
-      <button class="btn">Je valide</button>
-    </div>
-
-    <% @itineraries.each do |itinerary| %>
-      <% next if itinerary.name.nil? %>
-      <%= render partial: "card_itinerary", locals: {itinerary: itinerary, favorite: @favorite_itinerary} %>
-    <% end %>
-    </div>
-
-    <div id="weather">
-
-    </div>
-
-    <% if @mountain_range %>
-      <div id="avalanche">
-        <%= render partial: "avalanche_infos", locals: {mountain_range: @mountain_range} %>
+      <div id="itineraries">
+        <div class="itineraries-container">
+          <br><br>
+          <div class="card-panel cta">
+            <span class="black-text text-darken-2 flex-container">Sélectionnez les itinéraires qui vous intéressent.</span>
+            <button class="btn">Je valide</button>
+          </div>
+          <% @itineraries.each do |itinerary| %>
+            <% next if itinerary.name.nil? %>
+            <%= render partial: "card_itinerary", locals: {itinerary: itinerary} %>
+          <% end %>
+        </div>
       </div>
-    <% end %>
-
+      <div id="weather"></div>
+      <% if @mountain_range %>
+        <div id="avalanche">
+          <%= render partial: "avalanche_infos", locals: {mountain_range: @mountain_range} %>
+        </div>
+      <% end %>
   </div>
 </div>
