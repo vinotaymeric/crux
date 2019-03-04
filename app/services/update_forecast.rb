@@ -84,35 +84,37 @@ class UpdateForecast
       rosace = xml_noko_doc.xpath("//ImageCartoucheRisque ").text
       File.open("app/assets/images/rosace_#{bra_keys['massif']}.jpg", "wb") { |f| f.write(Base64.decode64(rosace)) }
       #put picture in cloudinary
-      Cloudinary::Uploader.upload("app/assets/images/rosace_#{bra_keys['massif']}.jpg",
+      rosace_result =Cloudinary::Uploader.upload("app/assets/images/rosace_#{bra_keys['massif']}.jpg",
         :folder => "crux/images", :public_id => "rosace_#{bra_keys['massif']}", :overwrite => true, 
          :resource_type => "image")
-      rosace_image_url = "app/assets/images/rosace_#{bra_keys['massif']}.jpg"
+      #rosace_image_url = "app/assets/images/rosace_#{bra_keys['massif']}.jpg"
+       p rosace_image_url = rosace_result ["url"]
 
       # snow
       snow = xml_noko_doc.xpath("//ImageEnneigement").text
       File.open("app/assets/images/snow_#{bra_keys['massif']}.jpg", "wb") { |f| f.write(Base64.decode64(snow)) }
       #put picture in cloudinary
-      Cloudinary::Uploader.upload("app/assets/images/snow_#{bra_keys['massif']}.jpg",
+      snow_result = Cloudinary::Uploader.upload("app/assets/images/snow_#{bra_keys['massif']}.jpg",
         :folder => "crux/images", :public_id => "snow_#{bra_keys['massif']}", :overwrite => true, 
          :resource_type => "image")
       
      
         
       #recupérer la photo depuis cloudinary
-      snow_image_url = "app/assets/images/snow_#{bra_keys['massif']}.jpg"
-      
+      #snow_image_url = "app/assets/images/snow_#{bra_keys['massif']}.jpg"
+      p snow_image_url = snow_result ["url"]
+
       #snow fraiche
       fresh_snow = xml_noko_doc.xpath("//ImageNeigeFraiche").text
       File.open("app/assets/images/fresh_snow_#{bra_keys['massif']}.jpg", "wb") { |f| f.write(Base64.decode64(fresh_snow)) }
         #put picture in cloudinary
-        Cloudinary::Uploader.upload("app/assets/images/fresh_snow_#{bra_keys['massif']}.jpg",
+      fresh_snow_result= Cloudinary::Uploader.upload("app/assets/images/fresh_snow_#{bra_keys['massif']}.jpg",
           :folder => "crux/images", :public_id => "fresh_snow_#{bra_keys['massif']}", :overwrite => true, 
            :resource_type => "image")
      
       #recupérer la photo depuis cloudinary  
-      fresh_snow_image_url = "app/assets/images/fresh_snow_#{bra_keys['massif']}.jpg"
-      
+      #fresh_snow_image_url = "app/assets/images/fresh_snow_#{bra_keys['massif']}.jpg"
+      p fresh_snow_image_url = fresh_snow_result ["url"]
       
       bra_range_inf = {
         range_name: bra_keys['massif'],
