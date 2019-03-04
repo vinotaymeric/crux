@@ -20,14 +20,19 @@ const convertSecondsToHoursMins = (seconds) => {
   return (seconds >= 3600) ? `${hours}h${minutes}` : `${minutes}min`;
 }
 
-  const orsApiKey = document.querySelector('.basecamps-activities-container').dataset.orsApiKey;
+  const basecampsActivitiesContainer = document.querySelector('.basecamps-activities-container');
+  if (basecampsActivitiesContainer === null) {
+    return
+  }
+  const orsApiKey = basecampsActivitiesContainer.dataset.orsApiKey
+
   const cards = document.querySelectorAll('.card-basecamp-activity');
 
   cards.forEach((card) => {
     const coords = JSON.parse(card.querySelector('.card-content').dataset.coords);
     const drivingTimePromise = fetchDrivingTime(coords.ori_lat, coords.ori_long, coords.desti_lat, coords.desti_long, orsApiKey);
     drivingTimePromise.then((drivingTime) => {
-      const drivingTimeFormatted = convertSecondsToHoursMins(drivingTime)
+      const drivingTimeFormatted = convertSecondsToHoursMins(drivingTime);
       addDrivingTimeToCard(card, drivingTimeFormatted);
     });
   });
