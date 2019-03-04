@@ -26,11 +26,9 @@ if (tabs) {
     swipeable: true,
     onShow: (tab) => {
       let height = 0;
-      console.log(tab.children[0])
       if (tab.children[0]) {
         height = tab.children[0].scrollHeight + 20;
       }
-      console.log(height)
       document.querySelector(".tabs-content").style.height = height + 'px';
     }
   });
@@ -39,7 +37,6 @@ if (tabs) {
  // Profile edition
 
 const activities = document.querySelectorAll('#user_activity_level');
-console.log(activities);
 
 activities.forEach( (element) => {
   element.addEventListener('click', (e) => {
