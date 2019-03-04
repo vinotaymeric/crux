@@ -107,7 +107,7 @@ class UpdateForecast
       fresh_snow_image_url = fresh_snow_result ["url"]
       
       ##other inforamtions
-      bra_range_inf = {
+     ap bra_range_inf = {
         range_name: bra_keys['massif'],
         bra_date_validity: xml_noko_doc.xpath("//DateValidite ").text,
         resume: xml_noko_doc.xpath("//RESUME ").text,
@@ -115,8 +115,8 @@ class UpdateForecast
         snow_quality: xml_noko_doc.xpath('//QUALITE').text,
         rosace_image_url: rosace_image_url,
         snow_image_url: snow_image_url,
-        fresh_snow_image_url: fresh_snow_image_url
-        max_risk: xml_noko_doc.xpath("//RISQUE ")[0].to_a
+        fresh_snow_image_url: fresh_snow_image_url,
+        max_risk: xml_noko_doc.xpath("//RISQUE /@RISQUEMAXI ").first.value.to_i
       }
       return bra_range_inf
   end
@@ -150,6 +150,7 @@ class UpdateForecast
           m.snow_image_url = bra_range[:snow_image_url]
           m.snow_quality = bra_range[:snow_quality]
           m.stability = bra_range[:stability]
+          m.max_risk = bra_range[:max_risk]
           m.save!
         end
     end
@@ -158,8 +159,6 @@ class UpdateForecast
   
   ##### UPADATE WEATHER  ####
   def api_call(lat, lon)
-    #url = "https://api.apixu.com/v1/forecast.json?key=3a0aef724b764f6cb35161705192702&q=#{lat},#{lon}&days=7"
-    p ENV['WEATHER_KEY']
    p url = "https://api.apixu.com/v1/forecast.json?key=#{ENV['WEATHER_KEY']}&q=#{lat},#{lon}&days=7"
     JSON.parse(open(url).read)
   end
