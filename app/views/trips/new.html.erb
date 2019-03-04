@@ -19,6 +19,7 @@
             <%= f.input  :location, input_html: { id: "trip_address", placeholder: "Adresse de départ"}, label: false %>
             <%= f.input  :start_date, as: :string, input_html: { class: 'datepicker', placeholder: "Date de début"}, label: false %>
             <%= f.input  :end_date, as: :string, input_html: { class: 'datepicker', placeholder: "Date de fin"}, label: false %>
+            <div id="empty-field-message" class="transparent"><p>Ces champs ne peuvent pas être vides.</p></div>
             <div class="right-align"><input type="submit" value="Let's go!" class="btn"></div>
             <% end %>
           </div>

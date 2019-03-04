@@ -16,6 +16,11 @@ label {
 
 }
 
+#empty-field-message p {
+  font-size:1em;
+  color: #800000;
+}
+
 #new_user {
   width: 40%;
   background: rgba(230, 230, 230, 0.3);
@@ -29,10 +34,6 @@ label {
   &:hover {
     color: rgba(255, 255, 255, 0.9);
   }
-}
-
-.mandatory ::-webkit-input-placeholder  {
-  color: #800000;
 }
 
 .ap-input-icon svg {

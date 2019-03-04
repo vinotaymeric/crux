@@ -6,13 +6,15 @@ const curtain = document.querySelector('.curtain')
 const rowIti = document.querySelector('#row-iti')
 const rowMassif = document.querySelector('#row-massif')
 const rowBasecamp = document.querySelector('#row-basecamp')
+const userActivityFields = document.querySelectorAll('#user_activity_level')
+const tripAddress = document.querySelector('#trip_address');
+const tripStartDate = document.querySelector('#trip_start_date');
+const tripEndDate = document.querySelector('#trip_end_date');
 var valid = [];
 
-const verif = (id) => {
+const verif = (field) => {
   console.log("toto2");
-  const field = document.querySelector(id);
       if (field.value === "") {
-        field.placeholder = "Ce champs ne peut pas être vide."
         field.classList.add("mandatory");
         valid.push('n');
       } else {
@@ -43,14 +45,18 @@ const initTransition = () => {
 
       console.log("toto1");
       e.preventDefault();
-      verif('#trip_address');
-      verif('#trip_start_date');
-      verif('#trip_end_date');
+      verif(tripAddress);
+      verif(tripStartDate);
+      verif(tripEndDate);
+      console.log(userActivityFields);
+      userActivityFields.forEach(function(userActivityField) {
+        verif(userActivityField)
+      });
       if (valid.includes('n')) {
-        console.log("je suis dans le if");
         console.log(valid);
         valid = [];
         console.log(valid);
+        document.querySelector('#empty-field-message').classList.remove("transparent");
       } else {
         console.log(valid);
         form.classList.add("transparent");
