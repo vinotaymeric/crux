@@ -24,12 +24,15 @@ label {
 }
 
 
-
 #new_trip ::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.8);
   &:hover {
     color: rgba(255, 255, 255, 0.9);
   }
+}
+
+.mandatory ::-webkit-input-placeholder  {
+  color: #800000;
 }
 
 .ap-input-icon svg {
