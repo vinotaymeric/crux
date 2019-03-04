@@ -99,7 +99,8 @@ def bra_per_range(bra_keys={})
      snow_quality: xml_noko_doc.xpath('//QUALITE').text,
      rosace_image_url: rosace_image_url,
      snow_image_url: snow_image_url,
-     fresh_snow_image_url: fresh_snow_image_url
+     fresh_snow_image_url: fresh_snow_image_url,
+    ap max_risk: xml_noko_doc.xpath("//RISQUE ")[0].to_a
    }
    return bra_range_inf
  end

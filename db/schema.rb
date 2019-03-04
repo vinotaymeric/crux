@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_04_133126) do
-
+ActiveRecord::Schema.define(version: 2019_03_04_164853) do
+  
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -113,6 +113,9 @@ ActiveRecord::Schema.define(version: 2019_03_04_133126) do
     t.datetime "updated_at", null: false
     t.float "coord_lat"
     t.float "coord_long"
+    t.boolean "validated"
+    t.bigint "basecamps_activity_id"
+    t.index ["basecamps_activity_id"], name: "index_trips_on_basecamps_activity_id"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
@@ -130,6 +133,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_133126) do
     t.bigint "trip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "subscribed"
     t.index ["basecamps_activity_id"], name: "index_trips_basecamps_activities_on_basecamps_activity_id"
     t.index ["trip_id"], name: "index_trips_basecamps_activities_on_trip_id"
   end
@@ -173,6 +177,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_133126) do
   add_foreign_key "favorite_itineraries", "itineraries"
   add_foreign_key "favorite_itineraries", "trips"
   add_foreign_key "itineraries", "activities"
+  add_foreign_key "trips", "basecamps_activities"
   add_foreign_key "trips", "users"
   add_foreign_key "trips_basecamps", "basecamps"
   add_foreign_key "trips_basecamps", "trips"
