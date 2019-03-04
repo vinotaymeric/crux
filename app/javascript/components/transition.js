@@ -13,7 +13,6 @@ const tripEndDate = document.querySelector('#trip_end_date');
 var valid = [];
 
 const verif = (field) => {
-  console.log("toto2");
       if (field.value === "") {
         field.classList.add("mandatory");
         valid.push('n');
@@ -42,8 +41,6 @@ const initTransition = () => {
     return ;
   }
     form.addEventListener('submit', (e) => {
-
-      console.log("toto1");
       e.preventDefault();
       verif(tripAddress);
       verif(tripStartDate);
@@ -53,12 +50,9 @@ const initTransition = () => {
         verif(userActivityField)
       });
       if (valid.includes('n')) {
-        console.log(valid);
         valid = [];
-        console.log(valid);
         document.querySelector('#empty-field-message').classList.remove("transparent");
       } else {
-        console.log(valid);
         form.classList.add("transparent");
         curtain.classList.add("curtain-up");
         setTimeout(function(){ boussole.classList.add("tourne"); }, 1000);
