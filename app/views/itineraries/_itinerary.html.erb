@@ -1,5 +1,4 @@
-
-<div class="container" id="my-itineraries">
+<div class="container" >
   <div class ="row">
   <% @itineraries.each do |itinerary| %>
     <% next if itinerary.name.nil? %>
@@ -19,7 +18,6 @@
         </div>
       </div>
     </div>
-
   <% end %>
   </div>
-  </div>
+</div>
