@@ -11,31 +11,16 @@ import initDatepicker from './init_datepicker'
 import { initTransition} from '../components/increment';
 import initAutocomplete from '../plugins/init_autocomplete';
 import initDrivingTimeOnTrips from './init_driving_time_on_trips'
+import initTabs from '../components/init_tabs';
 
 // Launch js
 initTransition();
 initAutocomplete();
-initDatepicker();
 initDrivingTimeOnTrips();
 
 // Init materialize JS components
-const tabs = document.querySelector('.tabs');
-
-if (tabs) {
-  M.Tabs.init(tabs, {
-    swipeable: true,
-    onShow: (tab) => {
-      let height = 0;
-      console.log(tab.children[0])
-      if (tab.children[0]) {
-        height = tab.children[0].scrollHeight + 20;
-      }
-      console.log(height)
-      document.querySelector(".tabs-content").style.height = height + 'px';
-    }
-  });
-};
-
+initDatepicker();
+initTabs();
  // Profile edition
 
 const activities = document.querySelectorAll('#user_activity_level');
