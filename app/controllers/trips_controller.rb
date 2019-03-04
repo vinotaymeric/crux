@@ -5,8 +5,7 @@ class TripsController < ApplicationController
   end
 
   def index
-    # @trips = Trip.where(user_id: current_user.id).order('trips.created_at desc')
-    @trips = Trip.all
+    @trips = current_user.trips.reverse
   end
 
   def create
