@@ -16,9 +16,9 @@
         <div class="itineraries-container">
           <div class="card-panel cta">
           <% if @trip.validated %>
-            <span>Vous souhaitez <%= link_to "modifier votre sélection d'itinéraires", trip_path(@trip), method: :put%> ?</span>
+            <span>Vos itinéraires sont maintenant disponibles en mode offline ! <br><i class="fas fa-edit"></i><%= link_to "Modifier ma sélection", trip_path(@trip), method: :put%></span>
           <% else %>
-            <span class="black-text text-darken-2 flex-container">Sélectionnez les itinéraires qui vous intéressent, puis validez votre camp de base quand vous êtes prêt à partir.</span>
+            <span>Sélectionnez les itinéraires qui vous intéressent, puis validez votre camp de base quand vous êtes prêt à partir.</span>
             <%= link_to 'Go !', trip_path(@trip), method: :put, class: 'btn' %>
           <% end %>
           </div>

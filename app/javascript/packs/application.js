@@ -9,6 +9,7 @@ import M from 'materialize-css';
 import initDatepicker from './init_datepicker'
 // import initTransition from '../components/increment';
 import { initTransition} from '../components/increment';
+import { initToggleRemove, initToggleAdd, initFavorites } from './init_favorite';
 import initAutocomplete from '../plugins/init_autocomplete';
 import initDrivingTimeOnTrips from './init_driving_time_on_trips'
 
@@ -51,23 +52,13 @@ activities.forEach( (element) => {
 
  // Set favorite
 
-const favorites = document.querySelectorAll('#favorite');
-favorites.forEach( (element) => {
-  element.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.currentTarget.nextElementSibling.submit();
-  });
-});
+initFavorites();
 
-const addButton = document.querySelectorAll('.fa-plus-circle')
+initToggleAdd();
 
-addButton.forEach( (element) => {
-  element.addEventListener('click', (e) => {
-    console.log("toto")
-    e.currentTarget.closest('.card').classList.toggle('selected');
-    e.currentTarget.classList.toggle('fa-mountain');
-    e.currentTarget.classList.toggle('fa-plus-circle');
-  });
-});
+initToggleRemove();
+
+
+
 
 

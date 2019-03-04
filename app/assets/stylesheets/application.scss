@@ -44,8 +44,6 @@ p {
 
 }
 
-
-
 .tabs .tab a:hover, .tabs .tab a.active {
   color: rgb(38,166,154);
 }
@@ -122,6 +120,10 @@ li {
   background-color: #23B5D3;
   font-size: 1.5rem;
   font-weight: bolder;
+}
+
+.remove {
+  background-color: #75ABBC;
 }
 
 .selected {
