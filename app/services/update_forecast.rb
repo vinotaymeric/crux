@@ -75,27 +75,39 @@ class UpdateForecast
       bra_range_xml = open(url).read
       xml_noko_doc =  Nokogiri::XML(bra_range_xml)
   end
-  
   #
   def bra_per_range(bra_keys={})
     url ="https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/BRA.#{bra_keys['massif']}.#{bra_keys['heures'].last}.xml"
     xml_noko_doc = xml_nokogiri_doc(url)
     #return bra_range_inf
       rosace = xml_noko_doc.xpath("//ImageCartoucheRisque ").text
-      File.open("app/assets/images/rosace_#{bra_keys['massif']}.jpg", "wb") { |f| f.write(Base64.decode64(rosace)) }
-      rosace_image_url = "app/assets/images/rosace_#{bra_keys['massif']}.jpg"
+      File.open("app/assets/images/rosace_#{bra_keys['massif']}.png", "wb") { |f| f.write(Base64.decode64(rosace)) }
+      #put picture in cloudinary
+      rosace_result =Cloudinary::Uploader.upload("app/assets/images/rosace_#{bra_keys['massif']}.png",
+        :folder => "crux/images", :public_id => "rosace_#{bra_keys['massif']}", :overwrite => true, 
+         :resource_type => "image")
+      rosace_image_url = rosace_result ["url"]
 
-      # snow
+      ##snow
       snow = xml_noko_doc.xpath("//ImageEnneigement").text
-      File.open("app/assets/images/snow_#{bra_keys['massif']}.jpg", "wb") { |f| f.write(Base64.decode64(snow)) }
-      snow_image_url = "app/assets/images/snow_#{bra_keys['massif']}.jpg"
-      
-      #snow fraiche
+      File.open("app/assets/images/snow_#{bra_keys['massif']}.png", "wb") { |f| f.write(Base64.decode64(snow)) }
+      #put picture in cloudinary
+      snow_result = Cloudinary::Uploader.upload("app/assets/images/snow_#{bra_keys['massif']}.png",
+        :folder => "crux/images", :public_id => "snow_#{bra_keys['massif']}", :overwrite => true, 
+         :resource_type => "image")
+      snow_image_url = snow_result ["url"]
+
+      ##snow fraiche
       fresh_snow = xml_noko_doc.xpath("//ImageNeigeFraiche").text
-      File.open("app/assets/images/fresh_snow_#{bra_keys['massif']}.jpg", "wb") { |f| f.write(Base64.decode64(fresh_snow)) }
-      fresh_snow_image_url = "app/assets/images/fresh_snow_#{bra_keys['massif']}.jpg"
-  
-      bra_range_inf = {
+      File.open("app/assets/images/fresh_snow_#{bra_keys['massif']}.png", "wb") { |f| f.write(Base64.decode64(fresh_snow)) }
+      #put picture in cloudinary
+      fresh_snow_result= Cloudinary::Uploader.upload("app/assets/images/fresh_snow_#{bra_keys['massif']}.png",
+          :folder => "crux/images", :public_id => "fresh_snow_#{bra_keys['massif']}", :overwrite => true, 
+           :resource_type => "image")
+      fresh_snow_image_url = fresh_snow_result ["url"]
+      
+      ##other inforamtions
+     ap bra_range_inf = {
         range_name: bra_keys['massif'],
         bra_date_validity: xml_noko_doc.xpath("//DateValidite ").text,
         resume: xml_noko_doc.xpath("//RESUME ").text,
@@ -103,7 +115,8 @@ class UpdateForecast
         snow_quality: xml_noko_doc.xpath('//QUALITE').text,
         rosace_image_url: rosace_image_url,
         snow_image_url: snow_image_url,
-        fresh_snow_image_url: fresh_snow_image_url
+        fresh_snow_image_url: fresh_snow_image_url,
+        max_risk: xml_noko_doc.xpath("//RISQUE /@RISQUEMAXI ").first.value.to_i
       }
       return bra_range_inf
   end
@@ -137,6 +150,7 @@ class UpdateForecast
           m.snow_image_url = bra_range[:snow_image_url]
           m.snow_quality = bra_range[:snow_quality]
           m.stability = bra_range[:stability]
+          m.max_risk = bra_range[:max_risk]
           m.save!
         end
     end
@@ -145,8 +159,6 @@ class UpdateForecast
   
   ##### UPADATE WEATHER  ####
   def api_call(lat, lon)
-    #url = "https://api.apixu.com/v1/forecast.json?key=3a0aef724b764f6cb35161705192702&q=#{lat},#{lon}&days=7"
-    p ENV['WEATHER_KEY']
    p url = "https://api.apixu.com/v1/forecast.json?key=#{ENV['WEATHER_KEY']}&q=#{lat},#{lon}&days=7"
     JSON.parse(open(url).read)
   end
@@ -172,4 +184,6 @@ class UpdateForecast
     end
   end
   ## END UPDATE WEATHER ##
+
+
 end

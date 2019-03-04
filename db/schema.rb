@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2019_03_04_164853) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +101,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_164853) do
     t.float "coord_lat"
     t.float "coord_long"
     t.date "bra_date"
+    t.integer "max_risk"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -132,6 +135,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_164853) do
     t.bigint "trip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "subscribed"
     t.index ["basecamps_activity_id"], name: "index_trips_basecamps_activities_on_basecamps_activity_id"
     t.index ["trip_id"], name: "index_trips_basecamps_activities_on_trip_id"
   end

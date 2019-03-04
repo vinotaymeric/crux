@@ -33,7 +33,9 @@
       <div id="weather"></div>
       <% if @mountain_range %>
         <div id="avalanche">
-          <%= render partial: "avalanche_infos", locals: {mountain_range: @mountain_range} %>
+          <div class="container">
+            <%= render partial: "avalanche_infos", locals: {mountain_range: @mountain_range} %>
+          </div>
         </div>
       <% end %>
   </div>

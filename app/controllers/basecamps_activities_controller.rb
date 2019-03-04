@@ -45,6 +45,7 @@ class BasecampsActivitiesController < ApplicationController
     @favorite_itinerary = FavoriteItinerary.new
   end
 
+
   private
 
   def init_mark_down_parser
