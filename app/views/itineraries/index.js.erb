@@ -1,0 +1,7 @@
+$('#my-itineraries').append('<%= j render @itineraries %>');
+<% if @itineraries.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @itineraries %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>
