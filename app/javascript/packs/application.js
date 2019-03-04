@@ -54,9 +54,14 @@ activities.forEach( (element) => {
 
 initFavorites();
 
-initToggleAdd();
+const addButton = document.querySelectorAll('.fa-plus-circle')
 
+if (addButton.length != 0) {
+initToggleAdd();
 initToggleRemove();
+}
+
+
 
 
 

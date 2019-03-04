@@ -28,4 +28,5 @@ const initFavorites = () => {
     });
   });
 }
+
 export { initToggleRemove, initToggleAdd, initFavorites };
