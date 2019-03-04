@@ -16,13 +16,17 @@ label {
 
 }
 
+#empty-field-message p {
+  font-size:1em;
+  color: #800000;
+}
+
 #new_user {
   width: 40%;
   background: rgba(230, 230, 230, 0.3);
   border-radius:3px;
   padding: 1em;
 }
-
 
 
 #new_trip ::-webkit-input-placeholder {

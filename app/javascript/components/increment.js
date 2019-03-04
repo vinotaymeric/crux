@@ -1,30 +1,33 @@
 import $ from 'jquery';
 
-const button = document.querySelector('#test-transition')
+const form = document.querySelector('#new_trip')
 const boussole = document.querySelector('.boussole')
 const curtain = document.querySelector('.curtain')
-const footer = document.querySelector('.page-footer')
-const greenButton = document.querySelector('#new_trip')
 const rowIti = document.querySelector('#row-iti')
 const rowMassif = document.querySelector('#row-massif')
 const rowBasecamp = document.querySelector('#row-basecamp')
+const userActivityFields = document.querySelectorAll('#user_activity_level')
+const tripAddress = document.querySelector('#trip_address');
+const tripStartDate = document.querySelector('#trip_start_date');
+const tripEndDate = document.querySelector('#trip_end_date');
+var valid = [];
 
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
-
+const verif = (field) => {
+  console.log("toto2");
+      if (field.value === "") {
+        field.classList.add("mandatory");
+        valid.push('n');
+      } else {
+        valid.push('y');
+      };
+};
 
 const incrementor = (id) => {
   $(id).each(function () {
     $(this).prop('Counter',0).animate({
         Counter: $(this).text()
     }, {
-        duration: 4000,
+        duration: 3000,
         easing: 'swing',
         step: function (now) {
             $(this).text(Math.ceil(now));
@@ -35,21 +38,35 @@ const incrementor = (id) => {
 
 
 const initTransition = () => {
-  if (button == null) {
+  if (form == null) {
     return ;
   }
-    button.addEventListener('click', (e) => {
-      setTimeout(function(){ console.log("toto"); }, 5000);
+    form.addEventListener('submit', (e) => {
 
-      greenButton.classList.add("transparent");
-      // footer.classList.add("transparent");
-      curtain.classList.add("curtain-up");
-      // boussole.classList.add("tourne");
-      setTimeout(function(){ boussole.classList.add("tourne"); }, 1000);
-      setTimeout(function(){ console.log("toto"); rowIti.classList.remove("transparent"); incrementor('#itinerary-count');}, 1200);
-      setTimeout(function(){ console.log("toto"); rowBasecamp.classList.remove("transparent"); incrementor('#basecamp-count');}, 5000);
-      setTimeout(function(){ console.log("toto"); rowMassif.classList.remove("transparent"); incrementor('#massif-count'); }, 9000);
-
+      console.log("toto1");
+      e.preventDefault();
+      verif(tripAddress);
+      verif(tripStartDate);
+      verif(tripEndDate);
+      console.log(userActivityFields);
+      userActivityFields.forEach(function(userActivityField) {
+        verif(userActivityField)
+      });
+      if (valid.includes('n')) {
+        console.log(valid);
+        valid = [];
+        console.log(valid);
+        document.querySelector('#empty-field-message').classList.remove("transparent");
+      } else {
+        console.log(valid);
+        form.classList.add("transparent");
+        curtain.classList.add("curtain-up");
+        setTimeout(function(){ boussole.classList.add("tourne"); }, 1000);
+        setTimeout(function(){ rowIti.classList.remove("transparent"); incrementor('#itinerary-count');}, 1200);
+        setTimeout(function(){ rowBasecamp.classList.remove("transparent"); incrementor('#basecamp-count');}, 4200);
+        setTimeout(function(){ rowMassif.classList.remove("transparent"); incrementor('#massif-count'); }, 4200);
+        setTimeout(function(){ form.submit(); }, 7200);
+      };
   });
 }
 
