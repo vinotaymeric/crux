@@ -1,5 +1,4 @@
 class FavoriteItinerariesController < ApplicationController
-
   def create
     @favorite = FavoriteItinerary.new(favorite_params)
     @favorite.save!
