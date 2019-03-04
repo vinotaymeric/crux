@@ -15,13 +15,19 @@
       <div id="itineraries">
         <div class="itineraries-container">
           <div class="card-panel cta">
-            <span class="black-text text-darken-2 flex-container">Sélectionnez les itinéraires qui vous intéressent.</span>
-            <button class="btn">Je valide</button>
+          <% if @trip.validated %>
+            <span>Vous souhaitez <%= link_to "modifier votre sélection d'itinéraires", trip_path(@trip), method: :put%> ?</span>
+          <% else %>
+            <span class="black-text text-darken-2 flex-container">Sélectionnez les itinéraires qui vous intéressent, puis validez votre camp de base quand vous êtes prêt à partir.</span>
+            <%= link_to 'Go !', trip_path(@trip), method: :put, class: 'btn' %>
+          <% end %>
           </div>
+
           <% @itineraries.each do |itinerary| %>
             <% next if itinerary.name.nil? %>
             <%= render partial: "card_itinerary", locals: {itinerary: itinerary, favorite: @favorite_itinerary, trip: @trip} %>
           <% end %>
+
         </div>
       </div>
       <div id="weather"></div>
