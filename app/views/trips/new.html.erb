@@ -3,7 +3,7 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-xs-12 col-sm-4 col-sm-offset-4 form-frame">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 form-frame">
           <h4>Profil aventurier</h4>
           <% @user_activities.each do |user_activity| %>
             <div class="input-field col s12 m6">
@@ -17,8 +17,8 @@
           <div class="input-field col s12 m12">
             <%= simple_form_for @trip do |f| %>
             <%= f.input  :location, input_html: { id: "trip_address", placeholder: "Adresse de départ"}, label: false %>
-            <%= f.input  :start_date, as: :string, input_html: { class: 'datepicker', placeholder: "Date de début"}, label: false %>
-            <%= f.input  :end_date, as: :string, input_html: { class: 'datepicker', placeholder: "Date de fin"}, label: false %>
+            <%= f.input  :start_date, as: :string, input_html: { class: 'datepicker datepicker-start', placeholder: "Date de début"}, label: false %>
+            <%= f.input  :end_date, as: :string, input_html: { class: 'datepicker datepicker-end', placeholder: "Date de fin"}, label: false %>
             <div id="empty-field-message" class="transparent"><p>Ces champs ne peuvent pas être vides.</p></div>
             <div class="right-align"><input type="submit" value="Let's go!" class="btn"></div>
             <% end %>
