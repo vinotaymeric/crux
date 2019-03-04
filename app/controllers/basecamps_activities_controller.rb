@@ -36,6 +36,7 @@ class BasecampsActivitiesController < ApplicationController
     user_level_for_activity = current_user.user_activities.find_by(activity_id: @activity.id).level
     @itineraries = @basecamp_activity.itineraries.where(level: user_level_for_activity )[0..20]
     @favorite_itinerary = FavoriteItinerary.new
+    @trip = Trip.find(params[:trip_id])
   end
 
   private

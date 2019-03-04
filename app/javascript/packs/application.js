@@ -56,23 +56,16 @@ favorites.forEach( (element) => {
   element.addEventListener('click', (e) => {
     e.preventDefault();
     e.currentTarget.nextElementSibling.submit();
-    // e.currentTarget.siblings('form').submit();
+  });
+});
+
+const addButton = document.querySelectorAll('.fa-plus-circle')
+
+addButton.forEach( (element) => {
+  element.addEventListener('click', (e) => {
+    console.log("toto")
+    e.currentTarget.closest('.card').classList.toggle('selected');
   });
 });
 
 
-
-
-// const resizeTab = () => {
-//   let maxHeight = 0;
-//   document.querySelectorAll('.carousel-item').forEach((item) => {
-//     if (item.scrollHeight > maxHeight) {
-//       maxHeight = item.scrollHeight;
-//     }
-//   });
-//   console.log(maxHeight)
-//   document.querySelector(".tabs-content").style.height = maxHeight + 'px';
-// }
-
-// resizeTab();
-// window.addEventListener('resize', resizeTab);

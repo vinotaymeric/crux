@@ -11,11 +11,11 @@
         <% if itinerary.orientations != nil%>
           <span class="tertiary"><%= itinerary.orientations.gsub("\"", "") %></span>
           <% end %>
-        <div class="right-align" id="favorite"><a class="fas fa-plus-circle"></a></div>
+        <div class="right-align" id="favorite"><a onclick="M.toast({html: 'Itinéraire ajouté', classes: 'toaster'})" class="fas fa-plus-circle"></a></div>
 
           <%= simple_form_for favorite, remote: true do |f| %>
-          <%= f.input  :trip_id %>
-          <%= f.input  :itinerary_id %>
+          <%= f.input  :trip_id, input_html: {value: trip.id} %>
+          <%= f.input  :itinerary_id, input_html: {value: itinerary.id} %>
           <% end %>
       </p>
     </div>
