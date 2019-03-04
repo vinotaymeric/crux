@@ -83,18 +83,37 @@ class UpdateForecast
     #return bra_range_inf
       rosace = xml_noko_doc.xpath("//ImageCartoucheRisque ").text
       File.open("app/assets/images/rosace_#{bra_keys['massif']}.jpg", "wb") { |f| f.write(Base64.decode64(rosace)) }
+      #put picture in cloudinary
+      Cloudinary::Uploader.upload("app/assets/images/rosace_#{bra_keys['massif']}.jpg",
+        :folder => "crux/images", :public_id => "rosace_#{bra_keys['massif']}", :overwrite => true, 
+         :resource_type => "image")
       rosace_image_url = "app/assets/images/rosace_#{bra_keys['massif']}.jpg"
 
       # snow
       snow = xml_noko_doc.xpath("//ImageEnneigement").text
       File.open("app/assets/images/snow_#{bra_keys['massif']}.jpg", "wb") { |f| f.write(Base64.decode64(snow)) }
+      #put picture in cloudinary
+      Cloudinary::Uploader.upload("app/assets/images/snow_#{bra_keys['massif']}.jpg",
+        :folder => "crux/images", :public_id => "snow_#{bra_keys['massif']}", :overwrite => true, 
+         :resource_type => "image")
+      
+     
+        
+      #recupérer la photo depuis cloudinary
       snow_image_url = "app/assets/images/snow_#{bra_keys['massif']}.jpg"
       
       #snow fraiche
       fresh_snow = xml_noko_doc.xpath("//ImageNeigeFraiche").text
       File.open("app/assets/images/fresh_snow_#{bra_keys['massif']}.jpg", "wb") { |f| f.write(Base64.decode64(fresh_snow)) }
+        #put picture in cloudinary
+        Cloudinary::Uploader.upload("app/assets/images/fresh_snow_#{bra_keys['massif']}.jpg",
+          :folder => "crux/images", :public_id => "fresh_snow_#{bra_keys['massif']}", :overwrite => true, 
+           :resource_type => "image")
+     
+      #recupérer la photo depuis cloudinary  
       fresh_snow_image_url = "app/assets/images/fresh_snow_#{bra_keys['massif']}.jpg"
-  
+      
+      
       bra_range_inf = {
         range_name: bra_keys['massif'],
         bra_date_validity: xml_noko_doc.xpath("//DateValidite ").text,
@@ -172,4 +191,10 @@ class UpdateForecast
     end
   end
   ## END UPDATE WEATHER ##
+
+  # def addPictureToCloudinary(type)
+  #   Cloudinary::Uploader.upload("app/assets/images/#{type}_#{bra_keys['massif']}.jpg",
+  #     :folder => "crux/images", :public_id => "#{type}_#{bra_keys['massif']}.jpg", :overwrite => true, 
+  #      :resource_type => "image")
+  # end 
 end
