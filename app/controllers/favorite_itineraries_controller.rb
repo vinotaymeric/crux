@@ -2,9 +2,10 @@ class FavoriteItinerariesController < ApplicationController
 
   def create
     @favorite = FavoriteItinerary.new(favorite_params)
+    @favorite.save!
   end
 
-  def trip_params
-    params.require(:trip).permit(:trip_id, :itinerary_id)
+  def favorite_params
+    params.require(:favorite_itinerary).permit(:trip_id, :itinerary_id)
   end
 end

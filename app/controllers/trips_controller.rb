@@ -13,7 +13,7 @@ class TripsController < ApplicationController
     @trip = Trip.new(trip_params)
     @trip.user = current_user
     @trip.save!
-    redirect_to trip_path(@trip)
+    redirect_to trip_basecamps_activities_path(@trip)
   end
 
   def show
@@ -51,14 +51,5 @@ class TripsController < ApplicationController
 
   def trip_params
     params.require(:trip).permit(:start_date, :end_date, :location)
-  end
-
-  def basecamp_activity_score(nb_itineraries, weather, distance)
-    if nb_itineraries < 3 || distance > 500 || weather < 0
-      score = -1000
-    else
-      score = [Math.log(nb_itineraries), 15].min - (distance / 10)
-    end
-    return score
   end
 end

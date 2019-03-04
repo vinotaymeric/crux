@@ -3,14 +3,28 @@ class BasecampsActivitiesController < ApplicationController
   before_action :init_mark_down_parser, only: :show
 
   def index
-    @basecamps_activity = BasecampsActivity.all
-    # Pour l'instant on les affiche tous, il faudra ajouter les conditions de localisations/ météo / activités / niveau
-    # if params[:location].present? && params[:activity].present?
-    #   @basecamps = Basecamp.near(params[:location], 300).order("distance")
-    #   @basecamps = @basecamps.select { |basecamp| Basecamp.activities.include?(params[:activity]) }
-    # else
-    #   @basecamps = Basecamp.where(basecamp_id: basecamp.id)
-    # end
+    @user = current_user
+    @trip = Trip.find(params[:trip_id])
+
+    # See how many itineraries match the user profile
+
+    basecamps_activities = BasecampsActivity.select("basecamps_activities.*, COUNT(basecamps_activities_itineraries.itinerary_id) as nb_itineraries").joins(:itineraries)
+      .joins("INNER JOIN user_activities ON user_activities.activity_id = itineraries.activity_id")
+      .where(user_activities: {user_id: current_user.id})
+      .where("user_activities.level = itineraries.level")
+      .group("basecamps_activities.id")
+      .order("COUNT(basecamps_activities_itineraries.itinerary_id) DESC")
+      .to_a
+
+    # Compute score also considering weather and localisation ater
+
+    basecamps_activities.sort_by! do |base|
+      score = basecamp_activity_score(base.nb_itineraries, base.weather.weekend_score, @trip.distance_from(base.basecamp))
+    end
+
+    # Take only top
+
+    @basecamps_activities = basecamps_activities.reverse[0..50]
 
   end
 
@@ -31,4 +45,12 @@ class BasecampsActivitiesController < ApplicationController
     @markdown = Redcarpet::Markdown.new(renderer)
   end
 
+  def basecamp_activity_score(nb_itineraries, weather, distance)
+    if nb_itineraries < 3 || distance > 500 || weather < 0
+      score = -1000
+    else
+      score = [Math.log(nb_itineraries), 15].min - (distance / 10)
+    end
+    return score
+  end
 end

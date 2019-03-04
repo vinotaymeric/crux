@@ -4,12 +4,6 @@
       <img class="activator" src="<%= itinerary.picture_url %>">
     </div>
     <div class="card-content">
-      <div hidden="true">
-        <%= simple_form_for favorite, remote: true do |f| %>
-        <%= f.input  :trip_id %>
-        <%= f.hidden_field  :itinerary_id %>
-        <% end %>
-      </div>
       <span class="title-card card-title activator grey-text text-darken-4"><%= itinerary.name.split("-")[0] %></span>
       <p>
         <span class="tertiary"><%= itinerary.elevation_max %>m</span>
@@ -18,6 +12,11 @@
           <span class="tertiary"><%= itinerary.orientations.gsub("\"", "") %></span>
           <% end %>
         <div class="right-align" id="favorite"><a class="fas fa-plus-circle"></a></div>
+
+          <%= simple_form_for favorite, remote: true do |f| %>
+          <%= f.input  :trip_id %>
+          <%= f.input  :itinerary_id %>
+          <% end %>
       </p>
     </div>
     <div class="card-reveal">

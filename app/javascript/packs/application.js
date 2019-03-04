@@ -52,7 +52,14 @@ activities.forEach( (element) => {
  // Set favorite
 
 const favorites = document.querySelectorAll('#favorite');
-console.log(favorites);
+favorites.forEach( (element) => {
+  element.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.currentTarget.nextElementSibling.submit();
+    // e.currentTarget.siblings('form').submit();
+  });
+});
+
 
 
 

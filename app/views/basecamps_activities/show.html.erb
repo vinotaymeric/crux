@@ -14,14 +14,13 @@
 
       <div id="itineraries">
         <div class="itineraries-container">
-          <br><br>
           <div class="card-panel cta">
             <span class="black-text text-darken-2 flex-container">Sélectionnez les itinéraires qui vous intéressent.</span>
             <button class="btn">Je valide</button>
           </div>
           <% @itineraries.each do |itinerary| %>
             <% next if itinerary.name.nil? %>
-            <%= render partial: "card_itinerary", locals: {itinerary: itinerary} %>
+            <%= render partial: "card_itinerary", locals: {itinerary: itinerary, favorite: @favorite_itinerary} %>
           <% end %>
         </div>
       </div>
