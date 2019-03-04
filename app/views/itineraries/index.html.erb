@@ -1,15 +1,11 @@
 
   <div id="infinite-scrolling-static ">
-     <%= will_paginate @itineraries %>
+     <%#= will_paginate @itineraries %>
   </div>
 
-<div class="container" id="my-itineraries">
-  <div class ="row">
+<div id="my-itineraries">
     <%= render @itineraries %>
-  </div>
 </div>
-
-
 
   <div id="infinite-scrolling">
      <%= will_paginate @itineraries %>

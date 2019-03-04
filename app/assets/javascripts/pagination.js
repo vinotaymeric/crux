@@ -1,5 +1,4 @@
 if ($('#infinite-scrolling').size() > 0) {
-  console.log('fdsjkflsd')
   $(window).on('scroll', function() {
     var more_itineraries_url = $('.pagination .next_page a').attr('href');
     
