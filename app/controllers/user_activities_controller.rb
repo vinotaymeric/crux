@@ -5,6 +5,7 @@ class UserActivitiesController < ApplicationController
     @user_activity.update!(user_activity_params)
     redirect_to new_trip_path
     # p @user_activity
+    redirect_to new_trip_path
   end
 
   private

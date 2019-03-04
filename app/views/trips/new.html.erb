@@ -22,8 +22,20 @@
             <div class="right-align"><%= f.submit "Let's go!", class: "waves-effect waves-light btn" %></div>
             <% end %>
           </div>
+          <button id="test-transition" class="btn btn-lg btn-primary">test transition</button>
         </div>
       </div>
     </div>
   </div>
+  </div>
+   <div class="curtain">
+    <div class="curtain-content text-center">
+    <%= image_tag("boussole.png",class: "boussole") %>
+    <ul class="list">
+      <li class="transparent" id="row-iti">Analyse de <span id="itinerary-count"> <%= Itinerary.count %> </span> itinéraires...</li>
+      <li class="transparent" id="row-basecamp">Analyse de <span id="basecamp-count"><%=  Basecamp.count %></span> camps de base...</li>
+      <li class="transparent" id="row-massif">Analyse des données météos de <span id="massif-count"><%=  MountainRange.count %></span> massifs...</li>
+    </ul>
+    </div>
+
 </div>

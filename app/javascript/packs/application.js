@@ -5,13 +5,18 @@ import 'materialize-css/dist/css/materialize.css';
 import M from 'materialize-css';
 
 // Other imports
+
 import initDatepicker from './init_datepicker'
+// import initTransition from '../components/increment';
+import { initTransition} from '../components/increment';
 import initAutocomplete from '../plugins/init_autocomplete';
+import initDrivingTimeOnTrips from './init_driving_time_on_trips'
 
 // Launch js
-
+initTransition();
 initAutocomplete();
 initDatepicker();
+initDrivingTimeOnTrips();
 
 // Init materialize JS components
 const tabs = document.querySelector('.tabs');
@@ -32,9 +37,3 @@ activities.forEach( (element) => {
     e.currentTarget.closest('form').submit();
   });
 });
-
-
-
-
-
-

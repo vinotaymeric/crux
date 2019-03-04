@@ -5,4 +5,5 @@ class Trip < ApplicationRecord
   validates :start_date, presence: true
   validates :end_date, presence: true
   geocoded_by :location, latitude: :coord_lat, longitude: :coord_long
+  after_validation :geocode, if: :will_save_change_to_location?
 end

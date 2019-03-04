@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   resources :basecamps_activities, only: [:show]
   resources :itineraries, only: [:show, :index]
   resources :user_activities, only: [:create, :update]
+
 end

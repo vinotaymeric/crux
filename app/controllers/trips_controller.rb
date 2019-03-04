@@ -18,7 +18,7 @@ class TripsController < ApplicationController
 
   def show
     @user = current_user
-    trip = Trip.find(params[:id])
+    @trip = Trip.find(params[:id])
 
     # See how many itineraries match the user profile
 
@@ -40,7 +40,6 @@ class TripsController < ApplicationController
     # Take only top 12
 
     @basecamps_activities = basecamps_activities.reverse[0..11]
-
   end
 
   def update
