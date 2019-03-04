@@ -5,6 +5,8 @@ import 'materialize-css/dist/css/materialize.css';
 import M from 'materialize-css';
 
 // Other imports
+
+import initDatepicker from './init_datepicker'
 // import initTransition from '../components/increment';
 import { initTransition} from '../components/increment';
 import initAutocomplete from '../plugins/init_autocomplete';
@@ -13,6 +15,7 @@ import initDrivingTimeOnTrips from './init_driving_time_on_trips'
 // Launch js
 initTransition();
 initAutocomplete();
+initDatepicker();
 initDrivingTimeOnTrips();
 
 // Init materialize JS components
@@ -21,11 +24,6 @@ const tabs = document.querySelector('.tabs');
 if (tabs) {
   M.Tabs.init(tabs);
 };
-
- document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.datepicker');
-  var instances = M.Datepicker.init(elems);
-});
 
  // Profile edition
 
