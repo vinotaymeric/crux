@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2019_03_04_133126) do
 
   # These are extensions that must be enabled in order to support this database
@@ -54,6 +55,15 @@ ActiveRecord::Schema.define(version: 2019_03_04_133126) do
     t.datetime "updated_at", null: false
     t.index ["basecamps_activity_id"], name: "index_basecamps_activities_itineraries_on_basecamps_activity_id"
     t.index ["itinerary_id"], name: "index_basecamps_activities_itineraries_on_itinerary_id"
+  end
+
+  create_table "favorite_itineraries", force: :cascade do |t|
+    t.bigint "trip_id"
+    t.bigint "itinerary_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["itinerary_id"], name: "index_favorite_itineraries_on_itinerary_id"
+    t.index ["trip_id"], name: "index_favorite_itineraries_on_trip_id"
   end
 
   create_table "itineraries", force: :cascade do |t|
@@ -161,6 +171,8 @@ ActiveRecord::Schema.define(version: 2019_03_04_133126) do
   add_foreign_key "basecamps_activities", "basecamps"
   add_foreign_key "basecamps_activities_itineraries", "basecamps_activities"
   add_foreign_key "basecamps_activities_itineraries", "itineraries"
+  add_foreign_key "favorite_itineraries", "itineraries"
+  add_foreign_key "favorite_itineraries", "trips"
   add_foreign_key "itineraries", "activities"
   add_foreign_key "trips", "users"
   add_foreign_key "trips_basecamps", "basecamps"

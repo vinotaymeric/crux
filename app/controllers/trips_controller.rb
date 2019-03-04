@@ -33,13 +33,12 @@ class TripsController < ApplicationController
     # Compute score also considering weather and localisation ater
 
     basecamps_activities.sort_by! do |base|
-      Math.log(base.nb_itineraries) + Math.log(base.weather.weekend_score.magnitude + 1)
-      # + trip.distance_from(base.basecamp)
+      score = basecamp_activity_score(base.nb_itineraries, base.weather.weekend_score, @trip.distance_from(base.basecamp))
     end
 
-    # Take only top 12
+    # Take only top
 
-    @basecamps_activities = basecamps_activities.reverse[0..11]
+    @basecamps_activities = basecamps_activities.reverse[0..50]
   end
 
   def update
@@ -54,4 +53,12 @@ class TripsController < ApplicationController
     params.require(:trip).permit(:start_date, :end_date, :location)
   end
 
+  def basecamp_activity_score(nb_itineraries, weather, distance)
+    if nb_itineraries < 3 || distance > 500 || weather < 0
+      score = -1000
+    else
+      score = [Math.log(nb_itineraries), 15].min - (distance / 10)
+    end
+    return score
+  end
 end

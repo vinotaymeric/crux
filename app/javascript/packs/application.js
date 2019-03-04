@@ -22,13 +22,23 @@ initDrivingTimeOnTrips();
 const tabs = document.querySelector('.tabs');
 
 if (tabs) {
-  M.Tabs.init(tabs);
+  M.Tabs.init(tabs, {
+    swipeable: true,
+    onShow: (tab) => {
+      let height = 0;
+      console.log(tab.children[0])
+      if (tab.children[0]) {
+        height = tab.children[0].scrollHeight + 20;
+      }
+      console.log(height)
+      document.querySelector(".tabs-content").style.height = height + 'px';
+    }
+  });
 };
 
  // Profile edition
 
 const activities = document.querySelectorAll('#user_activity_level');
-console.log(activities);
 
 activities.forEach( (element) => {
   element.addEventListener('click', (e) => {
@@ -37,3 +47,25 @@ activities.forEach( (element) => {
     e.currentTarget.closest('form').submit();
   });
 });
+
+
+ // Set favorite
+
+const favorites = document.querySelectorAll('#favorite');
+console.log(favorites);
+
+
+
+// const resizeTab = () => {
+//   let maxHeight = 0;
+//   document.querySelectorAll('.carousel-item').forEach((item) => {
+//     if (item.scrollHeight > maxHeight) {
+//       maxHeight = item.scrollHeight;
+//     }
+//   });
+//   console.log(maxHeight)
+//   document.querySelector(".tabs-content").style.height = maxHeight + 'px';
+// }
+
+// resizeTab();
+// window.addEventListener('resize', resizeTab);

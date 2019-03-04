@@ -6,7 +6,7 @@
   <% @basecamps_activities.each do |base| %>
     <div class="col s12 m4">
       <h4 class="header"><%= base.basecamp.name.encode("iso-8859-1").force_encoding("utf-8")%></h4>
-      <div class="card horizontal small">
+      <div class="card card-basecamp-activity horizontal small">
         <div class="card-image">
           <% if base.activity.name == "ski de randonnée" %>
             <%= image_tag "ski.jpg" %>

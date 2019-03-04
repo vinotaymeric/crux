@@ -8451,6 +8451,8 @@ input[type=range]::-ms-thumb {
   pointer-events: none;
 }
 
+.tabs-content.carousel .carousel-item { height:auto; }
+
 .tap-target-wrapper {
   width: 800px;
   height: 800px;
