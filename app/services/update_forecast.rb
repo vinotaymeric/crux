@@ -105,6 +105,7 @@ class UpdateForecast
           :folder => "crux/images", :public_id => "fresh_snow_#{bra_keys['massif']}", :overwrite => true, 
            :resource_type => "image")
       fresh_snow_image_url = fresh_snow_result ["url"]
+      
       ##other inforamtions
      ap bra_range_inf = {
         range_name: bra_keys['massif'],
@@ -158,8 +159,6 @@ class UpdateForecast
   
   ##### UPADATE WEATHER  ####
   def api_call(lat, lon)
-    #url = "https://api.apixu.com/v1/forecast.json?key=3a0aef724b764f6cb35161705192702&q=#{lat},#{lon}&days=7"
-    p ENV['WEATHER_KEY']
    p url = "https://api.apixu.com/v1/forecast.json?key=#{ENV['WEATHER_KEY']}&q=#{lat},#{lon}&days=7"
     JSON.parse(open(url).read)
   end
