@@ -8,7 +8,7 @@
           <% @user_activities.each do |user_activity| %>
             <div class="input-field col s12 m6">
               <%= simple_form_for user_activity, remote: true do |f| %>
-              <%= f.input  :level, :collection => ["Padawan","Intermédiaire","Mutant"], label: user_activity.activity.name.capitalize, input_html: { class: user_activity.activity.name.split(" ")[0]} %>
+              <%= f.input  :level, :collection => ["J'aime pas", "Padawan","Intermédiaire","Mutant"], label: user_activity.activity.name.capitalize, input_html: { class: user_activity.activity.name.split(" ")[0]} %>
               <%= f.hidden_field  :activity_id %>
               <% end %>
             </div>
@@ -16,15 +16,6 @@
           <h4>Mon voyage</h4>
           <div class="input-field col s12 m12">
             <%= simple_form_for @trip do |f| %>
-            <% if @trip.errors.any? %>
-                <div class="errors-container">
-                  <ul>
-                    <% @trip.errors.full_messages.each do |message| %>
-                      <li><%= message %></li>
-                    <% end %>
-                  </ul>
-                </div>
-              <% end %>
             <%= f.input  :location, input_html: { id: "trip_address", placeholder: "Adresse de départ"}, label: false %>
             <%= f.input  :start_date, as: :string, input_html: { class: 'datepicker', placeholder: "Date de début"}, label: false %>
             <%= f.input  :end_date, as: :string, input_html: { class: 'datepicker', placeholder: "Date de fin"}, label: false %>
