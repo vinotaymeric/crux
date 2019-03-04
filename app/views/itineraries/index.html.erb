@@ -1,13 +1,14 @@
 
-  <div id="infinite-scrolling-static ">
-     <%#= will_paginate @itineraries %>
+  <div id="static-pagination">
+     <%= will_paginate @itineraries %>
   </div>
 
-<div id="my-itineraries">
+  <div id="my-itineraries">
     <%= render @itineraries %>
-</div>
+  </div>
 
   <div id="infinite-scrolling">
      <%= will_paginate @itineraries %>
   </div>
+  
 

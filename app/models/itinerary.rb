@@ -4,5 +4,6 @@ class Itinerary < ApplicationRecord
   has_many :basecamps_activities_itineraries
   has_many :basecamps_activities, through: :basecamps_activities_itineraries
   geocoded_by :address, latitude: :coord_lat, longitude: :coord_long
-  self.per_page = 12
+  #self.per_page = 5
+  #WillPaginate.per_page = 10
 end
