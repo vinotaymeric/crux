@@ -65,6 +65,8 @@ addButton.forEach( (element) => {
   element.addEventListener('click', (e) => {
     console.log("toto")
     e.currentTarget.closest('.card').classList.toggle('selected');
+    e.currentTarget.classList.toggle('fa-mountain');
+    e.currentTarget.classList.toggle('fa-plus-circle');
   });
 });
 
