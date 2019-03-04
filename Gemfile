@@ -25,12 +25,12 @@ gem 'cloudinary', '~> 1.9.1'
 gem 'carrierwave', '~> 1.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
+gem "letter_opener", group: :development
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass', '~> 3.3'
 gem 'font-awesome-sass', '~> 5.5.0'
 gem 'simple_form'
 gem 'devise'
-gem 'cloudinary', '~> 1.9.1'
 gem 'sassc-rails'
 gem 'awesome_print'
 

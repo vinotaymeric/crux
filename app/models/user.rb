@@ -18,4 +18,9 @@ class User < ApplicationRecord
       # self.user_activities.create!(activity: activity)
     end
   end
+
+  def send_basecamp_email
+    UserMailer.follow_basecamp(self).deliver_now
+  end
+
 end

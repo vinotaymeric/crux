@@ -39,6 +39,7 @@ class BasecampsActivitiesController < ApplicationController
     @trip = Trip.find(params[:trip_id])
   end
 
+
   private
 
   def init_mark_down_parser

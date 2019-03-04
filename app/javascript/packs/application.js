@@ -7,8 +7,8 @@ import M from 'materialize-css';
 // Other imports
 
 import initDatepicker from './init_datepicker'
-// import initTransition from '../components/increment';
-import { initTransition} from '../components/increment';
+
+import { initTransition} from '../components/transition';
 import initAutocomplete from '../plugins/init_autocomplete';
 import initDrivingTimeOnTrips from './init_driving_time_on_trips'
 import initTabs from '../components/init_tabs';
