@@ -22,7 +22,7 @@
 
     <% @itineraries.each do |itinerary| %>
       <% next if itinerary.name.nil? %>
-      <%= render partial: "card_itinerary", locals: {itinerary: itinerary} %>
+      <%= render partial: "card_itinerary", locals: {itinerary: itinerary, favorite: @favorite_itinerary} %>
     <% end %>
     </div>
 
