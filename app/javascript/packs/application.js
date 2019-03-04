@@ -39,7 +39,6 @@ if (tabs) {
  // Profile edition
 
 const activities = document.querySelectorAll('#user_activity_level');
-console.log(activities);
 
 activities.forEach( (element) => {
   element.addEventListener('click', (e) => {
@@ -50,6 +49,10 @@ activities.forEach( (element) => {
 });
 
 
+ // Set favorite
+
+const favorites = document.querySelectorAll('#favorite');
+console.log(favorites);
 
 
 
