@@ -1,6 +1,5 @@
 .banner {
   height: calc(100vh - 50px);
-  color: white;
   text-align: center;
   /* if you have a 70px navbar => height: calc(100vh - 70px); */
   display: flex;
@@ -19,6 +18,9 @@
     text-align: center;
     font-size: 1.5em;
     margin: 1em;
+  }
+  h4 {
+    color: white;
   }
 }
 
