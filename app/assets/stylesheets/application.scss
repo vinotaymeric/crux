@@ -16,6 +16,7 @@
 @import "layouts/index";
 @import "components/index";
 @import "pages/index";
+@import "basecamps_activities";
 
 
 // Below: parts of materialized which I customed
@@ -34,8 +35,16 @@ p {
   bottom: -4em;
   left: 0px;
   height: 4em;
-  width: 100%
+  width: 100%;
+  footer-links {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
 }
+
+
 
 .tabs .tab a:hover, .tabs .tab a.active {
   color: rgb(38,166,154);
@@ -78,4 +87,28 @@ nav ul a {
 
 label {
   font-size: 1.5rem;
+}
+
+.scale-down {
+  object-fit: scale-down;
+}
+
+li {
+  list-style-type: none;
+}
+
+.cover {
+  object-fit: cover;
+}
+
+.card.horizontal .card-image img {
+    max-width: 100px;
+    height: 190px;
+}
+
+.title-card {
+  font-size: 1.5rem !important;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

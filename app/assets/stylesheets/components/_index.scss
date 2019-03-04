@@ -5,4 +5,11 @@
 @import "button";
 @import "form";
 @import "avalanche";
+@import "datepicker";
+@import "transition";
 
+body {
+  background-image: url("background.png");
+  background-repeat: repeat;
+  background-size: 9em;
+ }
