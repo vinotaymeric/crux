@@ -5,7 +5,7 @@
     <div class="col s12">
       <ul class="tabs tabs-fixed-width">
         <li class="tab col s1"><a class="active" href="#list">Liste</a></li>
-        <li class="tab col s1"><a class="" href="#map">Carte</a></li>
+        <li class="tab col s1"><a class="" href="#map-ba">Carte</a></li>
       </ul>
         <div id="list">
           <div class="slide-container">
@@ -50,8 +50,9 @@
           <% end %>
           </div>
         </div>
-        <div id="map">
-          <div class="slide-container">
+        <div id="map-ba">
+          <div class="slide-container" id="content-map">
+            <%= render partial: "mapbox" %>
           </div>
         </div>
 

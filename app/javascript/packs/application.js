@@ -1,3 +1,4 @@
+import 'mapbox-gl/dist/mapbox-gl.css';
 // CSS
 import 'materialize-css/dist/css/materialize.css';
 
@@ -15,6 +16,8 @@ import initAutocomplete from '../plugins/init_autocomplete';
 import initDrivingTimeOnTrips from './init_driving_time_on_trips'
 import initTabs from '../components/init_tabs';
 import initForm from './init_remote_forms';
+
+import { initMapbox } from '../plugins/init_mapbox';
 
 // Launch js
 initTransition();
@@ -46,3 +49,5 @@ document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.tooltipped');
   var instances = M.Tooltip.init(elems);
 });
+
+initMapbox();

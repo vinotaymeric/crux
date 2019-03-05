@@ -26,6 +26,17 @@ class BasecampsActivitiesController < ApplicationController
 
     @basecamps_activities = basecamps_activities.reverse[0..50]
 
+    # Mapbox
+
+    @markers = @basecamps_activities.map do |base|
+      {
+        lng: base.basecamp.coord_long,
+        lat: base.basecamp.coord_lat,
+        infoWindow: render_to_string(partial: "infowindow", locals: { base: base, trip: @trip }),
+        image_url: helpers.asset_url('https://cdn4.iconfinder.com/data/icons/eldorado-building/40/hovel_1-512.png')
+      }
+    end
+
   end
 
   def show
