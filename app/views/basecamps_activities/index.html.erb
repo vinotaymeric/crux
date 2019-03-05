@@ -28,7 +28,7 @@
                       <h4><%= base.activity.name.capitalize.split(" ")[0] %></h4>
                       <p id="itinerary-number"><strong><%= base.nb_itineraries %></strong> itinéraires</p>
                       <br>
-
+                      <% base.basecamp.mountain_range.max_risk = 0 if base.basecamp.mountain_range.max_risk.nil? %>
                       <% if base.basecamp.mountain_range.max_risk > 2 %>
                         <p><i class="fas fa-exclamation-triangle"></i> Risque d'avalanche (<%= base.basecamp.mountain_range.max_risk %>)</p>
                         <br>

@@ -32,10 +32,10 @@
     <div class="curtain-content text-center">
     <%= image_tag("boussole.png",class: "boussole") %>
     <ul class="list">
-      <li id="row-intro"> <strong> Pour vous proposer les parcours les plus pertinents:</strong></li>
-      <li class="transparent" id="row-iti">Crux fait l'analyse <span id="itinerary-count"> <%= Itinerary.count %> </span> itinéraires...</li>
-      <li class="transparent" id="row-basecamp">Crux étudie la position et les activités de <span id="basecamp-count"><%=  Basecamp.count %></span> camps de base...</li>
-      <li class="transparent" id="row-massif">Crux récupère et compare les données météos de <span id="massif-count"><%=  MountainRange.count %></span> massifs...</li>
+      <li id="row-intro"> Pour vous proposer les parcours les plus pertinents, <strong>Crux</strong> effectue pour vous l'analyse... </li>
+      <li class="transparent" id="row-iti">...de <strong><span id="itinerary-count"> <%= Itinerary.count %> </span> itinéraires...</strong></li>
+      <li class="transparent" id="row-basecamp">...de <strong> <span id="basecamp-count"><%=  Basecamp.count %></span> camps de base...</strong></li>
+      <li class="transparent" id="row-massif">...des <strong>données météos de <span id="massif-count"><%=  MountainRange.count %></span> massifs.</strong></li>
     </ul>
     </div>
 
