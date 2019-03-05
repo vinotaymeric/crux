@@ -165,3 +165,16 @@ li {
   justify-content: center;
   height: 5em;
 }
+
+.ellipsis {
+  text-overflow: ellipsis;
+
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.strong {
+  font-weight: bolder;
+  color: #23B5D3;
+}
