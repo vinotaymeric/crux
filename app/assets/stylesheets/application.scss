@@ -138,6 +138,7 @@ li {
 
 
 // infinite scroll
+
 #load_more_itineraries {
   display: none;
   margin-bottom: 10px;
@@ -152,4 +153,16 @@ li {
     opacity: 1;
   }
 
+
+#infinite-scrolling{
+  display: flex;
+  justify-content: center;
+  height: 5em;
+}
+
+#gifDelimiter{
+  display: flex;
+  justify-content: center;
+  height: 5em;
+  
 }

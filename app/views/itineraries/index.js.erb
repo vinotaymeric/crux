@@ -1,18 +1,10 @@
-var delimiter =
+var delimiter =    
         $('<div class="page-delimiter" data-page="<%= params[:page] %>"></div>');
 $('#my-itineraries').append(delimiter);
-
 $('#my-itineraries').append('<%= j render @itineraries %>');
-$('.pagination').replaceWith('<%= j will_paginate @posts %>');
+$('.pagination').replaceWith('<%= j will_paginate @itineraries %>');
 preparePagination(delimiter);
-
 <% if @itineraries.next_page %>
-  $('.pagination').replaceWith('<%= j will_paginate @itineraries %>');
-<% else %>
-  $(window).off('scroll');
-  $('.pagination',#load_more_itineraries').remove();
+  $('.pagination #gifDelimiter').remove();
 <% end %>
-
-
-
 

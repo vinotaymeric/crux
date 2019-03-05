@@ -36,7 +36,7 @@ gem 'font-awesome-sass', '~> 5.5.0'
 gem 'simple_form'
 gem 'devise'
 gem 'sassc-rails'
-gem 'awesome_print'
+
 
 gem 'geocoder', '~> 1.3', '>= 1.3.7'
 # Use CoffeeScript for .coffee assets and views

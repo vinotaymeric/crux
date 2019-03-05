@@ -51,3 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 initMapbox();
+
+$('.dropdown-trigger').dropdown();
+
+

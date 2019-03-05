@@ -32,6 +32,7 @@ class UpdateForecast
 
   def update_mountain_ranges_cron
     begin
+    #date = 20190303
     date = Date.today.prev_day.to_s.delete("-").to_i
     # date = 20190303
     update_mountain_ranges(date)
@@ -43,7 +44,7 @@ class UpdateForecast
   # BRA json keys all ranges per day
   def bra_per_day(date)
     date = date.to_i
-    url = "https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/bra.#{date}.json"
+    p url = "https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/bra.#{date}.json"
     JSON.parse(open(url).read)
   end
   # variable globale
@@ -78,7 +79,7 @@ class UpdateForecast
   end
   #
   def bra_per_range(bra_keys={})
-    url ="https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/BRA.#{bra_keys['massif']}.#{bra_keys['heures'].last}.xml"
+     url ="https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/BRA.#{bra_keys['massif']}.#{bra_keys['heures'].last}.xml"
     xml_noko_doc = xml_nokogiri_doc(url)
     #return bra_range_inf
       rosace = xml_noko_doc.xpath("//ImageCartoucheRisque ").text
@@ -186,5 +187,5 @@ class UpdateForecast
   end
   ## END UPDATE WEATHER ##
 
-
 end
+
