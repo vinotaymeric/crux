@@ -55,3 +55,8 @@ initMapbox();
 $('.dropdown-trigger').dropdown();
 
 
+// init discovery
+
+  // $(document).ready(function(){
+  //   $('.tap-target').tapTarget();
+  // });
