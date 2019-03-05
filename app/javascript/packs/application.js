@@ -59,3 +59,8 @@ initMapbox();
 
 
 
+// init discovery
+
+  // $(document).ready(function(){
+  //   $('.tap-target').tapTarget();
+  // });
