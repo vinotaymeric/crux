@@ -3,7 +3,7 @@ require 'open-uri'
 require "base64"
 
 class UpdateForecast
-  ## UPDATE BRA 
+  ## UPDATE BRA
   RANGES=[
     ["ARAVIS",14417,45.846413,6.334947],
     ["CHABLAIS",14411,46.318140,6.626145],
@@ -33,6 +33,7 @@ class UpdateForecast
   def update_mountain_ranges_cron
     begin
     date = Date.today.prev_day.to_s.delete("-").to_i
+    # date = 20190303
     update_mountain_ranges(date)
     rescue Exception => e
       puts "bra_meteo_france indisponible "
@@ -44,8 +45,8 @@ class UpdateForecast
     date = date.to_i
     url = "https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/bra.#{date}.json"
     JSON.parse(open(url).read)
-  end 
-  # variable globale 
+  end
+  # variable globale
   #bra_doc = bra_per_day(date)
   #p $bra_doc = bra_per_day(date)
   # ranges in the bra of meteo france per date
@@ -54,12 +55,12 @@ class UpdateForecast
     bra_doc = bra_per_day(date)
     bra_doc.each do |element|
       ranges << element["massif"]
-    end 
+    end
     p ranges
-  end 
-  
+  end
+
   #bra_key
-  def bra_key(range,date) 
+  def bra_key(range,date)
     bra_doc = bra_per_day(date)
     bra_doc.each do |element|
       if element["massif"]== range
@@ -69,7 +70,7 @@ class UpdateForecast
       end
     end
   end
-  
+
   # nokogiri xml
   def xml_nokogiri_doc(url)
       bra_range_xml = open(url).read
@@ -84,7 +85,7 @@ class UpdateForecast
       File.open("app/assets/images/rosace_#{bra_keys['massif']}.png", "wb") { |f| f.write(Base64.decode64(rosace)) }
       #put picture in cloudinary
       rosace_result =Cloudinary::Uploader.upload("app/assets/images/rosace_#{bra_keys['massif']}.png",
-        :folder => "crux/images", :public_id => "rosace_#{bra_keys['massif']}", :overwrite => true, 
+        :folder => "crux/images", :public_id => "rosace_#{bra_keys['massif']}", :overwrite => true,
          :resource_type => "image")
       rosace_image_url = rosace_result ["url"]
 
@@ -93,7 +94,7 @@ class UpdateForecast
       File.open("app/assets/images/snow_#{bra_keys['massif']}.png", "wb") { |f| f.write(Base64.decode64(snow)) }
       #put picture in cloudinary
       snow_result = Cloudinary::Uploader.upload("app/assets/images/snow_#{bra_keys['massif']}.png",
-        :folder => "crux/images", :public_id => "snow_#{bra_keys['massif']}", :overwrite => true, 
+        :folder => "crux/images", :public_id => "snow_#{bra_keys['massif']}", :overwrite => true,
          :resource_type => "image")
       snow_image_url = snow_result ["url"]
 
@@ -102,10 +103,10 @@ class UpdateForecast
       File.open("app/assets/images/fresh_snow_#{bra_keys['massif']}.png", "wb") { |f| f.write(Base64.decode64(fresh_snow)) }
       #put picture in cloudinary
       fresh_snow_result= Cloudinary::Uploader.upload("app/assets/images/fresh_snow_#{bra_keys['massif']}.png",
-          :folder => "crux/images", :public_id => "fresh_snow_#{bra_keys['massif']}", :overwrite => true, 
+          :folder => "crux/images", :public_id => "fresh_snow_#{bra_keys['massif']}", :overwrite => true,
            :resource_type => "image")
       fresh_snow_image_url = fresh_snow_result ["url"]
-      
+
       ##other inforamtions
      ap bra_range_inf = {
         range_name: bra_keys['massif'],
@@ -120,23 +121,23 @@ class UpdateForecast
       }
       return bra_range_inf
   end
-  
-  # bra all ranges per date 
+
+  # bra all ranges per date
   def bra_all_ranges_per_date(date)
     bra_all_ranges = []
     ranges(date).each do |range|
-        bra_all_ranges << bra_per_range(bra_key(range,date))   
+        bra_all_ranges << bra_per_range(bra_key(range,date))
     end
       bra_all_ranges
-  end 
-  
-  #bra par range 
+  end
+
+  #bra par range
   def bra_per_range_per_date(range,date)
     bra_keys = bra_key(range,date)
     bra_per_range(bra_key(range,date))
-  end 
-  
-  
+  end
+
+
   #update mountain ranges
   def update_mountain_ranges(date)
     bra_ranges = bra_all_ranges_per_date(date)
@@ -156,7 +157,7 @@ class UpdateForecast
     end
   end
   ##### END UPDATE BRA ########
-  
+
   ##### UPADATE WEATHER  ####
   def api_call(lat, lon)
    p url = "https://api.apixu.com/v1/forecast.json?key=#{ENV['WEATHER_KEY']}&q=#{lat},#{lon}&days=7"
@@ -176,7 +177,7 @@ class UpdateForecast
       weather.weekend_score = score
       weather.forecast = weather_hash["forecast"]["forecastday"]
       weather.save!
-  
+
       # Adding a rescue so that it works even a call fails
       rescue Exception => e
       puts "#weather {weather.id} a pété"

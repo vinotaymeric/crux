@@ -19,7 +19,7 @@ class BasecampsActivitiesController < ApplicationController
     # Compute score also considering weather and localisation ater
 
     basecamps_activities.sort_by! do |base|
-      score = basecamp_activity_score(base.nb_itineraries, base.weather.weekend_score, @trip.distance_from(base.basecamp))
+      score = basecamp_activity_score(base.nb_itineraries, base.weather.weekend_score, @trip.distance_from(base.basecamp), base.basecamp.mountain_range.max_risk)
     end
 
     # Take only top
@@ -53,11 +53,11 @@ class BasecampsActivitiesController < ApplicationController
     @markdown = Redcarpet::Markdown.new(renderer)
   end
 
-  def basecamp_activity_score(nb_itineraries, weather, distance)
-    if nb_itineraries < 3 || distance > 500 || weather < 0
+  def basecamp_activity_score(nb_itineraries, weather, distance, avalanche)
+    if nb_itineraries < 3 || distance > 500 || weather < 0 || avalanche > 4
       score = -1000
     else
-      score = [Math.log(nb_itineraries), 15].min - (distance / 10)
+      score = [Math.log(nb_itineraries), 15].min - (distance / 10) - 5 * avalanche
     end
     return score
   end
