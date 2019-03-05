@@ -6,10 +6,10 @@
     <div class="card-content">
       <span class="title-card card-title activator grey-text text-darken-4"><%= itinerary.name.split("-")[0] %></span>
       <p>
-        <span class="tertiary"><%= itinerary.elevation_max %>m</span>
-        <span class="tertiary"><%= itinerary.difficulty %></span>
+        <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Altitude max"><%= itinerary.elevation_max %>m</span>
+        <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.difficulty %></span>
         <% if itinerary.orientations != nil%>
-          <span class="tertiary"><%= itinerary.orientations.gsub("\"", "") %></span>
+          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Orientation principale"><%= itinerary.orientations.gsub("\"", "") %></span>
           <% end %>
         <div class="right-align" id="favorite">
 
