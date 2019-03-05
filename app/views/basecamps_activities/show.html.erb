@@ -13,7 +13,7 @@
       </ul>
 
       <div id="itineraries">
-        <div class="itineraries-container">
+        <div class="slide-container">
           <div class="card-panel cta">
           <% if @trip.validated %>
             <span>Vos itinéraires sont maintenant disponibles en mode offline ! <br><i class="fas fa-edit"></i><%= link_to "Modifier ma sélection", trip_path(@trip), method: :put%></span>
