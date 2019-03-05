@@ -48,7 +48,7 @@ initToggleRemove();
 }
 
 
-
+$('.dropdown-trigger').dropdown();
 
 
 
