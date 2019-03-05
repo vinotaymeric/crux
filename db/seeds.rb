@@ -89,6 +89,7 @@ Weather.all.each do |weather|
   weather_hash = api_call(basecamp.coord_lat, basecamp.coord_long)
   p weather_hash
   score = 0
+
   weather_hash["forecast"]["forecastday"].each do |day|
     day_hash = day["day"]
     score += day_hash["avgtemp_c"].to_i + day_hash["avgvis_km"].to_i - day_hash["maxwind_kph"].to_i - day_hash["totalprecip_mm"].to_i
@@ -96,7 +97,6 @@ Weather.all.each do |weather|
   weather.weekend_score = score
   weather.forecast = weather_hash["forecast"]["forecastday"]
   weather.save!
-  p weather.id
 
   # Adding a rescue so that it works even a call fails
 

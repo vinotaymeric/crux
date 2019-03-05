@@ -19,12 +19,23 @@ class BasecampsActivitiesController < ApplicationController
     # Compute score also considering weather and localisation ater
 
     basecamps_activities.sort_by! do |base|
-      score = basecamp_activity_score(base.nb_itineraries, base.weather.weekend_score, @trip.distance_from(base.basecamp))
+      score = basecamp_activity_score(base.nb_itineraries, base.weather, @trip, @trip.distance_from(base.basecamp), base.basecamp.mountain_range.max_risk)
     end
 
     # Take only top
 
-    @basecamps_activities = basecamps_activities.reverse[0..50]
+    @basecamps_activities = basecamps_activities.reverse[0..17]
+
+    # Mapbox
+
+    @markers = @basecamps_activities.map do |base|
+      {
+        lng: base.basecamp.coord_long,
+        lat: base.basecamp.coord_lat,
+        infoWindow: render_to_string(partial: "infowindow", locals: { base: base, trip: @trip }),
+        image_url: helpers.asset_url('https://cdn4.iconfinder.com/data/icons/eldorado-building/40/hovel_1-512.png')
+      }
+    end
 
   end
 
@@ -53,12 +64,36 @@ class BasecampsActivitiesController < ApplicationController
     @markdown = Redcarpet::Markdown.new(renderer)
   end
 
-  def basecamp_activity_score(nb_itineraries, weather, distance)
-    if nb_itineraries < 3 || distance > 500 || weather < 0
+  def weather_day_score(forecast)
+    # if condition checks that there it'a s good day : no wind, rain and good visi
+    if forecast["day"]["maxwind_kph"] < 50 && forecast["day"]["totalprecip_mm"] < 2 && forecast["day"]["avgvis_km"] > 5
+      d_score = 1
+    else
+      d_score = 0
+    end
+    d_score
+  end
+
+  def weather_trip_score(start_date, end_date, weather)
+    w_score = 0
+    start_date.upto(end_date) do |date|
+      weather.forecast.each do |forecast|
+        w_score += weather_day_score(forecast) if (Date.parse forecast["date"]) == date
+      end
+    end
+    w_score
+  end
+
+  def basecamp_activity_score(nb_itineraries, weather, trip, distance, avalanche)
+
+    w_score = weather_trip_score(trip.start_date, trip.end_date, weather)
+
+    if nb_itineraries < 3 || distance > 500 || avalanche > 4 || w_score ==0
       score = -1000
     else
-      score = [Math.log(nb_itineraries), 15].min - (distance / 10)
+      score = [Math.log(nb_itineraries), 15].min - (distance / 10) - 3 * avalanche + 10 * w_score
     end
+    # ap w_score
     return score
   end
 end
