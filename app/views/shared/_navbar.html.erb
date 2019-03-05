@@ -14,10 +14,9 @@
       </ul>
     </div>
     <div class="navbar-crux-item hidden-md hidden-lg">
-      <div class="dropdown">
-        <a class='dropdown-trigger' href='#' data-target='dropdown1'>
-          <i class="fas fa-bars dropdown-toggle"></i></a>
-        <ul id='dropdown1' class="dropdown-menu dropdown-menu-right navbar-crux-dropdown-menu">
+
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
           <% if user_signed_in? %>
             <li><%= link_to "Mes sorties", trips_path %></li>
             <li><%= link_to "Profil", edit_user_registration_path %></li>
@@ -30,4 +29,15 @@
       </div>
     </div>
   </div>
-</nav>
+</nav><div></div>
+
+<ul class="sidenav" id="mobile-demo">
+  <% if user_signed_in? %>
+    <li><%= link_to "Mes sorties", trips_path %></li>
+    <li><%= link_to "Profil", edit_user_registration_path %></li>
+    <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
+  <% else %>
+    <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
+    <li> <%= link_to "Se connecter", new_user_session_path %> </li>
+  <% end %>
+</ul>
