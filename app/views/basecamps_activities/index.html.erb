@@ -21,9 +21,7 @@
                 <div class="card-content" data-coords="<%= { ori_lat: @trip.coord_lat, ori_long: @trip.coord_long, desti_lat: base.basecamp.coord_lat, desti_long: base.basecamp.coord_long }.to_json %>">
                   <h4><%= base.activity.name.capitalize.split(" ")[0] %></h4>
                   <br>
-                  <p><strong><%= base.nb_itineraries %></strong> itinéraires</p>
-                  <br>
-                  <p id="driving-time"></p>
+                  <p id="itinerary-number"><strong><%= base.nb_itineraries %></strong> itinéraires</p>
                   <br>
                   <p><img src="<%= "http:" + base.basecamp.weather.forecast[0]["day"]["condition"]["icon"].to_s %>" style="width: 32px; height: 32px;"> <%= base.basecamp.weather.forecast[0]["day"]["avgtemp_c"].to_s.gsub(".", ",") %>°C</p>
                 </div>
