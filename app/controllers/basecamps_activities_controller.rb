@@ -16,11 +16,11 @@ class BasecampsActivitiesController < ApplicationController
       .order("COUNT(basecamps_activities_itineraries.itinerary_id) DESC")
       .to_a
 
-    # Compute score also considering weather and localisation ater
+
+    # Compute score also considering weather and localisation
 
     basecamps_activities.sort_by! do |base|
       score = basecamp_activity_score(base.nb_itineraries, base.weather, @trip, @trip.distance_from(base.basecamp), base.basecamp.mountain_range.max_risk)
-      # ap base.id
     end
 
     # Take only top
@@ -96,7 +96,7 @@ class BasecampsActivitiesController < ApplicationController
     if nb_itineraries < 3 || distance > 500 || avalanche > 4
       score = -1000
     else
-      score = [nb_itineraries, 15].min - (distance / 20) - 3 * avalanche + 7 * w_score
+      score = [nb_itineraries, 15].min - (distance / 10) - 3 * avalanche + 7 * w_score
     end
     # ap "lol"
     # ap w_score

@@ -109,10 +109,16 @@
 # # Update iti levels
 
 Itinerary.all.each do |itinerary|
-  if itinerary.level == "Padawan"
-    itinerary.level = "Débutant"
-  elsif itinerary.level = "Mutant"
+  expérimenté = ["TD-", "TD", "TD+", "ED-", "ED", "ED+"]
+  intermediaire = ["D-", "D", "D+", "AD-", "AD", "AD+"]
+  débutant = ["PD-", "PD", "PD+", "F-", "F", "F+"]
+  if expérimenté.include?(itinerary.difficulty)
     itinerary.level = "Expérimenté"
+  elsif intermediaire.include?(itinerary.difficulty)
+    itinerary.level = "Intermédiaire"
+  elsif débutant.include?(itinerary.difficulty)
+    itinerary.level = "Débutant"
   end
   itinerary.save!
+  p itinerary.id
 end
