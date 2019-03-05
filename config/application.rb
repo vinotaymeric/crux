@@ -18,3 +18,5 @@ module Crux
     config.action_view.embed_authenticity_token_in_remote_forms = true
   end
 end
+
+config.i18n.default_locale = :fr
