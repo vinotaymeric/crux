@@ -14,6 +14,7 @@ import { initToggleRemove, initToggleAdd, initFavorites } from './init_favorite'
 import initAutocomplete from '../plugins/init_autocomplete';
 import initDrivingTimeOnTrips from './init_driving_time_on_trips'
 import initTabs from '../components/init_tabs';
+import initForm from './init_remote_forms';
 
 // Launch js
 initTransition();
@@ -21,19 +22,12 @@ initAutocomplete();
 initDrivingTimeOnTrips();
 
 // Init materialize JS components
+
 initDatepicker();
 initTabs();
  // Profile edition
 
-const activities = document.querySelectorAll('#user_activity_level');
-
-activities.forEach( (element) => {
-  element.addEventListener('click', (e) => {
-    e.currentTarget.closest('form').submit();
-    e.preventDefault();
-  });
-});
-
+initForm();
 
  // Set favorite
 
