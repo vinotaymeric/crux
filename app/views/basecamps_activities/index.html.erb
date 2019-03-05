@@ -10,7 +10,9 @@
           <div id="list">
             <div class="slide-container">
               <br>
+            <% counter = 0 %>
             <% @basecamps_activities.each do |base| %>
+              <% counter += 1 %>
               <div class="col s12 m5">
 
                 <div class="card card-basecamp-activity horizontal small">
@@ -25,10 +27,21 @@
                   </div>
                   <div class="card-stacked">
                     <div class="card-content" data-coords="<%= { ori_lat: @trip.coord_lat, ori_long: @trip.coord_long, desti_lat: base.basecamp.coord_lat, desti_long: base.basecamp.coord_long }.to_json %>">
-                      <p class="ellipsis strong">
+
                         <% b_a_name = base.basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %>
-                        <%= b_a_name %>
-                      </p>
+
+                        <% if counter < 7 %>
+                          <p class="ellipsis strong">
+                          <%= b_a_name %><span>  <i class="fas fa-heart"></i></span>
+                          </p>
+                        <% else %>
+                          <p>
+                          <strong><%= b_a_name %></strong>
+                          </p>
+                        <% end %>
+
+
+
                       <br>
                       <p id="itinerary-number"><strong><%= base.nb_itineraries %></strong> itinéraires en <strong><%= base.activity.name.split(" ")[0] %></strong></p>
                       <br>
