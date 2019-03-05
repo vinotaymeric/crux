@@ -1,24 +1,30 @@
+<br>
 <div class="container">
+  <div class="row">
 
-<% if @trips.count == 0 %>
-  <p>Aucune sortie prévue pour l'instant.</p>
-<% else %>
-  <% @trips.each do |trip| %>
-    <div class="card">
-      <ul class=list-inline">
-        <li class=list-inline-item">Nom: <%= trip.start_date %></li>
-        <li class=list-inline-item">Date de départ: <%= trip.start_date %></li>
-        <li class=list-inline-item">Date de retour: <%= trip.end_date %></li>
-        <li class=list-inline-item">Point de départ: <%= trip.location %></li>
-        <li class=list-inline-item">Camps de bases: <%= trip.location %></li>
-        <li class=list-inline-item">itinéraires: <%= trip.location %></li>
-      </ul>
+    <% @trips.each do |trip| %>
+
+    <div class="col s6 offset-s3 m6 offset-m3">
+      <div class="card horizontal">
+        <div class="card-stacked">
+          <div class="card-content">
+            <p class="left-align">Voyage du <%= trip.start_date %> depuis <%= trip.location.split(",")[0] %> </p>
+          </div>
+          <div class="card-action">
+
+            <% if trip.validated %>
+            <a href="#">Link to trip_basecamps_activity</a>
+            <% else %>
+            <%= link_to 'Choisir mon camp de base', trip_basecamps_activities_path(trip), class: 'btn' %>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
 
+    <% end %>
 
-<% end %>
-
-
-
+    </div>
+  </div>
 </div>

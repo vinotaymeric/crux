@@ -5,8 +5,7 @@ class TripsController < ApplicationController
   end
 
   def index
-    # @trips = Trip.where(user_id: current_user.id).order('trips.created_at desc')
-    @trips = Trip.all
+    @trips = current_user.trips.reverse
   end
 
   def create
@@ -17,31 +16,19 @@ class TripsController < ApplicationController
   end
 
   def show
-    @user = current_user
-    @trip = Trip.find(params[:id])
-
-    # See how many itineraries match the user profile
-
-    basecamps_activities = BasecampsActivity.select("basecamps_activities.*, COUNT(basecamps_activities_itineraries.itinerary_id) as nb_itineraries").joins(:itineraries)
-      .joins("INNER JOIN user_activities ON user_activities.activity_id = itineraries.activity_id")
-      .where(user_activities: {user_id: current_user.id})
-      .where("user_activities.level = itineraries.level")
-      .group("basecamps_activities.id")
-      .order("COUNT(basecamps_activities_itineraries.itinerary_id) DESC")
-      .to_a
-
-    # Compute score also considering weather and localisation ater
-
-    basecamps_activities.sort_by! do |base|
-      score = basecamp_activity_score(base.nb_itineraries, base.weather.weekend_score, @trip.distance_from(base.basecamp))
-    end
-
-    # Take only top
-
-    @basecamps_activities = basecamps_activities.reverse[0..50]
   end
 
   def update
+    @trip = Trip.find(params[:id])
+
+    if @trip.validated
+      @trip.validated = false
+    else
+      @trip.validated = true
+    end
+
+    @trip.save!
+    redirect_back(fallback_location: root_path)
   end
 
   def edit
@@ -50,6 +37,6 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:start_date, :end_date, :location)
+    params.require(:trip).permit(:start_date, :end_date, :location, :validated)
   end
 end

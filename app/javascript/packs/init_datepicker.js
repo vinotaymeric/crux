@@ -1,9 +1,46 @@
 const initDatepicker = () => {
+  function getNextDayOfWeek(date, dayOfWeek) {
+    const resultDate = new Date(date.getTime());
+    resultDate.setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7);
+    return resultDate;
+  }
+
+  function capital_letter_remove_points(str) {
+    str = str.split(".");
+    str = str.join("");
+    str = str.split(" ");
+    for (var i = 0, x = str.length; i < x; i++) {
+        str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+    }
+    return str.join(" ");
+  }
+
+
   document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date();
+    const nextSaturday = getNextDayOfWeek(today, 6);
     const options = {
         firstDay: 1,
         format: 'ddd dd mmmm yyyy',
         autoClose: true,
+        minDate: today,
+        defaultDate: nextSaturday,
+        setDefaultDate: false,
+        onSelect: function(returned_date){
+          if (this.el.classList.contains("datepicker-end")) {
+            return;
+          }
+          const pickerEnd = document.querySelector(".datepicker-end");
+          const instance = M.Datepicker.getInstance(pickerEnd);
+          console.log(instance);
+          console.log(pickerEnd);
+
+          instance.setDate(returned_date);
+          instance.options.minDate = returned_date;
+          // set placeholder to end date
+          const options = { weekday: 'short', year: 'numeric', month: 'long', day: '2-digit' };
+          pickerEnd.value = capital_letter_remove_points(returned_date.toLocaleDateString('fr-FR', options));
+        },
         i18n: {
           cancel: 'Annuler',
           clear: 'Clear',
@@ -28,3 +65,6 @@ const initDatepicker = () => {
 };
 
 export default initDatepicker;
+
+
+

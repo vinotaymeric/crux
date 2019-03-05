@@ -1,26 +1,26 @@
 .banner {
-  height: 50vh;
-  color: white;
+  height: calc(100vh - 50px);
   text-align: center;
   /* if you have a 70px navbar => height: calc(100vh - 70px); */
-  background-size: cover !important;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), image-url("https://images.pexels.com/photos/414459/pexels-photo-414459.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
   background-size: cover;
-  background-position: center;
+  background-position: left;
   h1 {
-    color: white;
+    color: rgba(255,255,255,0.8);
     font-weight: bold;
     font-size: 3em;
   }
+
   p {
-    color: white;
-    opacity: .8;
+    color: rgba(255,255,255,0.9);
+    text-align: center;
     font-size: 1.5em;
-    font-weight: lighter;
-    margin-bottom: 1em;
+    margin: 1em;
+  }
+  h4 {
+    color: white;
   }
 }
 

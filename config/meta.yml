@@ -1,0 +1,5 @@
+meta_product_name: "Crux"
+meta_title: "Crux - L'aventure t'attend"
+meta_description: "Crux analyse les conditions en montagne parmi des milliers d'itinéraires et te dit où aller..."
+meta_image: "metaimagecrux.jpeg" # should exist in `app/assets/images/`
+twitter_account: "@Crux_Adventures"   # required for Twitter Cards
