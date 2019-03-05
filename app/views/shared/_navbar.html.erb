@@ -1,18 +1,33 @@
 <nav>
   <div class="nav-wrapper">
     <div class="container">
-    <%= link_to "Crux", root_path, class: "brand-logo" %>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-       <% if user_signed_in? %>
-       <li><%= link_to "Test email", trips_path %></li>
-       <li><%= link_to "Mes sorties", trips_path %></li>
-        <li><%= link_to "Profil", edit_user_registration_path %></li>
+      <%= link_to "Crux", root_path, class: "brand-logo" %>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <% if user_signed_in? %>
+          <li><%= link_to "Mes sorties", trips_path %></li>
+          <li><%= link_to "Profil", edit_user_registration_path %></li>
           <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
         <% else %>
-      <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
-      <li> <%= link_to "Se connecter", new_user_session_path %> </li>
-      <% end %>
-    </ul>
-  </div>
+          <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
+          <li> <%= link_to "Se connecter", new_user_session_path %> </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="navbar-crux-item hidden-md hidden-lg">
+      <div class="dropdown">
+        <a class='dropdown-trigger' href='#' data-target='dropdown1'>
+          <i class="fas fa-bars dropdown-toggle"></i></a>
+        <ul id='dropdown1' class="dropdown-menu dropdown-menu-right navbar-crux-dropdown-menu">
+          <% if user_signed_in? %>
+            <li><%= link_to "Mes sorties", trips_path %></li>
+            <li><%= link_to "Profil", edit_user_registration_path %></li>
+            <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
+          <% else %>
+            <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
+            <li> <%= link_to "Se connecter", new_user_session_path %> </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 </nav>
