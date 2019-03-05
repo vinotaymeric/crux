@@ -55,7 +55,7 @@ const initTransition = () => {
       } else {
         form.classList.add("transparent");
         curtain.classList.add("curtain-up");
-        setTimeout(function(){ boussole.classList.add("tourne"); }, 800);
+        setTimeout(function(){ boussole.classList.add("tourne"); }, 1000);
         setTimeout(function(){ rowIti.classList.remove("transparent"); incrementor('#itinerary-count');}, 1000);
         setTimeout(function(){ rowBasecamp.classList.remove("transparent"); incrementor('#basecamp-count');}, 3000);
         setTimeout(function(){ rowMassif.classList.remove("transparent"); incrementor('#massif-count'); }, 5000);

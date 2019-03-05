@@ -16,7 +16,7 @@ import initDrivingTimeOnTrips from './init_driving_time_on_trips'
 import initTabs from '../components/init_tabs';
 
 // Launch js
-initTransition();
+// initTransition();
 initAutocomplete();
 initDrivingTimeOnTrips();
 
