@@ -15,12 +15,12 @@
                 <div class="card card-basecamp-activity horizontal small">
                   <div class="card-image">
                     <% if base.activity.name == "ski de randonnée" %>
-                      <%= image_tag "ski.png" %>
-
+                     
+                       <%= cl_image_tag("crux/images/ski.png.png") %>
                     <% elsif base.activity.name == "alpinisme" %>
-                      <%= image_tag "alpi.png" %>
+                       <%= cl_image_tag("crux/images/alpi.png.png")%>
                     <% elsif base.activity.name == "escalade" %>
-                      <%= image_tag "escalade.png" %>
+                       <%= cl_image_tag("crux/images/escalade.png.png") %>
                     <% end %>
                   </div>
                   <div class="card-stacked">
