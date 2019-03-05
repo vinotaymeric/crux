@@ -7,6 +7,9 @@ gem 'geocoder', '~> 1.3', '>= 1.3.7'
 gem 'awesome_print'
 gem 'redcarpet'
 gem 'i18n'
+#pagination
+gem 'will_paginate', '~> 3.0.5'
+gem 'bootstrap-will_paginate', '~> 0.0.10'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 # Use postgresql as the database for Active Record,
@@ -21,6 +24,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 # cloudinary
 gem 'cloudinary', '~> 1.9.1'
+gem 'jquery-rails'
 #carrierwave
 gem 'carrierwave', '~> 1.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes

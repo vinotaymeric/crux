@@ -135,3 +135,21 @@ li {
   color: black !important;
   background-color: #23B5D3;
 }
+
+
+// infinite scroll
+#load_more_itineraries {
+  display: none;
+  margin-bottom: 10px;
+}
+
+#static-pagination {
+ border: #23B5D3 solid 10px;
+  position: fixed;
+  top: 30px;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
+  
+}

@@ -25,17 +25,20 @@ const initDatepicker = () => {
         autoClose: true,
         minDate: today,
         defaultDate: nextSaturday,
-        setDefaultDate: true,
+        setDefaultDate: false,
         onSelect: function(returned_date){
           if (this.el.classList.contains("datepicker-end")) {
             return;
           }
           const pickerEnd = document.querySelector(".datepicker-end");
           const instance = M.Datepicker.getInstance(pickerEnd);
+          console.log(instance);
+          console.log(pickerEnd);
 
           instance.setDate(returned_date);
-          const options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
-
+          instance.options.minDate = returned_date;
+          // set placeholder to end date
+          const options = { weekday: 'short', year: 'numeric', month: 'long', day: '2-digit' };
           pickerEnd.value = capital_letter_remove_points(returned_date.toLocaleDateString('fr-FR', options));
         },
         i18n: {
@@ -62,3 +65,6 @@ const initDatepicker = () => {
 };
 
 export default initDatepicker;
+
+
+
