@@ -16,7 +16,6 @@ module Crux
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.action_view.embed_authenticity_token_in_remote_forms = true
+    config.i18n.default_locale = :fr
   end
 end
-
-config.i18n.default_locale = :fr
