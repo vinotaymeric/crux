@@ -2,10 +2,15 @@
 
 .small-image {
   border-radius: 50%;
-  width: 2em;
-  height: 2em;
+  width: 2.5em;
+  height: 2.5em;
 
-  border: 1px solid rgba(30, 30, 30, 0.2);
+}
+
+.no-hover {
+  &:hover{
+    color: white;
+  }
 }
 
 #dropdown1 {
