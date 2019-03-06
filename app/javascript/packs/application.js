@@ -72,9 +72,25 @@ interested();
     var instances = M.FloatingActionButton.init(elems);
   });
 
+
 // Alert close
 
 $('#alert_close').click(function(){
     $( "#alert_box" ).fadeOut( "slow", function() {
     });
   });
+
+//other
+
+const active = document.querySelector(".active");
+const sticky = document.querySelector(".sticky-cta");
+console.log(active);
+
+
+if (active.innerText === "ITINÉRAIRES") {
+    sticky.classList.remove("hide");
+}
+
+if (active.innerText != "ITINÉRAIRES") {
+    console.log("toto");
+}

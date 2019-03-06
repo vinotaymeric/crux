@@ -24,7 +24,7 @@ nav {
 }
 
 p {
-  text-align: justify;
+  text-align: left;
 }
 
 .page-footer {
@@ -177,4 +177,13 @@ li {
   font-size: 2rem;
 }
 
+.fixed-action-btn {
+  margin-bottom: -25px !important;
+  transition: margin ease 0.2s;
+  padding: 10px !important;
+}
 
+.hide-cta {
+  margin-bottom: -80px !important;
+  transition: margin ease 0.2s;
+}

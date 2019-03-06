@@ -14,9 +14,10 @@ const initTabs = () => {
           height = tab.children[0].scrollHeight + 20;
         }
         document.querySelector(".tabs-content").style.height = height + 'px';
-        console.log(tab);
-        console.log(tab.children[0]);
-        console.log(tab.children[0].scrollHeight);
+        if (tab.id != 'itineraries') {
+          if (document.querySelector('.sticky-cta') == null) { return }
+          document.querySelector('.sticky-cta').classList.add('hide-cta');
+        } else { document.querySelector('.sticky-cta').classList.remove('hide-cta') }
       }
     });
   };

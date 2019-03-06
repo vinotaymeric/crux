@@ -1,10 +1,10 @@
 <div class="container">
 
-  <h3><%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %> - <%= @activity.name %></h3>
+  <h4 class="ellipsis"><%= @activity.name.capitalize %> à <%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %></h4>
 
   <% if @trip.validated == false %>
-    <div class="fixed-action-btn card-panel sticky-cta">
-      <%= link_to "Je valide ce camp de base", trip_path(@trip), method: :put, class: 'btn' %>
+    <div class="fixed-action-btn card-panel sticky-cta hide">
+      <%= link_to "Valider ce camp", trip_path(@trip), method: :put, class: 'btn' %>
     </div>
   <% else %>
     <div class="fixed-action-btn card-panel sticky-cta">
@@ -32,7 +32,14 @@
 
         </div>
       </div>
-      <div id="weather"></div>
+      <div id="weather">
+      <div class="row">
+        <br>
+        <div class="col s12 center-align">
+        <img src="https://res.cloudinary.com/dcr8ffyyv/image/upload/v1550848162/weather_placeholder.png" alt="">
+        </div>
+        </div>
+      </div>
       <% if @mountain_range %>
         <div id="avalanche">
           <div class="container">
