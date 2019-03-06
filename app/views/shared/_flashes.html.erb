@@ -1,15 +1,37 @@
 <% if notice %>
-  <div class="alert alert-info alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <%= image_tag("boussole.png", size: "48") %>
-    <%= notice %>
-
+  <div class="row row-no-margin-bottom" id="alert_box">
+    <div class="col s12 m12">
+      <div class="card alert-info alert-dismissible darken-1">
+        <div class="row">
+          <div class="col s12 m10 offset-m1">
+            <div class="card-content white-text" style="text-align: center;">
+              <%= notice %>
+            </div>
+          </div>
+        <div class="col s12 m2">
+          <i class="fa fa-times icon_style" id="alert_close" aria-hidden="true"></i>
+        </div>
+      </div>
+     </div>
+    </div>
   </div>
 <% end %>
-<% if alert %>
-  <div class="alert alert-warning alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-    <%= alert %>
+<% if alert %>
+  <div class="row row-no-margin-bottom" id="alert_box">
+    <div class="col s12 m12">
+      <div class="card alert-warning alert-dismissible darken-1">
+        <div class="row">
+          <div class="col s12 m10 offset-m1">
+            <div class="card-content white-text" style="text-align: center;">
+              <%= alert %>
+            </div>
+          </div>
+        <div class="col s12 m2">
+          <i class="fa fa-times icon_style" id="alert_close" aria-hidden="true"></i>
+        </div>
+      </div>
+     </div>
+    </div>
   </div>
 <% end %>
