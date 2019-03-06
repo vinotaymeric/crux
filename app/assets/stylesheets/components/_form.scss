@@ -1,5 +1,5 @@
 label {
-  color: white;
+  color: #071013;
   font-size:1em;
 }
 
@@ -57,15 +57,15 @@ label {
 }
 
 #trip_address {
-  color: white;
+  color: #071013;
 }
 
 #trip_start_date {
-  color: white;
+  color: #071013;
 }
 
 #trip_end_date {
-  color: white;
+  color: #071013;
 }
 
 .ap-dropdown-menu {
@@ -98,6 +98,11 @@ label {
 }
 
 .form-title {
-  color: white;
+  color: #071013;
   font-weight: bolder;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #071013 !important;
+    opacity: 0.7 !important;
 }
