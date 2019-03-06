@@ -33,7 +33,10 @@
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
- <%= image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "small-image") %>
+  <div class="side-bar-head text-center">
+   <%= image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "medium-image") %>
+   <p class="text-center">Crux</p>
+   </div>
   <% if user_signed_in? %>
     <li><%= link_to "Mes sorties", trips_path %></li>
     <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
