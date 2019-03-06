@@ -106,9 +106,11 @@ li {
 
 .title-card {
   font-size: 1.5rem !important;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  .ellsipsised {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
 
 .toaster {
