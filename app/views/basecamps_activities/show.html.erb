@@ -2,9 +2,15 @@
 
   <h3><%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %> - <%= @activity.name %></h3>
 
-<div class="fixed-action-btn center-align" style="width: ">
-  <%= link_to "Je valide ce camp", trip_path(@trip), method: :put, class: 'btn' %>
-</div>
+  <% if @trip.validated == false %>
+    <div class="fixed-action-btn card-panel sticky-cta">
+      <%= link_to "Je valide ce camp de base", trip_path(@trip), method: :put, class: 'btn' %>
+    </div>
+  <% else %>
+    <div class="fixed-action-btn card-panel sticky-cta">
+      <%= link_to "Ajouter des itinéraires", trip_path(@trip), method: :put, class: 'btn' %>
+    </div>
+  <% end %>
 
   <div class="row">
     <div class="col s12">
@@ -18,13 +24,6 @@
 
       <div id="itineraries">
         <div class="slide-container">
-          <div class="card-panel cta">
-          <% if @trip.validated %>
-            <span>Vos itinéraires sont maintenant disponibles en mode offline ! <br><i class="fas fa-edit"></i><%= link_to "Modifier ma sélection", trip_path(@trip), method: :put%></span>
-          <% else %>
-            <span>Sélectionnez vos itinéraires</span>
-          <% end %>
-          </div>
 
           <% @itineraries.each do |itinerary| %>
             <% next if itinerary.name.nil? %>
