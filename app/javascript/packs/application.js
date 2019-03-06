@@ -18,6 +18,7 @@ import initTabs from '../components/init_tabs';
 import initForm from './init_remote_forms';
 
 import { initMapbox } from '../plugins/init_mapbox';
+import interested from './trip_form'
 
 // Launch js
 initTransition();
@@ -57,6 +58,10 @@ initToggleRemove();
 
 initMapbox();
 
+//trip form validation
+interested();
+
+
 
 
 // init floating button
@@ -66,8 +71,3 @@ initMapbox();
     var instances = M.FloatingActionButton.init(elems);
   });
 
-
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.tap-target');
-    var instances = M.TapTarget.init(elems);
-  });
