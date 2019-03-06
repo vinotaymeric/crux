@@ -18,7 +18,7 @@ import initTabs from '../components/init_tabs';
 import initForm from './init_remote_forms';
 
 import { initMapbox } from '../plugins/init_mapbox';
-import interested from './trip_form';
+import interested from './trip_form'
 
 // Launch js
 initTransition();
@@ -58,10 +58,10 @@ initToggleRemove();
 
 initMapbox();
 
-
-
 //trip form validation
 interested();
+
+
 
 
 // init discovery
