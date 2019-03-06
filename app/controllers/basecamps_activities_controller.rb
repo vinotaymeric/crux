@@ -51,7 +51,7 @@ class BasecampsActivitiesController < ApplicationController
     if @trip.validated
       @itineraries = @trip.itineraries.distinct
     else
-      @itineraries = @basecamp_activity.itineraries.where(level: user_level_for_activity )[0..20]
+      @itineraries = @basecamp_activity.itineraries.where(level: user_level_for_activity )
     end
 
     @favorite_itinerary = FavoriteItinerary.new
