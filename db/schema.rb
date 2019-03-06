@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_04_164853) do
+ActiveRecord::Schema.define(version: 2019_03_06_112720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,7 +133,6 @@ ActiveRecord::Schema.define(version: 2019_03_04_164853) do
     t.bigint "trip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "subscribed"
     t.index ["basecamps_activity_id"], name: "index_trips_basecamps_activities_on_basecamps_activity_id"
     t.index ["trip_id"], name: "index_trips_basecamps_activities_on_trip_id"
   end
@@ -156,6 +155,7 @@ ActiveRecord::Schema.define(version: 2019_03_04_164853) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

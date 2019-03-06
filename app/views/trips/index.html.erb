@@ -1,28 +1,27 @@
 <br>
 <div class="container">
   <div class="row">
-
+  
     <% @trips.each do |trip| %>
-
-    <div class="col s6 offset-s3 m6 offset-m3">
-      <div class="card horizontal">
+    <div class="col s12 s6 m4">
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="https://res-1.cloudinary.com/deesjjv4h/image/upload/v1/crux/images/escalade.png.png">
+      </div>
         <div class="card-stacked">
           <div class="card-content">
-            <p class="left-align">Voyage du <%= trip.start_date %> depuis <%= trip.location.split(",")[0] %> </p>
+            <p class="title-card">Voyage du <%= trip.start_date %> depuis <%= trip.location.split(",")[0] %> </p>
           </div>
           <div class="card-action">
-
             <% if trip.validated %>
-            <a href="#">Link to trip_basecamps_activity</a>
+              <a href="#">Link to trip_basecamps_activity</a>
             <% else %>
-            <%= link_to 'Choisir mon camp de base', trip_basecamps_activities_path(trip), class: 'btn' %>
+              <%= link_to 'Choisir mon camp de base', trip_basecamps_activities_path(trip) %>
             <% end %>
-
           </div>
         </div>
       </div>
     </div>
-
     <% end %>
 
     </div>
