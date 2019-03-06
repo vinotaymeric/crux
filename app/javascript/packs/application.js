@@ -18,6 +18,7 @@ import initTabs from '../components/init_tabs';
 import initForm from './init_remote_forms';
 
 import { initMapbox } from '../plugins/init_mapbox';
+import interested from './trip_form';
 
 // Launch js
 initTransition();
@@ -59,8 +60,13 @@ initMapbox();
 
 
 
+//trip form validation
+interested();
+
+
 // init discovery
 
   // $(document).ready(function(){
   //   $('.tap-target').tapTarget();
   // });
+
