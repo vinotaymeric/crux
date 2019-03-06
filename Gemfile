@@ -31,7 +31,6 @@ gem 'carrierwave', '~> 1.2'
 # gem 'mini_racer', platforms: :ruby
 gem "letter_opener", group: :development
 gem 'autoprefixer-rails'
-gem 'bootstrap-sass', '~> 3.3'
 gem 'font-awesome-sass', '~> 5.5.0'
 gem 'simple_form'
 gem 'devise'

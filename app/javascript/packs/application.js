@@ -21,6 +21,7 @@ import { initMapbox } from '../plugins/init_mapbox';
 import interested from './trip_form'
 
 // Launch js
+M.AutoInit();
 initTransition();
 initAutocomplete();
 initDrivingTimeOnTrips();
