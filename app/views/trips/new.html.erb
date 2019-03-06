@@ -13,6 +13,7 @@
               <% end %>
             </div>
           <% end %>
+         
           <h4>Voyage</h4>
           <div class="input-field col s12 m12">
             <%= simple_form_for @trip do |f| %>
@@ -20,7 +21,7 @@
             <%= f.input  :start_date, as: :string, input_html: { class: 'datepicker datepicker-start', placeholder: "Date de départ"}, label: false %>
             <%= f.input  :end_date, as: :string, input_html: { class: 'datepicker datepicker-end', placeholder: "Date de fin"}, label: false %>
             <div id="empty-field-message" class="transparent"><p>Ces champs ne peuvent pas être vides.</p></div>
-            <div class="center-align"><input type="submit" value="Let's go!" class="btn"></div>
+              <div class="center-align" ><input type="submit" value="Let's go!" class="btn" id ="letsGoBtn" ></div>
             <% end %>
           </div>
         </div>
