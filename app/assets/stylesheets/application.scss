@@ -104,13 +104,11 @@ li {
     height: 190px;
 }
 
-.title-card {
+.title-card.ellsipsised {
   font-size: 1.5rem !important;
-  .ellsipsised {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .toaster {
