@@ -14,8 +14,8 @@
             <% @basecamps_activities.each do |base| %>
               <% counter += 1 %>
               <div class="col s12 m5">
-
                 <div class="card card-basecamp-activity horizontal small">
+                  <%= link_to trip_basecamps_activity_path(@trip, base) do %>
                   <div class="card-image">
                     <% if base.activity.name == "ski de randonnée" %>
                        <%= cl_image_tag("crux/images/ski.png.png") %>
@@ -25,16 +25,19 @@
                        <%= cl_image_tag("crux/images/escalade.png.png") %>
                     <% end %>
                   </div>
+                <% end %>
+
+
                   <div class="card-stacked">
                     <div class="card-content" data-coords="<%= { ori_lat: @trip.coord_lat, ori_long: @trip.coord_long, desti_lat: base.basecamp.coord_lat, desti_long: base.basecamp.coord_long }.to_json %>">
                         <% b_a_name = base.basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %>
                         <% if counter < 7 %>
-                          <p class="ellipsis strong">
+                          <p class="strong">
                           <%= b_a_name %><span>  <i class="fas fa-heart"></i></span>
                           </p>
                         <% else %>
                           <p>
-                          <strong><%= b_a_name %></strong>
+                          <strong style="color: #071013;"><%= b_a_name %></strong>
                           </p>
                         <% end %>
                       <br>
@@ -44,16 +47,10 @@
                       <% if base.basecamp.mountain_range.max_risk > 2 %>
                         <p><i class="fas fa-exclamation-triangle"></i> Risque d'avalanche (<%= base.basecamp.mountain_range.max_risk %>)</p>
                       <% else %>
-                      <p><i class="fas fa-thumbs-up"></i> Risque faible</p>
+                      <p><i class="fas fa-thumbs-up"></i> BRA optimal</p>
                       <% end %>
                       <br>
                       <p><img src="<%= "http:" + base.basecamp.weather.forecast[0]["day"]["condition"]["icon"].to_s %>" style="width: 32px; height: 32px;"> <%= base.basecamp.weather.forecast[0]["day"]["avgtemp_c"].to_s.gsub(".", ",") %>°C</p>
-                    </div>
-                    <div class="card-action">
-                      <div class="left-align">
-                        <%= link_to "Explorer", trip_basecamps_activity_path(@trip, base), class: "waves-effect waves-light btn" %>
-                        <button class="waves-effect waves-light btn secondary"><i class="fas fa-envelope"></i></button>
-                      </div>
                     </div>
                   </div>
                 </div>
