@@ -71,3 +71,16 @@ interested();
     var instances = M.FloatingActionButton.init(elems);
   });
 
+
+const active = document.querySelector(".active");
+const sticky = document.querySelector(".sticky-cta");
+console.log(active);
+
+
+if (active.innerText === "ITINÉRAIRES") {
+    sticky.classList.remove("hide");
+}
+
+if (active.innerText != "ITINÉRAIRES") {
+    console.log("toto");
+}

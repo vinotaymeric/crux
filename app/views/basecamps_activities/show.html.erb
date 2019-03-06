@@ -3,7 +3,7 @@
   <h4 class="ellipsis"><%= @activity.name.capitalize %> à <%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %></h4>
 
   <% if @trip.validated == false %>
-    <div class="fixed-action-btn card-panel sticky-cta">
+    <div class="fixed-action-btn card-panel sticky-cta hide">
       <%= link_to "Valider ce camp", trip_path(@trip), method: :put, class: 'btn' %>
     </div>
   <% else %>
@@ -32,7 +32,9 @@
 
         </div>
       </div>
-      <div id="weather"></div>
+      <div id="weather">
+        <img src="https://my.meteoblue.com/visimage/meteogram_web?look=KILOMETER_PER_HOUR%2CCELSIUS%2CMILLIMETER&apikey=5838a18e295d&cache=no&city=Lyon&iso2=fr&lat=45.748501&lon=4.846710&asl=173&tz=Europe%2FParis&lang=fr&ts=1551881940&sig=983fda6535376947dff6cb432d237c70" alt="">
+      </div>
       <% if @mountain_range %>
         <div id="avalanche">
           <div class="container">
