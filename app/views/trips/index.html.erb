@@ -13,7 +13,7 @@
           <div class="card-action">
 
             <% if trip.validated %>
-            <a href="#">Link to trip_basecamps_activity</a>
+            <%= link_to 'Voir mes itinéraires', trip_basecamps_activity_path(trip, BasecampsActivity.find(5843)), class: 'btn' %>
             <% else %>
             <%= link_to 'Choisir mon camp de base', trip_basecamps_activities_path(trip), class: 'btn' %>
             <% end %>
