@@ -23,8 +23,7 @@ const initFavorites = () => {
   const favorites = document.querySelectorAll('#favorite');
   favorites.forEach( (element) => {
     element.addEventListener('click', (e) => {
-      e.currentTarget.nextElementSibling.submit();
-      e.preventDefault();
+      Rails.fire(e.currentTarget.nextElementSibling, 'submit')
     });
   });
 }

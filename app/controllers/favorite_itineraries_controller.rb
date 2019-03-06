@@ -2,7 +2,7 @@ class FavoriteItinerariesController < ApplicationController
   def create
     @favorite = FavoriteItinerary.new(favorite_params)
     @favorite.save!
-    redirect_back(fallback_location: root_path)
+    # redirect_back(fallback_location: root_path)
   end
 
   def favorite_params
