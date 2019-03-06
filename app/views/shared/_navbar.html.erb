@@ -1,11 +1,12 @@
 <nav>
   <div class="nav-wrapper">
     <div class="container">
-      <%= link_to "Crux", root_path, class: "brand-logo" %>
+
+      <%= link_to "#{image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551868408/Cruxlogosquare.jpg', class: "small-image")} Crux".html_safe, root_path, class: "brand-logo" %>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <% if user_signed_in? %>
           <li><%= link_to "Mes sorties", trips_path %></li>
-          <li><%= link_to "Profil", edit_user_registration_path %></li>
+          <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
           <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
         <% else %>
           <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
@@ -19,7 +20,7 @@
         <ul class="right hide-on-med-and-down">
           <% if user_signed_in? %>
             <li><%= link_to "Mes sorties", trips_path %></li>
-            <li><%= link_to "Profil", edit_user_registration_path %></li>
+            <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
             <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
           <% else %>
             <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
@@ -29,7 +30,7 @@
       </div>
     </div>
   </div>
-</nav><div></div>
+</nav>
 
 <ul class="sidenav" id="mobile-demo">
   <% if user_signed_in? %>

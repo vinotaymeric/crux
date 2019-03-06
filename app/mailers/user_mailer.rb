@@ -5,8 +5,9 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.follow_itinerary.subject
   #
-  def follow_basecamp(user)
+  def follow_basecamp(user, basecamp)
     @user = user
-    mail(to: @user.email, subject: 'Infos camps de base')
+    @basecamp = basecamp
+    mail(to: @user.email, subject: 'Infos camps de base #{@basecamp}')
   end
 end
