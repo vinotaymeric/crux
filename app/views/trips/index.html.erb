@@ -1,7 +1,7 @@
 <br>
 <div class="container">
   <div class="row">
-  
+
     <% @trips.each do |trip| %>
     <div class="col s12 s6 m4">
     <div class="card horizontal">
@@ -14,9 +14,9 @@
           </div>
           <div class="card-action">
             <% if trip.validated %>
-            <%= link_to 'Voir mes itinéraires', trip_basecamps_activity_path(trip, BasecampsActivity.find(5843)), class: 'btn' %>
+            <%= link_to 'Voir les itinéraires', trip_basecamps_activity_path(trip, BasecampsActivity.find(5843)), class: 'waves-effect waves-light btn-small' %>
             <% else %>
-              <%= link_to 'Choisir mon camp de base', trip_basecamps_activities_path(trip), class: "waves-effect waves-light btn-small" %>
+              <%= link_to 'Choisir le camp', trip_basecamps_activities_path(trip), class: "waves-effect waves-light btn-small" %>
             <% end %>
           </div>
         </div>
