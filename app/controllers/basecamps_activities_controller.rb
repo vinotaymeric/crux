@@ -89,8 +89,8 @@ class BasecampsActivitiesController < ApplicationController
 
   def basecamp_activity_score(nb_itineraries, weather, trip, distance, avalanche)
 
-    # avalanche = 0 if avalanche.nil?
 
+    avalanche = 0 if avalanche.nil?
     w_score = weather_trip_score(trip.start_date, trip.end_date, weather)
 
     if nb_itineraries < 3 || distance > 500 || avalanche > 4
