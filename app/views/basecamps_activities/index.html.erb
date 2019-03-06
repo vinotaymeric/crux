@@ -30,6 +30,7 @@
 
                   <div class="card-stacked">
                     <div class="card-content" data-coords="<%= { ori_lat: @trip.coord_lat, ori_long: @trip.coord_long, desti_lat: base.basecamp.coord_lat, desti_long: base.basecamp.coord_long }.to_json %>">
+
                         <% b_a_name = base.basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %>
                         <% if counter < 7 %>
                           <p class="strong">
@@ -63,15 +64,8 @@
               <%= render partial: "mapbox" %>
             </div>
           </div>
-
-
       </div>
     </div>
   </div>
-
-
-
-
-
 </div>
 

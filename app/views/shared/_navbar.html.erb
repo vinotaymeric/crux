@@ -1,11 +1,12 @@
 <nav>
   <div class="nav-wrapper">
     <div class="container">
-      <%= link_to "Crux", root_path, class: "brand-logo" %>
+
+      <%= link_to "_#{image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "small-image")}_  Crux".html_safe, root_path, class: "brand-logo no-hover" %>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <% if user_signed_in? %>
-          <li><%= link_to "Mes sorties", trips_path %></li>
-          <li><%= link_to "Profil", edit_user_registration_path %></li>
+          <li><%= link_to "Mes sorties", trips_path, class: "" %></li>
+          <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
           <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
         <% else %>
           <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
@@ -19,7 +20,7 @@
         <ul class="right hide-on-med-and-down">
           <% if user_signed_in? %>
             <li><%= link_to "Mes sorties", trips_path %></li>
-            <li><%= link_to "Profil", edit_user_registration_path %></li>
+            <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
             <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
           <% else %>
             <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
@@ -29,12 +30,14 @@
       </div>
     </div>
   </div>
-</nav><div></div>
+</nav>
 
 <ul class="sidenav" id="mobile-demo">
+ <%= image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "small-image") %>
   <% if user_signed_in? %>
+    <li>Crux de <%= current_user.email %></li>
     <li><%= link_to "Mes sorties", trips_path %></li>
-    <li><%= link_to "Profil", edit_user_registration_path %></li>
+    <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
     <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
   <% else %>
     <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
