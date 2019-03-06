@@ -4,8 +4,7 @@ const initForm = () => {
   const activities = document.querySelectorAll('#user_activity_level');
   activities.forEach( (element) => {
     element.addEventListener('change', (e) => {
-      e.currentTarget.closest('form').submit();
-      e.preventDefault();
+      Rails.fire(e.currentTarget.closest('form'), 'submit')
     });
   });
 }
