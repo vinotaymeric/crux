@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h3><%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %> - <%= @activity.name %></h3>
+  <h4 class="ellipsis"><%= @activity.name.capitalize %> à <%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %></h4>
 
   <% if @trip.validated == false %>
     <div class="fixed-action-btn card-panel sticky-cta">
