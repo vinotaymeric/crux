@@ -72,3 +72,9 @@ interested();
     var instances = M.FloatingActionButton.init(elems);
   });
 
+// Alert close
+
+$('#alert_close').click(function(){
+    $( "#alert_box" ).fadeOut( "slow", function() {
+    });
+  });
