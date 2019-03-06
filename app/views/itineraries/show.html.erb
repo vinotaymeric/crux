@@ -8,15 +8,19 @@
         </div>
         <div class="card-stacked">
           <div class="card-content">
-            <%= render partial: "./itineraries/attributes", locals: {itinerary: @itinerary} %>
-          </div>
-          <div class="card-action">
-            <a href="#">Ajouter aux favoris</a>
+            <span class="title-card card-title activator grey-text text-darken-4"><%= @itinerary.name.split("-")[0] %></span>
+              <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Altitude max"><%= @itinerary.elevation_max %>m</span>
+              <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= @itinerary.difficulty %></span>
+              <% if @itinerary.orientations != nil%>
+                <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Orientation principale"><%= @itinerary.orientations.gsub("\"", "") %></span>
+                <% end %>
+              <div class="right-align" id="favorite">
+                  <a class="fas fa-mountain bigger"></a>
+              </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="col s12">
       <div class="card horizontal">
         <div class="card-stacked">
