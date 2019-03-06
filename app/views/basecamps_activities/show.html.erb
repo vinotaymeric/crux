@@ -2,6 +2,10 @@
 
   <h3><%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %> - <%= @activity.name %></h3>
 
+<div class="fixed-action-btn center-align" style="width: ">
+  <%= link_to "Je valide ce camp", trip_path(@trip), method: :put, class: 'btn' %>
+</div>
+
   <div class="row">
     <div class="col s12">
       <ul class="tabs tabs-fixed-width">
@@ -18,8 +22,7 @@
           <% if @trip.validated %>
             <span>Vos itinéraires sont maintenant disponibles en mode offline ! <br><i class="fas fa-edit"></i><%= link_to "Modifier ma sélection", trip_path(@trip), method: :put%></span>
           <% else %>
-            <span>Sélectionnez les itinéraires qui vous intéressent, puis validez votre camp de base quand vous êtes prêt à partir.</span>
-            <%= link_to 'Go !', trip_path(@trip), method: :put, class: 'btn' %>
+            <span>Sélectionnez vos itinéraires</span>
           <% end %>
           </div>
 

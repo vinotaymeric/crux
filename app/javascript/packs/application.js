@@ -59,8 +59,9 @@ initMapbox();
 
 
 
-// init discovery
+// init floating button
 
-  // $(document).ready(function(){
-  //   $('.tap-target').tapTarget();
-  // });
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elems);
+  });
