@@ -16,7 +16,7 @@
             <% if trip.validated %>
               <a href="#">Link to trip_basecamps_activity</a>
             <% else %>
-              <%= link_to 'Choisir mon camp de base', trip_basecamps_activities_path(trip) %>
+              <%= link_to 'Choisir mon camp de base', trip_basecamps_activities_path(trip), class: "waves-effect waves-light btn-small" %>
             <% end %>
           </div>
         </div>
