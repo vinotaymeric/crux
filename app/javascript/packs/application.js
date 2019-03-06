@@ -45,15 +45,28 @@ initToggleRemove();
 }
 
 // Init tooltips
+// const menu = document.querySelector('#burger-menu')
+// const menuDropdown = document.querySelector('#dropdown1')
+// menu.addEventListener('click', (e) => {
+//   menuDropdown.classList.toggle('transparent')
+// })
 
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.tooltipped');
-  var instances = M.Tooltip.init(elems);
-});
+
+ $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
 
 initMapbox();
 
-$('.dropdown-trigger').dropdown();
+
 
 //trip form validation
 interested();
+
+
+// init discovery
+
+  // $(document).ready(function(){
+  //   $('.tap-target').tapTarget();
+  // });
+

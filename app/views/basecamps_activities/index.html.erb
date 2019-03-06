@@ -9,13 +9,15 @@
         </ul>
           <div id="list">
             <div class="slide-container">
+              <br>
+            <% counter = 0 %>
             <% @basecamps_activities.each do |base| %>
-              <div class="col s12 m4">
-                <h4 class="header"><%= base.basecamp.name.encode("iso-8859-1").force_encoding("utf-8")%></h4>
+              <% counter += 1 %>
+              <div class="col s12 m5">
+
                 <div class="card card-basecamp-activity horizontal small">
                   <div class="card-image">
                     <% if base.activity.name == "ski de randonnée" %>
-                     
                        <%= cl_image_tag("crux/images/ski.png.png") %>
                     <% elsif base.activity.name == "alpinisme" %>
                        <%= cl_image_tag("crux/images/alpi.png.png")%>
@@ -28,12 +30,27 @@
                       <h4><%= base.activity.name.capitalize.split(" ")[0] %></h4>
                       <p id="itinerary-number"><strong><%= base.nb_itineraries %></strong> itinéraires</p>
                       <br>
-
+      
+                        <% b_a_name = base.basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %>
+                        <% if counter < 7 %>
+                          <p class="ellipsis strong">
+                          <%= b_a_name %><span>  <i class="fas fa-heart"></i></span>
+                          </p>
+                        <% else %>
+                          <p>
+                          <strong><%= b_a_name %></strong>
+                          </p>
+                        <% end %>
+                      <br>
+                      <p id="itinerary-number"><strong><%= base.nb_itineraries %></strong> itinéraires en <strong><%= base.activity.name.split(" ")[0] %></strong></p>
+                      <br>
+                       <% base.basecamp.mountain_range.max_risk = 0 if base.basecamp.mountain_range.max_risk.nil? %>
                       <% if base.basecamp.mountain_range.max_risk > 2 %>
                         <p><i class="fas fa-exclamation-triangle"></i> Risque d'avalanche (<%= base.basecamp.mountain_range.max_risk %>)</p>
-                        <br>
+                      <% else %>
+                      <p><i class="fas fa-thumbs-up"></i> Risque faible</p>
                       <% end %>
-
+                      <br>
                       <p><img src="<%= "http:" + base.basecamp.weather.forecast[0]["day"]["condition"]["icon"].to_s %>" style="width: 32px; height: 32px;"> <%= base.basecamp.weather.forecast[0]["day"]["avgtemp_c"].to_s.gsub(".", ",") %>°C</p>
                     </div>
                     <div class="card-action">
