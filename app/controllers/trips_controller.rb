@@ -28,6 +28,11 @@ class TripsController < ApplicationController
     end
 
     @trip.save!
+
+    if @trip.validated
+      flash[:notice] = 'Vos itinéraires sont disponibles en mode offline'
+    end
+
     redirect_back(fallback_location: root_path)
   end
 

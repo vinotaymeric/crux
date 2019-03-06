@@ -23,8 +23,8 @@ const initFavorites = () => {
   const favorites = document.querySelectorAll('#favorite');
   favorites.forEach( (element) => {
     element.addEventListener('click', (e) => {
-      e.preventDefault();
       e.currentTarget.nextElementSibling.submit();
+      e.preventDefault();
     });
   });
 }
