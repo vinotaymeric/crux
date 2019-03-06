@@ -15,7 +15,6 @@ import { initToggleRemove, initToggleAdd, initFavorites } from './init_favorite'
 import initAutocomplete from '../plugins/init_autocomplete';
 import initDrivingTimeOnTrips from './init_driving_time_on_trips'
 import initTabs from '../components/init_tabs';
-import initModals from '../components/init_modals';
 import initForm from './init_remote_forms';
 
 import { initMapbox } from '../plugins/init_mapbox';
@@ -26,7 +25,6 @@ M.AutoInit();
 initTransition();
 initAutocomplete();
 initDrivingTimeOnTrips();
-initModals();
 
 // Init materialize JS components
 
