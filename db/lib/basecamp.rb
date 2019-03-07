@@ -12,6 +12,16 @@ def csv_to_cities(file_path)
   cities
 end
 
+def csv_to_geoname_ids(file_path)
+  csv_options = { col_sep: ';', quote_char: '"',
+                  headers: :first_row }
+  geoname_ids = []
+  CSV.foreach(file_path, csv_options) do |row|
+    geoname_ids << { geoname_id: row['geoname_id'], code_insee: row['code_insee'] }
+  end
+  geoname_ids
+end
+
 def filter_on_cities(cities, min_inhab = 0, departments = [])
   cities.select! { |city| city[:inhab] > min_inhab }
   unless departments.empty?

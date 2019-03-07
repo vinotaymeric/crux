@@ -1,6 +1,6 @@
 class ItinerariesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :index]
-  before_action :init_mark_down_parser, only: :show
+  before_action :init_mark_down_parser, only: [:show, :index]
 
   def index
     # basecamp = params[:basecamp_id]
@@ -30,6 +30,11 @@ class ItinerariesController < ApplicationController
       format.html
       format.js
     end
+  end
+
+  def init_mark_down_parser
+    renderer = Redcarpet::Render::HTML.new(no_images: true)
+    @markdown = Redcarpet::Markdown.new(renderer)
   end
 
 end
