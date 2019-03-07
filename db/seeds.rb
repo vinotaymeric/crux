@@ -1,3 +1,4 @@
+
 # require_relative 'bra_functions'
 require_relative 'lib/basecamp'
 # require 'json'
@@ -7,16 +8,6 @@ require_relative 'lib/basecamp'
 # require 'date'
 # require 'pry'
 # require "base64"
-
-# # Delete all
-
-
-# BasecampsActivitiesItinerary.delete_all
-# BasecampsActivity.delete_all
-# Basecamp.delete_all
-# MountainRange.delete_all
-# Weather.delete_all
-
 
 # puts "###Seeding MountainRange#### "
 

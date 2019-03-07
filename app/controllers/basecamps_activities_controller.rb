@@ -97,8 +97,6 @@ class BasecampsActivitiesController < ApplicationController
     else
       score = [nb_itineraries, 15].min - (distance / 10) - 3 * avalanche + 7 * w_score
     end
-    # ap "lol"
-    # ap w_score
     return score
   end
 end

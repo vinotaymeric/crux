@@ -1,23 +1,43 @@
 <div class="container" >
   <div class ="row">
   <% @itineraries.each do |itinerary| %>
+
     <% next if itinerary.name.nil? %>
+
     <div class="col s12 m4">
       <div class="card small">
         <div class="card-image waves-effect waves-block waves-light">
           <img class="activator" src="<%= itinerary.picture_url %>">
         </div>
         <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4"><%= itinerary.name.split("-")[0] %><i class="material-icons right">more_vert</i></span>
-          <p><%= itinerary.name.split("-")[1..-1].join(" ") %> - <%= itinerary.elevation_max %></p>
-          <p>| <%= itinerary.difficulty %> | - | <%= itinerary.orientations %> | - | <%= itinerary.equipment_rating %> |</p>
+          <span class="title-card ellsipsised card-title activator grey-text text-darken-4"><%= itinerary.name.split("-")[0] %></span>
+          <p>
+            <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Altitude max"><%= itinerary.elevation_max %>m</span>
+
+            <% if itinerary.height_diff_up != nil%>
+              <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Orientation principale">+ <%= itinerary.height_diff_up %> m</span>
+            <% end %>
+
+            <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.difficulty %></span>
+
+            <% if itinerary.orientations != nil%>
+              <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Orientation principale"><%= itinerary.orientations.gsub("\"", "") %></span>
+            <% end %>
+
+           </p>
         </div>
-        <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4"><%= itinerary.name %><i class="material-icons right">close</i></span>
-          <p><%= itinerary.content %></p>
-        </div>
+
+        <% if itinerary.content != nil %>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4"><%= itinerary.name %><i class="material-icons right">close</i></span>
+            <p><%= render partial: "description", locals: {itinerary: itinerary} %></p>
+          </div>
+        <% end %>
+
       </div>
     </div>
   <% end %>
   </div>
 </div>
+
+
