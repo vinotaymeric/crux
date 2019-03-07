@@ -18,10 +18,12 @@
 </nav>
 
 <ul class="sidenav" id="mobile-menu">
-  <div class="side-bar-head center-align">
-  <%= image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "medium-image") %>
-  <h5 class="center-align" style="margin-top: 0px">Crux</h5>
-  </div>
+  <%= link_to root_path do %>
+    <div class="side-bar-head center-align">
+      <%= image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "medium-image") %>
+      <h5 class="center-align black-font" style="margin-top: 0px">Crux</h5>
+    </div>
+  <% end %>
   <% if user_signed_in? %>
     <li><%= link_to "Mes sorties", trips_path, class: "" %></li>
     <li><%= link_to "Nouvelle sortie", new_trip_path, class: "" %></li>
