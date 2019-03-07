@@ -1,29 +1,27 @@
 
 <div class=" avalanche">
   <h2 class= "avalanche-infos"><%= mountain_range.name %> - Estimation du risque d'avalanche</h2>
-  <p id="bra-date">date du dernier bulletin BRA : <%= mountain_range.bra_date.strftime("%d/%m/%Y") %></p>
-  <div class="avalanche-infos">
-    <%= image_tag(mountain_range.rosace_url)%>
-    <div id="legend">
-      <ul>Indices de risque : <li>1 faible - 2 limité - 3 marqué</li><li>4 fort - 5 très fort</li>En noir : les pentes les plus dangereuses</ul>
-    </div>
+  <p id="bra-date">Date du dernier bulletin BRA :<em style="font-weight:bold;"> <%= mountain_range.bra_date.strftime("%d/%m/%Y") %></em></p>
+  <div class="">
+    <%= image_tag(mountain_range.rosace_url, class: "materialboxed scale-down")%>
+      <ul id="legend">Indices de risque : <li>1 faible - 2 limité - 3 marqué</li><li>4 fort - 5 très fort</li></ul>
+      <figcaption>En noir : les pentes les plus dangereuses</figcaption>
   </div>
   <h3 class= "avalanche-infos">Stabilité du manteau neigeux</h3>
   <p class="avalanche-infos"> <%= mountain_range.stability %></p>
   <h3 class= "avalanche-infos">Qualité de la neige</h3>
   <p class="avalanche-infos"> <%= mountain_range.snow_quality %></p>
+  <div class = " avalanche-infos">
   <div class="row">
     <div class="col s12 m6">
-     
-        <h3 class= "avalanche-infos" >Epaisseur de neige hors-piste</h3>
-        <%= image_tag(mountain_range.snow_image_url)%>
-  
+        <%= image_tag(mountain_range.snow_image_url, class: "materialboxed scale-down")%>
+        <figcaption>Epaisseur de neige hors-piste</figcaption>
     </div>
     <div class="col s12 m6">
-      
-        <h3 class= "avalanche-infos">Neige Fraîche à 1800m</h3>
-        <%= image_tag(mountain_range.fresh_snow_url)%>
+        <%= image_tag(mountain_range.fresh_snow_url, class: "materialboxed scale-down")%>
+        <figcaption>Neige Fraîche à 1800m</figcaption>
     </div>
+  </div>
   </div>
 </div>
 
