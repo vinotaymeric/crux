@@ -3,13 +3,13 @@
   <p class="ellipsis center-align strong" style="margin-bottom: -8px"><%= @activity.name.capitalize %> à <%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %></p>
 
   <% if @trip.validated == false %>
-    <div class="fixed-action-btn card-panel sticky-cta hide">
-      <%= link_to "Valider ce camp", trip_path(@trip), method: :put, class: 'btn' %>
-    </div>
+  <div class="fixed-action-btn card-panel sticky-cta hide">
+    <%= link_to "Valider ce camp", trip_path(@trip), method: :put, class: 'btn' %>
+  </div>
   <% else %>
-    <div class="fixed-action-btn card-panel sticky-cta">
-      <%= link_to "Ajouter des itinéraires", trip_path(@trip), method: :put, class: 'btn' %>
-    </div>
+  <div class="fixed-action-btn card-panel sticky-cta">
+    <%= link_to "Ajouter des itinéraires", trip_path(@trip), method: :put, class: 'btn' %>
+  </div>
   <% end %>
 
   <div class="row">
@@ -18,7 +18,7 @@
         <li class="tab col s1"><a class="active" href="#itineraries">Itinéraires</a></li>
         <li class="tab col s1"><a class="" href="#weather">Météo</a></li>
         <% if @mountain_range %>
-          <li class="tab col s1"><a class="" href="#avalanche">Avalanche</a></li>
+        <li class="tab col s1"><a class="" href="#avalanche">Avalanche</a></li>
         <% end %>
       </ul>
 
@@ -26,26 +26,24 @@
         <div class="slide-container">
 
           <% @itineraries.each do |itinerary| %>
-            <% next if itinerary.name.nil? %>
-            <%= render partial: "card_itinerary", locals: {itinerary: itinerary, favorite: @favorite_itinerary, trip: @trip} %>
+          <% next if itinerary.name.nil? %>
+          <%= render partial: "card_itinerary", locals: {itinerary: itinerary, favorite: @favorite_itinerary, trip: @trip} %>
           <% end %>
 
         </div>
       </div>
       <div id="weather">
         <div class="row">
-          <h5 class="center-align" style="padding: 3px">Météogramme pour les 5 prochains jours</h5>
-          <div class="col s12 center-align">
-            <%= image_tag(@basecamp.meteoblue_semaine_url, class: "materialboxed")%>
-          </div>
+          <%= render partial: "weather_infos", locals: {basecamp: @basecamp} %>
         </div>
       </div>
       <% if @mountain_range %>
-        <div id="avalanche">
-          <div class="row">
-            <%= render partial: "avalanche_infos", locals: {mountain_range: @mountain_range} %>
-          </div>
+      <div id="avalanche">
+        <div class="row">
+          <%= render partial: "avalanche_infos", locals: {mountain_range: @mountain_range} %>
         </div>
+      </div>
       <% end %>
+    </div>
   </div>
 </div>

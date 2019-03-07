@@ -1,4 +1,4 @@
-.avalanche {
+.avalanche, .weather {
   background-color: #fff;
   transition: box-shadow .25s, -webkit-box-shadow .25s;
   border-radius: 2px;
@@ -39,7 +39,7 @@
   }
 }
 
-.avalanche-infos {
+.avalanche-infos, .weather-infos {
   text-align:center;
 }
 
@@ -60,4 +60,13 @@ figcaption {
 ul#legend li {
   display:inline;
   font-style: italic;
+}
+
+#weather {
+  img {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 0 15px 0;
+  }
 }
