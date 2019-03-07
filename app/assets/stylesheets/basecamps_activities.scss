@@ -1,21 +1,6 @@
 // Place all the styles related to the basecamps controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.avalanche {
-  h2 {
-    text-align: center;
-    padding: 2rem 0.5rem;
-    font-size: 3.5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  padding: 0 5rem;
-  img {
-    padding: 1rem;
-    height: auto;
-    max-width: 100%;
-  }
-}
 
 .slide-container:after {
   clear: both;

@@ -45,7 +45,6 @@ const initTransition = () => {
       verif(tripAddress);
       verif(tripStartDate);
       verif(tripEndDate);
-      console.log(userActivityFields);
       userActivityFields.forEach(function(userActivityField) {
         verif(userActivityField)
       });
@@ -54,6 +53,9 @@ const initTransition = () => {
         document.querySelector('#empty-field-message').classList.remove("transparent");
       } else {
         form.classList.add("transparent");
+        document.querySelectorAll('.user_activity_level').forEach((inputField) => {
+          inputField.classList.add("transparent");
+        });
         curtain.classList.add("curtain-up");
         setTimeout(function(){ boussole.classList.add("tourne"); }, 1000);
         setTimeout(function(){ rowIti.classList.remove("transparent"); incrementor('#itinerary-count');}, 1000);
