@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_06_112720) do
+ActiveRecord::Schema.define(version: 2019_03_07_121129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 2019_03_06_112720) do
     t.integer "city_inhab"
     t.bigint "mountain_range_id"
     t.bigint "weather_id"
+    t.string "code_insee"
+    t.string "geoname"
     t.index ["activity_id"], name: "index_basecamps_on_activity_id"
     t.index ["mountain_range_id"], name: "index_basecamps_on_mountain_range_id"
     t.index ["weather_id"], name: "index_basecamps_on_weather_id"

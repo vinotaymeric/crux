@@ -33,8 +33,12 @@
         </div>
       </div>
       <div id="weather">
-        <div class="container">
-          <img src="https://res.cloudinary.com/dcr8ffyyv/image/upload/v1550848162/weather_placeholder.png" alt="">
+        <div class="row">
+          <br>
+          <h5 class="center-align">Météogramme pour les 5 prochains jours</h5>
+          <div class="col s12 center-align">
+            <%= image_tag(@basecamp.meteoblue_semaine_url, class: "materialboxed")%>
+          </div>
         </div>
       </div>
       <% if @mountain_range %>
