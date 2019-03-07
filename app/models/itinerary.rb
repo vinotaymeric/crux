@@ -1,4 +1,13 @@
 class Itinerary < ApplicationRecord
+
+  # include AlgoliaSearch
+  # algoliasearch do
+  #   begin
+  #   rescue Exception => e
+  #     puts "erreur"
+  #   end
+  # end
+
   belongs_to :activity
   has_many :favorite_itineraries
   has_many :trips, through: :favorite_itinerary
