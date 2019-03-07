@@ -7,13 +7,15 @@
           <div class="form-inputs">
             <%= f.input :email,
                   label: "Adresse email:",
+                  label_html: { class: 'left' },
                  required: false,
                  autofocus: true,
                  input_html: { autocomplete: "email" }
                  %>,
             <%= f.input :password,
                   label: "Entrez votre mot de passe:",
-                  required: true,
+                  label_html: { class: 'left' },
+                  required: false,
                   input_html: { autocomplete: "current-password" }
                    %>
           </div>
