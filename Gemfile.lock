@@ -282,6 +282,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  addressable
   algoliasearch-rails
   autoprefixer-rails
   awesome_print
