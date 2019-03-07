@@ -1,28 +1,33 @@
-  <nav>
-    <div class="nav-wrapper">
-      <%= link_to "<span>_</span>#{image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "small-image scale-down")}<span>_ Crux</span>".html_safe, root_path, class: "brand-logo no-hover logo-with-text" %>
-      <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <ul class="right hide-on-med-and-down">
-        <% if user_signed_in? %>
-          <li><%= link_to "Mes sorties", trips_path, class: "" %></li>
-          <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
-          <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
-        <% else %>
-          <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
-          <li> <%= link_to "Se connecter", new_user_session_path %> </li>
-        <% end %>
-      </ul>
-    </div>
-  </nav>
+<nav>
+  <div class="nav-wrapper">
+    <%= link_to "#{image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "small-image")} Crux".html_safe, root_path, class: "brand-logo no-hover logo-with-text logo-box" %>
+    <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <% if user_signed_in? %>
+        <li><%= link_to "Mes sorties", trips_path, class: "" %></li>
+        <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
+        <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
+      <% else %>
+        <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
+        <li><%= link_to "Se connecter", new_user_session_path %></li>
+        <li><%= link_to "S'inscrire", new_user_registration_path %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
 
-  <ul class="sidenav" id="mobile-menu">
-    <%= image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "small-image scale-down") %>
-    <% if user_signed_in? %>
-      <li><%= link_to "Mes sorties", trips_path, class: "" %></li>
-      <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
-      <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
-    <% else %>
-      <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
-      <li> <%= link_to "Se connecter", new_user_session_path %> </li>
-    <% end %>
-  </ul>
+<ul class="sidenav" id="mobile-menu">
+  <div class="side-bar-head center-align">
+  <%= image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "medium-image") %>
+  <h5 class="center-align" style="margin-top: 0px">Crux</h5>
+  </div>
+  <% if user_signed_in? %>
+    <li><%= link_to "Mes sorties", trips_path, class: "" %></li>
+    <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
+    <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
+  <% else %>
+    <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>
+    <li><%= link_to "Se connecter", new_user_session_path %></li>
+    <li><%= link_to "S'inscrire", new_user_registration_path %></li>
+  <% end %>
+</ul>
