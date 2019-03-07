@@ -1,116 +1,30 @@
-# require_relative 'bra_functions'
-# require_relative 'lib/basecamp'
-# require 'json'
-# require 'open-uri'
-# require 'nokogiri'
-# require 'date'
-# require 'date'
-# require 'pry'
-# require "base64"
-
-# # Delete all
+require 'json'
+require 'open-uri'
+require 'nokogiri'
+require 'addressable/uri'
 
 
-# BasecampsActivitiesItinerary.delete_all
-# BasecampsActivity.delete_all
-# Basecamp.delete_all
-# MountainRange.delete_all
-# Weather.delete_all
-
-
-# puts "###Seeding MountainRange#### "
-
-# ## initilization of mountainRange
-# puts "initilization of mountainRange"
-
-# RANGES.each do |range|
-#   MountainRange.create!(
-#     name: range[0],
-#     coord_lat: range[2],
-#     coord_long: range[3]
-#     )
-# end
-
-# ######
-# date = 20190220
-
-# update_mountain_ranges(date)
-
-# puts "####MountainRange seeding completed###"
-
-# ## SEED BASECAMPS
-# puts "Seeding basecamps..."
-# NB_INHAB = 500 # Change this param if needed
-# SCOPE_DEPARTMENTS = %w[74 38 73 04 05 06].freeze # Change this param if needed
-# MAX_DIST_FROM_MOUNTAIN_RANGE = 80 # max distance (km) between a mountain_range and a basecamp
-
-# cities = csv_to_cities('db/csv_repos/french_cities.csv')
-# cities = filter_on_cities(cities, NB_INHAB, SCOPE_DEPARTMENTS)
-# feed_basecamps(cities, MAX_DIST_FROM_MOUNTAIN_RANGE)
-
-# puts "Basecamps seeding completed"
-
-# ## SEED BASECAMPS_ACTIVITIES
-# Basecamp.all.each do |basecamp|
-#   Activity.all[0..2].each do |activity|
-#     BasecampsActivity.create!(basecamp: basecamp, activity: activity)
-#   end
-# end
-
-# ## SEED BASECAMPS_ACTIVITIES_ITINERARIES
-
-# BasecampsActivity.all.each do |basecamps_activity|
-#     p basecamps_activity.id
-#   Itinerary.all.each do |itinerary|
-#     if itinerary.activity == basecamps_activity.activity && itinerary.distance_from(basecamps_activity.basecamp) < 15
-#       BasecampsActivitiesItinerary.create!(itinerary_id: itinerary.id, basecamps_activity_id: basecamps_activity.id)
-#     end
-#   end
-# end
-
-# ## Initiate weather
-
-# puts "initilization of weather..."
-
-# Weather.destroy_all
-
-# BasecampsActivity.where(activity_id: 13).each do |basecamp_activity|
-#   Weather.create!(basecamp: basecamp_activity.basecamp)
-# end
-
-def api_call(lat, lon)
-  url = "https://api.apixu.com/v1/forecast.json?key=3a0aef724b764f6cb35161705192702&q=#{lat},#{lon}&days=7"
+def api_call(itinerary, id)
+  url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"
+  p url
   JSON.parse(open(url).read)
 end
 
-Weather.all.each do |weather|
-  begin
-  basecamp = weather.basecamp
-  weather_hash = api_call(basecamp.coord_lat, basecamp.coord_long)
-  weather.forecast = weather_hash["forecast"]["forecastday"]
-  weather.save!
+def recent_conditions(itinerary)
+  itinerary = Addressable::URI.encode_component(itinerary.name, Addressable::URI::CharacterClasses::QUERY)
+  url_c2C = "https://www.google.fr/search?ei=8gmBXLvLGOCCjLsPsf2_gAo&q=site%3Ahttps%3A%2F%2Fwww.camptocamp.org%2Froutes%2F+#{itinerary}+&oq=site%3Ahttps%3A%2F%2Fwww.camptocamp.org%2Froutes%2F+#{itinerary}"
 
-  # Adding a rescue so that it works even a call fails
+  html_file_c2C = open(url_c2C).read
+  html_doc_c2c = Nokogiri::HTML(html_file_c2C)
 
-  rescue Exception => e
-  puts "#weather {weather.id} a pété"
-  end
+  id = html_doc_c2c.search('h3').first.children.attribute('href').value.split("/")[5].to_i
 
+  p api_call("outings", id)["associations"]["recent_outings"]["total"]
 end
 
-# # Update iti levels
+recent_conditions(Itinerary.find(347))
 
-# Itinerary.all.each do |itinerary|
-#   expérimenté = ["TD-", "TD", "TD+", "ED-", "ED", "ED+"]
-#   intermediaire = ["D-", "D", "D+", "AD-", "AD", "AD+"]
-#   débutant = ["PD-", "PD", "PD+", "F-", "F", "F+"]
-#   if expérimenté.include?(itinerary.difficulty)
-#     itinerary.level = "Expérimenté"
-#   elsif intermediaire.include?(itinerary.difficulty)
-#     itinerary.level = "Intermédiaire"
-#   elsif débutant.include?(itinerary.difficulty)
-#     itinerary.level = "Débutant"
-#   end
-#   itinerary.save!
-#   p itinerary.id
-# end
+
+# url_skitour = "https://www.google.fr/search?ei=PQ2BXO3vKo3jgweYlavQCA&q=site%3Ahttp%3A%2F%2Fwww.skitour.fr%2Ftopos%2F+#{itinerary}&oq=site%3Ahttp%3A%2F%2Fwww.skitour.fr%2Ftopos%2F+#{itinerary}"
+# html_file_skitour = open(url_skitour).read
+# html_doc_skitour = Nokogiri::HTML(html_file_skitour)
