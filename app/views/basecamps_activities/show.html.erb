@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h4 class="ellipsis"><%= @activity.name.capitalize %> à <%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %></h4>
+  <p class="ellipsis center-align strong" style="margin-bottom: -8px"><%= @activity.name.capitalize %> à <%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %></p>
 
   <% if @trip.validated == false %>
     <div class="fixed-action-btn card-panel sticky-cta hide">
@@ -37,7 +37,7 @@
           <br>
           <h5 class="center-align">Météogramme pour les 5 prochains jours</h5>
           <div class="col s12 center-align">
-          <%= image_tag(@basecamp.meteoblue_semaine_url, class: "materialboxed")%>
+            <%= image_tag(@basecamp.meteoblue_semaine_url, class: "materialboxed")%>
           </div>
         </div>
       </div>

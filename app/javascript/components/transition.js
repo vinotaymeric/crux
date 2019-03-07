@@ -4,6 +4,7 @@ const form = document.querySelector('#new_trip')
 const boussole = document.querySelector('.boussole')
 const curtain = document.querySelector('.curtain')
 const rowIti = document.querySelector('#row-iti')
+const rowWeather = document.querySelector('#row-weather')
 const rowMassif = document.querySelector('#row-massif')
 const rowBasecamp = document.querySelector('#row-basecamp')
 const userActivityFields = document.querySelectorAll('#user_activity_level')
@@ -60,8 +61,9 @@ const initTransition = () => {
         setTimeout(function(){ boussole.classList.add("tourne"); }, 1000);
         setTimeout(function(){ rowIti.classList.remove("transparent"); incrementor('#itinerary-count');}, 1000);
         setTimeout(function(){ rowBasecamp.classList.remove("transparent"); incrementor('#basecamp-count');}, 3000);
-        setTimeout(function(){ rowMassif.classList.remove("transparent"); incrementor('#massif-count'); }, 5000);
-        setTimeout(function(){ form.submit(); }, 4000);
+        setTimeout(function(){ rowWeather.classList.remove("transparent"); incrementor('#weather-count'); }, 5000);
+        setTimeout(function(){ rowMassif.classList.remove("transparent"); incrementor('#massif-count'); }, 7000);
+        setTimeout(function(){ form.submit(); }, 5000);
       };
   });
 }

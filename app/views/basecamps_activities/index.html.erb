@@ -1,19 +1,17 @@
 <div class="container">
-  <h4>Choisis ton camp de base</h4>
   <div class="basecamps-activities-container" data-ors-api-key="<%= ENV['ORS_API_KEY'] %>">
     <div class="row">
-      <div class="col s12">
+      <div class="col s12 m12">
         <ul class="tabs tabs-fixed-width">
           <li class="tab col s1"><a class="active" href="#list">Liste</a></li>
           <li class="tab col s1"><a class="" href="#map-ba">Carte</a></li>
         </ul>
           <div id="list">
             <div class="slide-container">
-              <br>
             <% counter = 0 %>
             <% @basecamps_activities.each do |base| %>
               <% counter += 1 %>
-              <div class="col s12 m5">
+              <div class="col s12 m6">
                 <div class="card card-basecamp-activity horizontal small">
                   <%= link_to trip_basecamps_activity_path(@trip, base) do %>
                   <div class="card-image">
@@ -47,12 +45,16 @@
                       <br>
                        <% base.basecamp.mountain_range.max_risk = 0 if base.basecamp.mountain_range.max_risk.nil? %>
                       <% if base.basecamp.mountain_range.max_risk > 2 %>
-                        <p><i class="fas fa-exclamation-triangle"></i> BRA risqué (<%= base.basecamp.mountain_range.max_risk %>)</p>
+                        <p><i class="fas fa-exclamation-triangle"></i> BRA risqué (<%= base.basecamp.mountain_range.max_risk %> / 5)</p>
                       <% else %>
                       <p><i class="fas fa-thumbs-up"></i> BRA optimal</p>
                       <% end %>
                       <br>
-                      <p><img src="<%= "http:" + base.basecamp.weather.forecast[0]["day"]["condition"]["icon"].to_s %>" style="width: 32px; height: 32px;"> <%= base.basecamp.weather.forecast[0]["day"]["avgtemp_c"].to_s.gsub(".", ",") %>°C</p>
+                      <p>
+                      <% @trip.start_date.upto(@trip.end_date).each_with_index do |date, index| %>
+                        <img src="<%= "http:" + base.basecamp.weather.forecast[index]["day"]["condition"]["icon"].to_s %>" style="width: 32px; height: 32px;">
+                      <% end %>
+                      </p>
                     </div>
                   </div>
                 </div>

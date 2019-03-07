@@ -4,7 +4,7 @@
   border-radius: 2px;
   box-shadow: 1px 1px 12px #555;
   padding: 0 1rem;
-
+  
   #bra-date {
     text-align: center;
   }
@@ -14,6 +14,7 @@
   }
 
   h2 {
+  
     text-align: center;
     padding: 2rem 0.5rem 0rem 0.5rem;
     font-size: 3.5rem;
@@ -22,10 +23,12 @@
   }
 
   h3 {
+
     font-size: 1.5rem;
   }
 
   img {
+
     padding: 1rem;
     margin: 0 auto;
     max-width: 100%;
@@ -39,6 +42,7 @@
 }
 
 .avalanche-pic {
+  border: blue solid 5px;
   display: flex;
   justify-content: space-around;
   align-items: center;

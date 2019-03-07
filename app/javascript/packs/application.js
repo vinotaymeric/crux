@@ -82,15 +82,21 @@ $('#alert_close').click(function(){
 
 //other
 
-const active = document.querySelector(".active");
-const sticky = document.querySelector(".sticky-cta");
-console.log(active);
 
 
-if (active.innerText === "ITINÉRAIRES") {
-    sticky.classList.remove("hide");
+
+const buttonTabs = () => {
+  const active = document.querySelector(".active");
+  const sticky = document.querySelector(".sticky-cta");
+  if (active === null) { return }
+  if (active.innerText === "ITINÉRAIRES") {
+      sticky.classList.remove("hide");
+  }
+
+  if (active.innerText != "ITINÉRAIRES") {
+      console.log("toto");
+  }
 }
 
-if (active.innerText != "ITINÉRAIRES") {
-    console.log("toto");
-}
+buttonTabs();
+
