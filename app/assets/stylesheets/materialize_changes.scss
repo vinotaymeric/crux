@@ -54,3 +54,23 @@ nav ul a {
 .btn {
   font-size: 1.3em;
 }
+
+.card-image {
+  position: relative;
+}
+
+.add-itinerary {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  background-color: #23B5D3;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.add-itinerary:hover {
+  background-color: white;
+  color: #23B5D3;
+}

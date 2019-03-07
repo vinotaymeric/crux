@@ -17,13 +17,13 @@
         <div class="right-align" id="favorite">
 
           <% if trip.validated%>
-            <a class="fas fa-mountain bigger"></a>
+            <a class="fas fa-mountain bigger add-itinerary"></a>
           <% else %>
 
             <% if trip.itineraries.distinct.include?(itinerary) %>
-            <a onclick="M.toast({html: 'Itinéraire enlevé', classes: 'toaster remove'})" class="fas fa-mountain bigger"></a>
+            <a onclick="M.toast({html: 'Itinéraire enlevé', classes: 'toaster remove'})" class="fas fa-mountain bigger add-itinerary"></a>
             <% else %>
-            <a onclick="M.toast({html: 'Itinéraire ajouté', classes: 'toaster'})" class="fas fa-plus-circle bigger"></a>
+            <a onclick="M.toast({html: 'Itinéraire ajouté', classes: 'toaster'})" class="fas fa-plus-circle bigger add-itinerary"></a>
 
             <% end %>
 
