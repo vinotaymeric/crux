@@ -77,7 +77,7 @@ interested();
 // Alert close
 
 $('#alert_close').click(function(){
-    $( "#alert_box" ).fadeOut( "slow", function() {
+    $( "#alert_box" ).slideUp( "slow", function() {
     });
   });
 
