@@ -139,7 +139,10 @@ require_relative 'lib/basecamp'
 # Add geoname_id to Basecamp
 
 geonames_db = csv_to_geoname_ids('db/csv_repos/geoname_ids_france.csv')
+
 Basecamp.all.each do |basecamp|
-  geoname_infos = geonames_db.select { |item| p item[:code_insee] == basecamp.code_insee }
-  p geoname_infos
+  geoname_infos = geonames_db.select { |item| item[:code_insee] == basecamp.code_insee }[0]
+  basecamp.geoname = geoname_infos[:geoname_id]
+  p basecamp.geoname
+  basecamp.save!
 end
