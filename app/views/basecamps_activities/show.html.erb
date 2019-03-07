@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h4 class="ellipsis"><%= @activity.name.capitalize %> à <%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %></h4>
+  <p class="ellipsis center-align strong" style="margin-bottom: -8px"><%= @activity.name.capitalize %> à <%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %></p>
 
   <% if @trip.validated == false %>
     <div class="fixed-action-btn card-panel sticky-cta hide">
@@ -33,11 +33,8 @@
         </div>
       </div>
       <div id="weather">
-      <div class="row">
-        <br>
-        <div class="col s12 center-align">
-        <img src="https://res.cloudinary.com/dcr8ffyyv/image/upload/v1550848162/weather_placeholder.png" alt="">
-        </div>
+        <div class="container">
+          <img src="https://res.cloudinary.com/dcr8ffyyv/image/upload/v1550848162/weather_placeholder.png" alt="">
         </div>
       </div>
       <% if @mountain_range %>
