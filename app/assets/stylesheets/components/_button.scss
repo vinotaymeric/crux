@@ -1,11 +1,11 @@
 .btn-outline {
     background-color: rgba( 210, 210, 210, 0.8);
     border: 1px solid white;
-    padding: 0.5em;
+    padding: 0.8em;
     color: white;
-    border-radius: 20px;
+    border-radius: 7px;
     text-align: center;
-    font-size: 1.1em;
+    font-size: 1.3em;
     &:hover {
       background-color: rgba( 220, 220, 220, 0.5);
       color: white;
@@ -20,10 +20,9 @@
 
 .tertiary {
   background-color: white;
-  color: #071013;
+  color: black;
   font-size: 1.1em;
-  // border: 1px solid #23B5D3;
-  // border-radius: 2px;
+  font-weight: lighter;
   padding: 6px 6px;
 }
 

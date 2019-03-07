@@ -7,20 +7,23 @@
       <span class="title-card ellsipsised card-title activator grey-text text-darken-4"><%= itinerary.name.split("-")[0] %></span>
       <p>
         <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Altitude max"><%= itinerary.elevation_max %>m</span>
+        <% if itinerary.height_diff_up != nil%>
+          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Orientation principale">+ <%= itinerary.height_diff_up %> m</span>
+        <% end %>
         <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.difficulty %></span>
         <% if itinerary.orientations != nil%>
           <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Orientation principale"><%= itinerary.orientations.gsub("\"", "") %></span>
-          <% end %>
+        <% end %>
         <div class="right-align" id="favorite">
 
           <% if trip.validated%>
-            <a class="fas fa-mountain bigger"></a>
+            <a class="fas fa-mountain bigger add-itinerary"></a>
           <% else %>
 
             <% if trip.itineraries.distinct.include?(itinerary) %>
-            <a onclick="M.toast({html: 'Itinéraire enlevé', classes: 'toaster remove'})" class="fas fa-mountain bigger"></a>
+            <a onclick="M.toast({html: 'Itinéraire enlevé', classes: 'toaster remove'})" class="fas fa-mountain bigger add-itinerary"></a>
             <% else %>
-            <a onclick="M.toast({html: 'Itinéraire ajouté', classes: 'toaster'})" class="fas fa-plus-circle bigger"></a>
+            <a onclick="M.toast({html: 'Itinéraire ajouté', classes: 'toaster'})" class="fas fa-plus-circle bigger add-itinerary"></a>
 
             <% end %>
 
