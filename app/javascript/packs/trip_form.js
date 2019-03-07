@@ -2,7 +2,7 @@ const interested= () =>{
   const btnLetsGo = document.querySelector('#letsGoBtn');
   const choices = document.querySelectorAll('#user_activity_level');
   if (btnLetsGo == null){
-    return;
+    return
   }
   var x = 0
   choices.forEach(choice => { 
@@ -11,7 +11,7 @@ const interested= () =>{
     } 
   });
 
-  if (x === 4) {
+  if (x == 4) {
     btnLetsGo.disabled = true;
   }else{
     btnLetsGo.disabled = false;
