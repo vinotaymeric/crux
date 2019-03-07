@@ -2,7 +2,7 @@
 const initDrivingTimeOnTrips = () => {
 
 const addDrivingTimeToCard = (card, drivingTime) => {
-    card.querySelector('#itinerary-number').insertAdjacentHTML('AfterEnd', `<br><p id="driving-time"><i class="fas fa-car"></i> ${drivingTime}</p>`);
+    card.querySelector('#driving-time-value').insertAdjacentHTML('BeforeEnd', drivingTime);
 };
 
 const fetchDrivingTime = (ori_lat, ori_long, desti_lat, desti_long, orsApiKey) => {
