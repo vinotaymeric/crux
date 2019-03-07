@@ -61,7 +61,7 @@ const initTransition = () => {
         setTimeout(function(){ rowIti.classList.remove("transparent"); incrementor('#itinerary-count');}, 1000);
         setTimeout(function(){ rowBasecamp.classList.remove("transparent"); incrementor('#basecamp-count');}, 3000);
         setTimeout(function(){ rowMassif.classList.remove("transparent"); incrementor('#massif-count'); }, 5000);
-        setTimeout(function(){ form.submit(); }, 4000);
+        setTimeout(function(){ form.submit(); }, 3000);
       };
   });
 }
