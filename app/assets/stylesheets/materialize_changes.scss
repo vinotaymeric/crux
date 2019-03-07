@@ -12,6 +12,7 @@ nav {
 
 .tabs .tab a {
   color: rgba(38, 166, 154, 0.7);
+  font-size: 1.1em;
 }
 
 .tabs .tab a:focus, .tabs .tab a:focus.active {
@@ -39,4 +40,17 @@ a:hover {
 
 nav ul a {
   font-size: 1em;
+}
+
+.form-control-label {
+  font-size: 1.3em;
+  color: #23B5D3;
+}
+
+.select-dropdown{
+  font-size: 1em;
+}
+
+.btn {
+  font-size: 1.3em;
 }
