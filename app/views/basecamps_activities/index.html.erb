@@ -12,8 +12,9 @@
             <% @basecamps_activities.each do |base| %>
               <% counter += 1 %>
               <div class="col s12 m6">
+                <%= link_to trip_basecamps_activity_path(@trip, base) do %>
                 <div class="card card-basecamp-activity horizontal small">
-                  <%= link_to trip_basecamps_activity_path(@trip, base) do %>
+
                   <div class="card-image">
                     <% if base.activity.name == "ski de randonnée" %>
                        <%= cl_image_tag("crux/images/ski.png.png") %>
