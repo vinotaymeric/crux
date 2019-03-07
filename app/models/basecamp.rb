@@ -17,8 +17,8 @@ class Basecamp < ApplicationRecord
     "https://#{meteoblue_15min_valid_path}"
   end
 
-  def meteoblue_semaine_url(geoname)
-    url = "https://www.meteoblue.com/fr/meteo/prevision/semaine/_france_#{geoname}"
+  def meteoblue_semaine_url
+    url = "https://www.meteoblue.com/fr/meteo/prevision/semaine/_france_#{self.geoname}"
     html_content = open(url).read
     doc = Nokogiri::HTML(html_content)
     meteoblue_15min_valid_path = doc.search('.bloo_content').children[2].attr('data-original')
