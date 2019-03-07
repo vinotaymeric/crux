@@ -1,5 +1,5 @@
 # require_relative 'bra_functions'
-# require_relative 'lib/basecamp'
+require_relative 'lib/basecamp'
 # require 'json'
 # require 'open-uri'
 # require 'nokogiri'
@@ -108,17 +108,38 @@
 
 # # Update iti levels
 
-Itinerary.all.each do |itinerary|
-  expérimenté = ["TD-", "TD", "TD+", "ED-", "ED", "ED+"]
-  intermediaire = ["D-", "D", "D+", "AD-", "AD", "AD+"]
-  débutant = ["PD-", "PD", "PD+", "F-", "F", "F+"]
-  if expérimenté.include?(itinerary.difficulty)
-    itinerary.level = "Expérimenté"
-  elsif intermediaire.include?(itinerary.difficulty)
-    itinerary.level = "Intermédiaire"
-  elsif débutant.include?(itinerary.difficulty)
-    itinerary.level = "Débutant"
-  end
-  itinerary.save!
-  p itinerary.id
+# Itinerary.all.each do |itinerary|
+#   expérimenté = ["TD-", "TD", "TD+", "ED-", "ED", "ED+"]
+#   intermediaire = ["D-", "D", "D+", "AD-", "AD", "AD+"]
+#   débutant = ["PD-", "PD", "PD+", "F-", "F", "F+"]
+#   if expérimenté.include?(itinerary.difficulty)
+#     itinerary.level = "Expérimenté"
+#   elsif intermediaire.include?(itinerary.difficulty)
+#     itinerary.level = "Intermédiaire"
+#   elsif débutant.include?(itinerary.difficulty)
+#     itinerary.level = "Débutant"
+#   end
+#   itinerary.save!
+#   p itinerary.id
+# end
+
+
+# Add code_insee to Basecamp
+
+# cities_db = csv_to_cities('db/csv_repos/french_cities.csv')
+
+# Basecamp.all.each do |basecamp|
+#   city = cities_db.select { |item| (item[:name] == basecamp.name) && item[:coord_lat] == basecamp.coord_lat }[0]
+#   basecamp.code_insee = city[:code_insee]
+#   p basecamp.code_insee
+#   basecamp.save!
+# end
+
+
+# Add geoname_id to Basecamp
+
+geonames_db = csv_to_geoname_ids('db/csv_repos/geoname_ids_france.csv')
+Basecamp.all.each do |basecamp|
+  geoname_infos = geonames_db.select { |item| p item[:code_insee] == basecamp.code_insee }
+  p geoname_infos
 end
