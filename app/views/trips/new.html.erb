@@ -1,39 +1,38 @@
-<div class="banner-not-home">
-  <div class="banner-content">
-
-
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 form-frame">
-          <h4 class="form-title">Mon profil aventurier</h4>
-          <% @user_activities.each do |user_activity| %>
-            <div class="input-field col s12 m6">
-              <%= simple_form_for user_activity, remote: true, data: { turbolinks: false }  do |f| %>
-              <%= f.input  :level, :collection => ["Pas intéressé", "Débutant","Intermédiaire","Expérimenté"], label: user_activity.activity.name.capitalize, input_html: { class: user_activity.activity.name.split(" ")[0]},include_blank: false, include_hidden: false %>
-              <%= f.hidden_field  :activity_id %>
-              <% end %>
-            </div>
+<div class="banner-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1 form-frame">
+        <h4 class="form-title">Mon profil aventurier</h4>
+        <% @user_activities.each do |user_activity| %>
+        <div class="input-field col s12 m6">
+          <%= simple_form_for user_activity, remote: true, data: { turbolinks: false }  do |f| %>
+          <%= f.input  :level, :collection => ["Pas intéressé", "Débutant","Intermédiaire","Expérimenté"], label: user_activity.activity.name.capitalize, input_html: { class: user_activity.activity.name.split(" ")[0]},include_blank: false, include_hidden: false %>
+          <%= f.hidden_field  :activity_id %>
           <% end %>
-          <h4 class="form-title">Ma sortie</h4>
-          <div class="input-field col s12 m12">
-            <%= simple_form_for @trip do |f| %>
-            <%= f.input  :location, input_html: { id: "trip_address", placeholder: "Adresse de départ"}, label: false %>
-
-            <div style="display: flex">
+        </div>
+        <% end %>
+        <h4 class="form-title">Ma sortie</h4>
+        <div class="input-field col s12 m12">
+          <%= simple_form_for @trip do |f| %>
+          <%= f.input  :location, input_html: { id: "trip_address", placeholder: "Adresse de départ"}, label: false %>
+          <div style="display: flex">
             <%= f.input  :start_date, as: :string, input_html: { class: 'datepicker datepicker-start', placeholder: "Date de départ"}, label: false %>
             <%= f.input  :end_date, as: :string, input_html: { class: 'datepicker datepicker-end', placeholder: "Date de fin"}, label: false %>
-            </div>
-            <div class="center-align"><input type="submit" value="Dis-moi où partir" class="btn" id="letsGoBtn"></div>
-            <div id="empty-field-message" class="transparent center-align"><p>Ces champs ne peuvent pas être vides.</p></div>
-            <% end %>
           </div>
+          <div class="center-align">
+            <input type="submit" value="Dis-moi où partir" class="btn" id="letsGoBtn">
+          </div>
+          <div id="empty-field-message" class="transparent center-align">
+            <p>Ces champs ne peuvent pas être vides.</p>
+          </div>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
-  </div>
-   <div class="curtain col s12">
-    <div class="curtain-content center-align">
+</div>
+<div class="curtain col s12">
+  <div class="curtain-content center-align">
     <%= image_tag("boussole.png",class: "boussole") %>
     <ul class="list">
       <li id="row-intro" class="font-monospace"><strong>Crux</strong> analyse les conditions en montagne:</li>
@@ -41,6 +40,5 @@
       <li class="transparent" id="row-basecamp"class="font-monospace"><strong> <span id="basecamp-count"><%=  Basecamp.count %></span> camps de base...</strong></li>
       <li class="transparent" id="row-massif"class="font-monospace"><strong>données météos et avalanche de <span id="massif-count"><%=  MountainRange.count %></span> massifs.</strong></li>
     </ul>
-    </div>
-
+  </div>
 </div>
