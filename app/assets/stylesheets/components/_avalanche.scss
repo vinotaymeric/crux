@@ -4,17 +4,20 @@
   border-radius: 2px;
   box-shadow: 1px 1px 12px #555;
   padding: 0 1rem;
-  
+  margin-top:-5px;
+  margin-left: 23px;
+  margin-right: 23px;
   #bra-date {
     text-align: center;
   }
 
   #legend {
-    text-align: center;
+    display: inline-table;
+    font-style: oblique;
   }
 
   h2 {
-  
+    margin-top: 0px;
     text-align: center;
     padding: 2rem 0.5rem 0rem 0.5rem;
     font-size: 3.5rem;
@@ -23,12 +26,12 @@
   }
 
   h3 {
-
     font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 5px;
   }
 
   img {
-
     padding: 1rem;
     margin: 0 auto;
     max-width: 100%;
@@ -38,12 +41,23 @@
 
 .avalanche-infos {
   text-align:center;
-
 }
 
 .avalanche-pic {
-  border: blue solid 5px;
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+figcaption { 
+  display: block;
+  padding-bottom: 1rem;
+  padding-top: 0px;
+  margin-top: 0px;
+  font-style: italic;
+}
+
+ul#legend li {
+  display:inline;
+  font-style: italic;
 }

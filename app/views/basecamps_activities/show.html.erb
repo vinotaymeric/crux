@@ -34,8 +34,7 @@
       </div>
       <div id="weather">
         <div class="row">
-          <br>
-          <h5 class="center-align">Météogramme pour les 5 prochains jours</h5>
+          <h5 class="center-align" style="padding: 3px">Météogramme pour les 5 prochains jours</h5>
           <div class="col s12 center-align">
             <%= image_tag(@basecamp.meteoblue_semaine_url, class: "materialboxed")%>
           </div>
@@ -43,7 +42,7 @@
       </div>
       <% if @mountain_range %>
         <div id="avalanche">
-          <div class="container">
+          <div class="row">
             <%= render partial: "avalanche_infos", locals: {mountain_range: @mountain_range} %>
           </div>
         </div>
