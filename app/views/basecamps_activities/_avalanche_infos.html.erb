@@ -1,12 +1,11 @@
-
 <div class=" avalanche">
   <h2 class= "avalanche-infos"><%= mountain_range.name %> - Estimation du risque d'avalanche</h2>
   <p id="bra-date">Date du dernier bulletin BRA :<em style="font-weight:bold;"> <%= mountain_range.bra_date.strftime("%d/%m/%Y") %></em></p>
-  <div class="">
+  
     <%= image_tag(mountain_range.rosace_url, class: "materialboxed scale-down")%>
       <ul id="legend">Indices de risque : <li>1 faible - 2 limité - 3 marqué</li><li>4 fort - 5 très fort</li></ul>
       <figcaption>En noir : les pentes les plus dangereuses</figcaption>
-  </div>
+ 
   <h3 class= "avalanche-infos">Stabilité du manteau neigeux</h3>
   <p class="avalanche-infos"> <%= mountain_range.stability %></p>
   <h3 class= "avalanche-infos">Qualité de la neige</h3>
