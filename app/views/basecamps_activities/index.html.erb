@@ -13,23 +13,18 @@
               <% counter += 1 %>
               <div class="col s12 m6">
                 <%= link_to trip_basecamps_activity_path(@trip, base) do %>
-                <div class="card card-basecamp-activity horizontal small">
-
-                  <div class="card-image">
-                    <% if base.activity.name == "ski de randonnée" %>
-                       <%= cl_image_tag("crux/images/ski.png.png") %>
-                    <% elsif base.activity.name == "alpinisme" %>
-                       <%= cl_image_tag("crux/images/alpi.png.png")%>
-                    <% elsif base.activity.name == "escalade" %>
-                       <%= cl_image_tag("crux/images/escalade.png.png") %>
-                    <% end %>
-                  </div>
-                <% end %>
-
-
-                  <div class="card-stacked">
-                    <div class="card-content" data-coords="<%= { ori_lat: @trip.coord_lat, ori_long: @trip.coord_long, desti_lat: base.basecamp.coord_lat, desti_long: base.basecamp.coord_long }.to_json %>">
-
+                  <div class="card card-basecamp-activity horizontal small">
+                    <div class="card-image">
+                      <% if base.activity.name == "ski de randonnée" %>
+                         <%= cl_image_tag("crux/images/ski.png.png") %>
+                      <% elsif base.activity.name == "alpinisme" %>
+                         <%= cl_image_tag("crux/images/alpi.png.png")%>
+                      <% elsif base.activity.name == "escalade" %>
+                         <%= cl_image_tag("crux/images/escalade.png.png") %>
+                      <% end %>
+                    </div>
+                    <div class="card-stacked black-font"">
+                      <div class="card-content" data-coords="<%= { ori_lat: @trip.coord_lat, ori_long: @trip.coord_long, desti_lat: base.basecamp.coord_lat, desti_long: base.basecamp.coord_long }.to_json %>">
                         <% b_a_name = base.basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %>
                         <% if counter < 7 %>
                           <p class="strong">
@@ -41,7 +36,7 @@
                           </p>
                         <% end %>
                       <br>
-                      <p id="itinerary-number"><strong><%= base.nb_itineraries %></strong> itinéraires en <strong><%= base.activity.name.split(" ")[0] %></strong></p>
+                      <p id="itinerary-number" ><strong><%= base.nb_itineraries %></strong> itinéraires en <strong><%= base.activity.name.split(" ")[0] %></strong></p>
                       <br>
                        <% base.basecamp.mountain_range.max_risk = 0 if base.basecamp.mountain_range.max_risk.nil? %>
                       <% if base.basecamp.mountain_range.max_risk > 2 %>
@@ -58,6 +53,7 @@
                     </div>
                   </div>
                 </div>
+                <% end %>
               </div>
             <% end %>
             </div>
