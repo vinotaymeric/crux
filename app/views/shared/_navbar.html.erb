@@ -1,6 +1,6 @@
   <nav>
     <div class="nav-wrapper">
-      <%= link_to "<span>_</span>#{image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "small-image scale-down")}<span>_ Crux</span>".html_safe, root_path, class: "brand-logo no-hover logo-with-text" %>
+      <%= link_to "<span>_</span>#{image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "small-image")}<span>_ Crux</span>".html_safe, root_path, class: "brand-logo no-hover logo-with-text" %>
       <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <% if user_signed_in? %>
@@ -16,7 +16,10 @@
   </nav>
 
   <ul class="sidenav" id="mobile-menu">
-    <%= image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "small-image scale-down") %>
+    <div class="side-bar-head center-align">
+    <%= image_tag('https://res.cloudinary.com/dzxrdf9za/image/upload/v1551869936/Cruxlogosquarebig.jpg', class: "medium-image") %>
+    <h5 class="center-align">Crux</h5>
+    </div>
     <% if user_signed_in? %>
       <li><%= link_to "Mes sorties", trips_path, class: "" %></li>
       <li><%= link_to "Voir tous les itinéraires", itineraries_path %></li>

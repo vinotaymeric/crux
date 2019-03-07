@@ -24,8 +24,7 @@
             <%= f.input  :end_date, as: :string, input_html: { class: 'datepicker datepicker-end', placeholder: "Date de fin"}, label: false %>
             </div>
             <div class="center-align"><input type="submit" value="Dis-moi où partir" class="btn" id="letsGoBtn"></div>
-            <div id="empty-field-message" class="transparent"><p>Ces champs ne peuvent pas être vides.</p></div>
-
+            <div id="empty-field-message" class="transparent center-align"><p>Ces champs ne peuvent pas être vides.</p></div>
             <% end %>
           </div>
         </div>
@@ -34,7 +33,7 @@
   </div>
   </div>
    <div class="curtain col s12">
-    <div class="curtain-content text-center">
+    <div class="curtain-content center-align">
     <%= image_tag("boussole.png",class: "boussole") %>
     <ul class="list">
       <li id="row-intro" class="font-monospace"><strong>Crux</strong> analyse les conditions en montagne:</li>
