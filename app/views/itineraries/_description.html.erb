@@ -1,3 +1,8 @@
-<div id="itinerary-content">
-  <%= @markdown.render(itinerary.content.gsub(/\[img.*\[\/img\]/,'')).html_safe %>
-</div>
+<% if itinerary.content %>
+
+  <div id="itinerary-content">
+    <%= link_to 'Topo détaillé', itinerary_path(itinerary) %>
+    <%= @markdown.render(itinerary.content.gsub(/\[img.*\[\/img\]/,'')).html_safe %>
+  </div>
+
+<% end %>
