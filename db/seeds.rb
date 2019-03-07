@@ -126,7 +126,7 @@ require_relative 'lib/basecamp'
 
 # Add code_insee to Basecamp
 
-# cities_db = csv_to_cities('db/csv_repos/french_cities.csv')
+cities_db = csv_to_cities('db/csv_repos/french_cities.csv')
 
 Basecamp.all.each do |basecamp|
   city = cities_db.select { |item| (item[:name] == basecamp.name) && item[:coord_lat] == basecamp.coord_lat }[0]
@@ -138,7 +138,7 @@ end
 
 # Add geoname_id to Basecamp
 
-geonames_db = csv_to_geoname_ids('db/csv_repos/geoname_ids_france.csv')
+geonames_db = csv_to_geoname_ids('db/csv_repos/geoname_ids_france_order_pop.csv')
 
 Basecamp.all.each do |basecamp|
   geoname_infos = geonames_db.select { |item| item[:code_insee] == basecamp.code_insee }[0]
