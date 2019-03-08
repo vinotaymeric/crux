@@ -26,11 +26,11 @@ M.AutoInit();
 initTransition();
 initAutocomplete();
 initDrivingTimeOnTrips();
+initTabs(initMapbox);
 
 // Init materialize JS components
 
 initDatepicker();
-initTabs();
  // Profile edition
 
 initForm();
@@ -111,17 +111,10 @@ const adjustBanner = () => {
   inputs.forEach((input) => {
     input.addEventListener('focus', (e) => {
       console.log("je suis focus")
-      // if (input.classList("banner-adjust") == null) {
-      //   console.log("je suis dans le if")
-      //   input.classList.add("banner-adjust")
-      // };
       bannerForm.classList.add("banner-adjust")
     });
     input.addEventListener('focusout', (e) => {
       console.log("je suis plus focus")
-      // if (input("banner-adjust") != null) {
-      //   input.classList.remove("banner-adjust")
-      // };
       bannerForm.classList.remove("banner-adjust")
     });
   });
