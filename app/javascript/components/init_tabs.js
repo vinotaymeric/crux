@@ -1,5 +1,6 @@
-const initTabs = () => {
+const initTabs = (initMapbox) => {
   const tabs = document.querySelector('.tabs');
+  let callInitMap = true;
 
   const changeTabHeight = () => {
 
@@ -10,9 +11,16 @@ const initTabs = () => {
       swipeable: false,
       onShow: (tab) => {
         if (tab.id != 'itineraries') {
-          if (document.querySelector('.sticky-cta') == null) { return }
-          document.querySelector('.sticky-cta').classList.add('hide-cta');
-        } else { document.querySelector('.sticky-cta').classList.remove('hide-cta') }
+          const cta = document.querySelector('.sticky-cta');
+          if (cta) document.querySelector('.sticky-cta').classList.add('hide-cta');
+        } else {
+          document.querySelector('.sticky-cta').classList.remove('hide-cta')
+        }
+
+        if (callInitMap) {
+          initMapbox();
+          callInitMap = false;
+        }
       }
     });
   };
