@@ -3,6 +3,7 @@ var client = algoliasearch("L83PWH35UP", "6c88249b89170302d0939419d95a4b00");
 var index = client.initIndex('Itinerary');
 
 const search = () => {
+  if (algoliaSearch === null) {return}
   algoliaSearch.addEventListener('keyup', (event) => {
     grid.innerHTML = "";
     var keyword = event.currentTarget.value;
