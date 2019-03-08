@@ -15,9 +15,9 @@
           </div>
           <div class="card-action">
             <% if trip.validated %>
-            <%= link_to 'Voir les itinéraires', trip_basecamps_activity_path(trip, BasecampsActivity.find(5843)), class: 'waves-effect waves-light btn-small' %>
+            <%= link_to 'Voir les itinéraires', trip_basecamps_activity_path(trip, BasecampsActivity.find(5843)), class: 'waves-effect waves-light btn-small btn-my-trips' %>
             <% else %>
-              <%= link_to 'Reprendre la sélection', trip_basecamps_activities_path(trip), class: "waves-effect waves-light btn-small" %>
+              <%= link_to 'Reprendre la sélection', trip_basecamps_activities_path(trip), class: "waves-effect waves-light btn-small btn-my-trips" %>
             <% end %>
           </div>
         </div>
