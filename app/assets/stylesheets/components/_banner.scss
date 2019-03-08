@@ -1,5 +1,5 @@
 .banner {
-  min-height: calc(100vh - 64px);
+  height: calc(100vh - 64px);
   text-align: center;
   /* if you have a 70px navbar => height: calc(100vh - 70px); */
   display: flex;
@@ -28,22 +28,12 @@
   .banner {
     height: calc(100vh - 56px);
   }
+  .banner-adjust {
+    height: calc(100vh * 1.5);
+  }
 }
 
 
-.banner-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .form-group {
-      padding: 0.5em;
-      width: 40%;
-      background-color: rgba(230, 230, 230, 0.2);
-      border-radius: 5px;
-      color: rgba(230, 230, 230, 0.8);
-    }
-}
 
 .logo-with-text {
       display: flex !important;

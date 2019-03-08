@@ -1,16 +1,19 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.50), rgba(0,0,0,0.70)), url('https://images.pexels.com/photos/414459/pexels-photo-414459.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');">
+<div class="banner banner-form" style="background-image: linear-gradient(rgba(0,0,0,0.50), rgba(0,0,0,0.70)), url('https://images.pexels.com/photos/414459/pexels-photo-414459.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');">
+
   <div class="row align-center log-sign-in">
+    <div class="form-mobile-container">
     <div class="col s12">
+
       <h2>Connexion</h2>
-      <div class="form-container">
+        <div class="form-container">
         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="form-inputs">
             <%= f.input :email,
                   label: "Adresse email:",
                   label_html: { class: 'left' },
-                 required: false,
-                 autofocus: true,
-                 input_html: { autocomplete: "email" }
+                  required: false,
+                  autofocus: true,
+                  input_html: { autocomplete: "email" }
                  %>,
             <%= f.input :password,
                   label: "Entrez votre mot de passe:",
@@ -28,5 +31,6 @@
       <%= render "devise/shared/links" %>
       </div>
     </div>
+  </div>
   </div>
 </div>
