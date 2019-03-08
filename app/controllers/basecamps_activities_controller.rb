@@ -66,7 +66,7 @@ class BasecampsActivitiesController < ApplicationController
 
   def weather_day_score(forecast)
     # if condition checks that there it'a s good day : no wind, rain and good visi
-    if forecast["day"]["maxwind_kph"] < 50 && forecast["day"]["totalprecip_mm"] < 2 && forecast["day"]["avgvis_km"] > 5
+    if forecast["day"]["maxwind_kph"] < 50 && forecast["day"]["totalprecip_mm"] < 1 && forecast["day"]["avgvis_km"] > 5
       d_score = 1
     else
       d_score = 0
@@ -87,16 +87,15 @@ class BasecampsActivitiesController < ApplicationController
   end
 
   def basecamp_activity_score(nb_itineraries, weather, trip, distance, avalanche)
-
-
     avalanche = 0 if avalanche.nil?
     w_score = weather_trip_score(trip.start_date, trip.end_date, weather)
 
-    if nb_itineraries < 3 || distance > 500 || avalanche > 4
+    if nb_itineraries < 3 || distance > 1000 || avalanche > 4
       score = -1000
     else
-      score = [nb_itineraries, 15].min - (distance / 20) - 3 * avalanche + 7 * w_score
+      score = [nb_itineraries, 15].min - (distance / 20) - 3 * avalanche + 5 * w_score
     end
+    ap score
     return score
   end
 end
