@@ -22,15 +22,16 @@ const grid = document.querySelector(".algolia-iti");
 const html = (json) => {
 const new_html = `
                 <div class="col s12 m4">
+                <a href="/itineraries/${json.id}/">
                   <div class="card small">
                     <div class="card-image waves-effect waves-block waves-light">
                       <img class="activator" src=${json.picture_url}>
                     </div>
                     <div class="card-content">
                       <span class="title-card ellsipsised card-title activator grey-text text-darken-4">${json.name}</span>
-                      <a href="/itineraries/${json.id}/" target="blank">Voir</a>
                     </div>
                   </div>
+                  </a>
                 </div>`;
   return new_html;
     };
