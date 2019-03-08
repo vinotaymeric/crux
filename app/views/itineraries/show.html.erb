@@ -34,9 +34,9 @@
           <div class="card-content">
 
             <% if @itinerary.recent_conditions.nil? %>
-              <h5>Pas de sorties récentes</h5>
+              <h6>Pas de sorties récentes</h6>
             <% else %>
-              <h5>Sorties récentes:</h5>
+              <h6>Sorties récentes:</h6>
               <ul>
                 <% @itinerary.recent_conditions.each do |id| %>
                 <li><a href="<%= "https://www.camptocamp.org/outings/#{id[0]}" %>" target="blank">Sortie le <%= id[1] %></a> sur CamptoCamp</li>
