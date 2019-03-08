@@ -38,7 +38,7 @@
               <h5>Sorties récentes:</h5>
               <ul>
                 <% @itinerary.recent_conditions.each do |id| %>
-                <li><a href="<%= "https://www.camptocamp.org/outings/#{id[0]}" %>" target="blank">Sortie le <%= id[1] %></a> sur CamptoCamp</li>
+                <li><a href="<%= "https://www.camptocamp.org/outings/#{id[0]}" %>">Sortie le <%= id[1] %></a> sur CamptoCamp</li>
                 <% end %>
               </ul>
             <% end %>
