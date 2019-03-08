@@ -35,3 +35,21 @@
   left: 50%;
   background-color: rgba(7,16,19,0.4);
 }
+
+  .btn-my-trips {
+    font-size: 1rem;
+  }
+
+
+@media only screen and (max-width: 390px) {
+  .btn-my-trips {
+    font-size:0.8rem;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .btn-my-trips {
+    font-size:0.585rem;
+  }
+}
+
