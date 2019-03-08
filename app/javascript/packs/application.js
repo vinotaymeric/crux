@@ -102,10 +102,39 @@ const buttonTabs = () => {
 buttonTabs();
 
 
+const adjustBanner = () => {
+  const bannerForm = document.querySelector(".banner-form");
+  const inputs = document.querySelectorAll(".form-control");
+  console.log("test")
+  console.log(inputs)
+  if ((bannerForm === null) || (inputs === null)) { return }
+  inputs.forEach((input) => {
+    input.addEventListener('focus', (e) => {
+      console.log("je suis focus")
+      // if (input.classList("banner-adjust") == null) {
+      //   console.log("je suis dans le if")
+      //   input.classList.add("banner-adjust")
+      // };
+      bannerForm.classList.add("banner-adjust")
+    });
+    input.addEventListener('focusout', (e) => {
+      console.log("je suis plus focus")
+      // if (input("banner-adjust") != null) {
+      //   input.classList.remove("banner-adjust")
+      // };
+      bannerForm.classList.remove("banner-adjust")
+    });
+  });
+}
+
+adjustBanner();
 
 // Algolia
-
-
 search();
+
+
+
+
+
 
 
