@@ -7,7 +7,7 @@ namespace :forecast do
     UpdateForecast.new.update_mountain_ranges_cron
     p "UPDATE BRA RANGES END"
     p "UPDATE WEATHER"
-    #UpdateForecast.new.update_weather
+    UpdateForecast.new.update_weather
     p "UPDATE WEATHER AND BRA  END"
   end
 end
