@@ -1,4 +1,5 @@
 require "objspace"
+require "addressable"
 
 class Itinerary < ApplicationRecord
 

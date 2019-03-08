@@ -1,6 +1,7 @@
 label {
   color: white;
   font-size:1em;
+
 }
 
 .row.log-sign-in {
@@ -20,6 +21,14 @@ label {
   align-item: center;
 
 }
+.form-inputs {
+  margin-bottom: 2em;
+}
+
+.form-links {
+  margin-top: 1em;
+}
+
 
 #empty-field-message p {
   font-size:1em;
@@ -50,15 +59,20 @@ label {
 
 #user_email {
   background-color: rgb(232, 240, 254);
-
+  padding: 0px 5px;
+  margin: 0px -5px;
 }
 
 #user_password {
   background-color: rgb(232, 240, 254);
+  padding: 0px 5px;
+  margin: 0px -5px;
 }
 
 #user_password_confirmation {
   background-color: rgb(232, 240, 254);
+  padding: 0px 5px;
+  margin: 0px -5px;
 }
 
 #trip_address {
