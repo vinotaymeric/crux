@@ -95,7 +95,7 @@ class BasecampsActivitiesController < ApplicationController
     if nb_itineraries < 3 || distance > 500 || avalanche > 4
       score = -1000
     else
-      score = [nb_itineraries, 15].min - (distance / 10) - 3 * avalanche + 7 * w_score
+      score = [nb_itineraries, 15].min - (distance / 20) - 3 * avalanche + 7 * w_score
     end
     return score
   end
