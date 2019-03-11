@@ -36,6 +36,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'sassc-rails'
 gem "algoliasearch-rails"
+gem 'geokit-rails'
 
 gem 'geocoder', '~> 1.3', '>= 1.3.7'
 # Use CoffeeScript for .coffee assets and views

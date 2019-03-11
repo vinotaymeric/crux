@@ -8,6 +8,8 @@ class Basecamp < ApplicationRecord
   # has_many :itineraries, through: :basecamps_itineraries
   belongs_to :mountain_range, optional: true
   geocoded_by :address, latitude: :coord_lat, longitude: :coord_long
+  acts_as_mappable :lat_column_name => :coord_lat,
+                   :lng_column_name => :coord_long
 
   def meteoblue_air_url
     url = "https://www.meteoblue.com/fr/meteo/prevision/air/_france_#{self.geoname}"

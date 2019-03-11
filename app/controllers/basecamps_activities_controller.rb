@@ -16,11 +16,12 @@ class BasecampsActivitiesController < ApplicationController
       .order("COUNT(basecamps_activities_itineraries.itinerary_id) DESC")
       .to_a
 
+    @one_hour_polygon = @trip.one_hour_isochrone.points[0]
 
     # Compute score also considering weather and localisation
 
     basecamps_activities.sort_by! do |base|
-      score = basecamp_activity_score(base.nb_itineraries, base.weather, @trip, @trip.distance_from(base.basecamp), base.basecamp.mountain_range.max_risk)
+      score = basecamp_activity_score(base.nb_itineraries, base.weather, @trip, base.basecamp, base.basecamp.mountain_range.max_risk)
     end
 
     # Take only top
@@ -86,16 +87,47 @@ class BasecampsActivitiesController < ApplicationController
     w_score
   end
 
-  def basecamp_activity_score(nb_itineraries, weather, trip, distance, avalanche)
+
+  def basecamp_activity_score(nb_itineraries, weather, trip, basecamp, avalanche)
     avalanche = 0 if avalanche.nil?
     w_score = weather_trip_score(trip.start_date, trip.end_date, weather)
 
-    if nb_itineraries < 3 || distance > 1000 || avalanche > 4
+    base = Geokit::LatLng.new(basecamp.coord_lat, basecamp.coord_long)
+
+    if contains?(@one_hour_polygon, base)
+      distance_score = 0
+    else
+      distance_score = trip.distance_from(basecamp)
+    end
+
+    if nb_itineraries < 3 || avalanche > 4
       score = -1000
     else
-      score = [nb_itineraries, 15].min - (distance / 20) - 3 * avalanche + 5 * w_score
+      score = [nb_itineraries, 15].min - (distance_score / 20) - 3 * avalanche + 5 * w_score
     end
     ap score
     return score
+  end
+
+  def contains?(array, point)
+    last_point = array[-1]
+    oddNodes = false
+    x = point.lng
+    y = point.lat
+
+    array.each do |p|
+      yi = p[1]
+      xi = p[0]
+      yj = last_point[1]
+      xj = last_point[0]
+      if yi < y && yj >= y ||
+          yj < y && yi >= y
+        oddNodes = !oddNodes if xi + (y - yi) / (yj - yi) * (xj - xi) < x
+      end
+
+      last_point = p
+    end
+
+    oddNodes
   end
 end
