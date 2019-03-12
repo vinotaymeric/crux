@@ -28,4 +28,20 @@ const initFavorites = () => {
   });
 }
 
-export { initToggleRemove, initToggleAdd, initFavorites };
+
+const initButtonBasecampValidation = () => {
+  const buttonBasecampValidation = document.querySelectorAll('#validation-basecamp-button');
+  const littleMountain = document.querySelectorAll('.fa-mountain')
+  if (littleMountain.empty) {
+    console.log("je suis null")
+    console.log(littleMountain.count)
+    // buttonBasecampValidation.disabled = true;
+  }
+  else {
+    console.log("je suis else")
+    console.log(littleMountain.type)
+    // buttonBasecampValidation.disabled = false;
+  }
+}
+
+export { initToggleRemove, initToggleAdd, initFavorites, initButtonBasecampValidation };

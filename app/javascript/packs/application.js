@@ -11,7 +11,7 @@ import initDatepicker from './init_datepicker'
 import search from './algolia'
 
 import { initTransition} from '../components/transition';
-import { initToggleRemove, initToggleAdd, initFavorites } from './init_favorite';
+import { initToggleRemove, initToggleAdd, initFavorites, initButtonBasecampValidation } from './init_favorite';
 
 import initAutocomplete from '../plugins/init_autocomplete';
 import initDrivingTimeOnTrips from './init_driving_time_on_trips'
@@ -36,8 +36,10 @@ initDatepicker();
 initForm();
 
  // Set favorite
+ initButtonBasecampValidation();
 
 initFavorites();
+
 
 const addButton = document.querySelectorAll('.fa-plus-circle')
 
@@ -105,8 +107,6 @@ buttonTabs();
 const adjustBanner = () => {
   const bannerForm = document.querySelector(".banner-form");
   const inputs = document.querySelectorAll(".form-control");
-  console.log("test")
-  console.log(inputs)
   if ((bannerForm === null) || (inputs === null)) { return }
   inputs.forEach((input) => {
     input.addEventListener('focus', (e) => {

@@ -14,10 +14,10 @@ const updateCTA = () =>{
   if (btnLetsGo == null){
     return
   }
-  choices.forEach(choice => { 
+  choices.forEach(choice => {
     if (choice.value === "Pas intéressé") {
-      x += 1; 
-    } 
+      x += 1;
+    }
   });
 
   if (x == 4) {
