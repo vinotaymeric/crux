@@ -20,6 +20,7 @@ class BasecampsActivitiesController < ApplicationController
 
     # Compute score also considering weather and localisation
     basecamps_activities.sort_by! do |basecamp_activity|
+      @weather_icons = weather_icons(basecamp_activity, @trip)
       score(basecamp_activity, @trip)
     end
 
@@ -35,7 +36,12 @@ class BasecampsActivitiesController < ApplicationController
         image_url: helpers.asset_url('https://cdn4.iconfinder.com/data/icons/eldorado-building/40/hovel_1-512.png')
       }
     end
-
+    # Add trip start location
+    @markers << {
+        lng: @trip.coord_long,
+        lat: @trip.coord_lat,
+        image_url: helpers.asset_url('https://cdn1.iconfinder.com/data/icons/business-sets/512/target-512.png'),
+    }
   end
 
   def show
@@ -51,8 +57,17 @@ class BasecampsActivitiesController < ApplicationController
     else
       @itineraries = @basecamp_activity.itineraries.where(level: user_level_for_activity )
     end
-
     @favorite_itinerary = FavoriteItinerary.new
+
+    # Mapbox
+    @markers = @itineraries.map do |itinerary|
+      {
+        lng: itinerary.coord_long,
+        lat: itinerary.coord_lat,
+        infoWindow: render_to_string(partial: "info_iti", locals: { itinerary: itinerary }),
+        image_url: helpers.asset_url('https://cdn.iconscout.com/icon/premium/png-256-thumb/mountain-233-793712.png')
+      }
+    end
   end
 
   private
@@ -79,7 +94,21 @@ class BasecampsActivitiesController < ApplicationController
         weather_score += weather_day_score(forecast) if (Date.parse forecast["date"]) == date
       end
     end
-    weather_score = [weather_score, 0].max
+    weather_score = [weather_score, 0.5].max
+  end
+
+  def weather_icons(basecamp_activity, trip)
+    icons = []
+    start_date = trip.start_date
+    end_date = trip.end_date
+    weather = basecamp_activity.basecamp.weather
+
+    start_date.upto(end_date) do |date|
+      weather.forecast.each do |forecast|
+        icons << forecast["day"]["condition"]["icon"].to_s if (Date.parse forecast["date"]) == date
+      end
+    end
+    return icons
   end
 
   def point_included_in_polygon?(polygon_array, point)
@@ -123,6 +152,6 @@ class BasecampsActivitiesController < ApplicationController
     end
 
     # Compute final score
-    score = weather_score * [(itinerary_count / 2 * trip.duration), 4].min - (distance_score / 10) - avalanche_score ** 2
+    score = weather_score * [(itinerary_count / (2 * trip.duration)), 4].min - (distance_score / (5 * trip.duration)) - avalanche_score ** 2
   end
 end

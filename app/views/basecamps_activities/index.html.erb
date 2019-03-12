@@ -51,8 +51,8 @@
                       <% end %>
                       <br>
                       <p>
-                      <% @trip.start_date.upto(@trip.end_date).each_with_index do |date, index| %>
-                        <img src="<%= "http:" + base.basecamp.weather.forecast[index + 1]["day"]["condition"]["icon"].to_s %>" style="width: 32px; height: 32px;">
+                      <% @weather_icons.each do |icon_url| %>
+                        <img src="<%= "http:" + icon_url %>" style="width: 32px; height: 32px;">
                       <% end %>
                       </p>
                     </div>
