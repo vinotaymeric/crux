@@ -123,6 +123,6 @@ class BasecampsActivitiesController < ApplicationController
     end
 
     # Compute final score
-    score = weather_score * [(itinerary_count / 2 * trip.duration), 4].min - (distance_score / 20) - avalanche_score ** 2
+    score = weather_score * [(itinerary_count / 2 * trip.duration), 4].min - (distance_score / 10) - avalanche_score ** 2
   end
 end
