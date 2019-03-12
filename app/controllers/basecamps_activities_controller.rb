@@ -35,7 +35,12 @@ class BasecampsActivitiesController < ApplicationController
         image_url: helpers.asset_url('https://cdn4.iconfinder.com/data/icons/eldorado-building/40/hovel_1-512.png')
       }
     end
-
+    # Add trip start location
+    @markers << {
+        lng: @trip.coord_long,
+        lat: @trip.coord_lat,
+        image_url: helpers.asset_url('https://cdn1.iconfinder.com/data/icons/business-sets/512/target-512.png'),
+    }
   end
 
   def show
@@ -79,7 +84,7 @@ class BasecampsActivitiesController < ApplicationController
         weather_score += weather_day_score(forecast) if (Date.parse forecast["date"]) == date
       end
     end
-    weather_score = [weather_score, 0].max
+    weather_score = [weather_score, 0.5].max
   end
 
   def point_included_in_polygon?(polygon_array, point)
@@ -123,6 +128,6 @@ class BasecampsActivitiesController < ApplicationController
     end
 
     # Compute final score
-    score = weather_score * [(itinerary_count / 2 * trip.duration), 4].min - (distance_score / 10) - avalanche_score ** 2
+    score = weather_score * [(itinerary_count / (2 * trip.duration)), 4].min - (distance_score / 10) - avalanche_score ** 2
   end
 end
