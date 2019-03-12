@@ -2,7 +2,7 @@
   <p class="ellipsis center-align strong" style="margin-bottom: -8px"><%= link_to "", :back, class: "fas fa-chevron-circle-left" %></i><span style="padding-left: 10px;"><%= @activity.name.capitalize.split(" ")[0] %> à <%= @basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %></span></p>
 
   <% if @trip.validated == false %>
-  <div class="fixed-action-btn card-panel sticky-cta hide">
+  <div class="fixed-action-btn card-panel sticky-cta hide", id="validation-basecamp-button">
     <%= link_to "Valider ce camp", trip_path(@trip), method: :put, class: 'btn' %>
   </div>
   <% else %>

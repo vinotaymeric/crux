@@ -11,7 +11,7 @@ import initDatepicker from './init_datepicker'
 import search from './algolia'
 
 import { initTransition} from '../components/transition';
-import { initToggleRemove, initToggleAdd, initFavorites } from './init_favorite';
+import { initToggleRemove, initToggleAdd, initFavorites, initValidateButton } from './init_favorite';
 
 import initAutocomplete from '../plugins/init_autocomplete';
 import initDrivingTimeOnTrips from './init_driving_time_on_trips'
@@ -37,7 +37,9 @@ initForm();
 
  // Set favorite
 
+initValidateButton();
 initFavorites();
+
 
 const addButton = document.querySelectorAll('.fa-plus-circle')
 
@@ -94,9 +96,9 @@ const buttonTabs = () => {
       sticky.classList.remove("hide");
   }
 
-  if (active.innerText != "ITINÉRAIRES") {
-      console.log("toto");
-  }
+//   if (active.innerText != "ITINÉRAIRES") {
+//       console.log("toto");
+//   }
 }
 
 buttonTabs();
@@ -105,8 +107,6 @@ buttonTabs();
 const adjustBanner = () => {
   const bannerForm = document.querySelector(".banner-form");
   const inputs = document.querySelectorAll(".form-control");
-  console.log("test")
-  console.log(inputs)
   if ((bannerForm === null) || (inputs === null)) { return }
   inputs.forEach((input) => {
     input.addEventListener('focus', (e) => {
