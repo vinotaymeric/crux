@@ -20,6 +20,7 @@ class BasecampsActivitiesController < ApplicationController
 
     # Compute score also considering weather and localisation
     basecamps_activities.sort_by! do |basecamp_activity|
+      @weather_icons = weather_icons(basecamp_activity, @trip)
       score(basecamp_activity, @trip)
     end
 
@@ -87,6 +88,20 @@ class BasecampsActivitiesController < ApplicationController
     weather_score = [weather_score, 0.5].max
   end
 
+  def weather_icons(basecamp_activity, trip)
+    icons = []
+    start_date = trip.start_date
+    end_date = trip.end_date
+    weather = basecamp_activity.basecamp.weather
+
+    start_date.upto(end_date) do |date|
+      weather.forecast.each do |forecast|
+        icons << forecast["day"]["condition"]["icon"].to_s if (Date.parse forecast["date"]) == date
+      end
+    end
+    return icons
+  end
+
   def point_included_in_polygon?(polygon_array, point)
     last_point = polygon_array[-1]
     oddNodes = false
@@ -128,6 +143,6 @@ class BasecampsActivitiesController < ApplicationController
     end
 
     # Compute final score
-    score = weather_score * [(itinerary_count / (2 * trip.duration)), 4].min - (distance_score / 10) - avalanche_score ** 2
+    score = weather_score * [(itinerary_count / (2 * trip.duration)), 4].min - (distance_score / (5 * trip.duration)) - avalanche_score ** 2
   end
 end

@@ -43,7 +43,7 @@ const initMapbox = () => {
             },
             'layout': {},
             'paint': {
-                'fill-color': '#23B5D3',
+                'fill-color': '#26A69A',
                 'fill-opacity': 0.5
             }
         });
