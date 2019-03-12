@@ -18,6 +18,7 @@
         <li class="tab col s1"><a class="" href="#weather">Météo</a></li>
         <% if @mountain_range %>
         <li class="tab col s1"><a class="" href="#avalanche">Avalanche</a></li>
+        <li class="tab col s1"><a class="" href="#map-ba">Carte</a></li>
         <% end %>
       </ul>
 
@@ -43,6 +44,11 @@
         </div>
       </div>
       <% end %>
+      <div id="map-ba">
+        <div class="slide-container" id="content-map">
+          <%= render partial: "mapbox" %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

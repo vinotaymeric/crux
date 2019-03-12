@@ -57,8 +57,17 @@ class BasecampsActivitiesController < ApplicationController
     else
       @itineraries = @basecamp_activity.itineraries.where(level: user_level_for_activity )
     end
-
     @favorite_itinerary = FavoriteItinerary.new
+
+    # Mapbox
+    @markers = @itineraries.map do |itinerary|
+      {
+        lng: itinerary.coord_long,
+        lat: itinerary.coord_lat,
+        infoWindow: render_to_string(partial: "info_iti", locals: { itinerary: itinerary }),
+        image_url: helpers.asset_url('https://cdn.iconscout.com/icon/premium/png-256-thumb/mountain-233-793712.png')
+      }
+    end
   end
 
   private

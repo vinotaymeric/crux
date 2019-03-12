@@ -27,7 +27,6 @@ const initMapbox = () => {
 
   const addIsochroneToMap = (map, polygon) => {
     map.on('load', function () {
-
         map.addLayer({
             'id': 'maine',
             'type': 'fill',
@@ -68,10 +67,13 @@ const initMapbox = () => {
 
   addMarkersToMap(map, markers);
   fitMapToMarkers(map, markers);
-  addIsochroneToMap(map, polygon);
 
   // Add zoom and rotation controls to the map.
   map.addControl(new mapboxgl.NavigationControl());
+
+  // Add isochrone polygon
+  if (polygon == null) {return};
+  addIsochroneToMap(map, polygon);
 };
 
 export { initMapbox };
