@@ -8,8 +8,6 @@ const activateButtonBasecampValidation = () => {
   }
 }
 
-
-
 const initToggleRemove = () => {
   const removeButton = document.querySelectorAll('.fa-mountain')
   removeButton.forEach( (element) => {
@@ -53,6 +51,5 @@ const initValidateButton = () => {
     validationButton.classList.add("transparent");
   }
 }
-
 
 export { initToggleRemove, initToggleAdd, initFavorites, initValidateButton };
