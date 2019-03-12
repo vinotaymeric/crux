@@ -11,7 +11,7 @@ import initDatepicker from './init_datepicker'
 import search from './algolia'
 
 import { initTransition} from '../components/transition';
-import { initToggleRemove, initToggleAdd, initFavorites, initButtonBasecampValidation } from './init_favorite';
+import { initToggleRemove, initToggleAdd, initFavorites, initValidateButton } from './init_favorite';
 
 import initAutocomplete from '../plugins/init_autocomplete';
 import initDrivingTimeOnTrips from './init_driving_time_on_trips'
@@ -36,8 +36,8 @@ initDatepicker();
 initForm();
 
  // Set favorite
- initButtonBasecampValidation();
 
+initValidateButton();
 initFavorites();
 
 
@@ -96,9 +96,9 @@ const buttonTabs = () => {
       sticky.classList.remove("hide");
   }
 
-  if (active.innerText != "ITINÉRAIRES") {
-      console.log("toto");
-  }
+//   if (active.innerText != "ITINÉRAIRES") {
+//       console.log("toto");
+//   }
 }
 
 buttonTabs();
