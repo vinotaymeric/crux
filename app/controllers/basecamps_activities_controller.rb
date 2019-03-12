@@ -6,8 +6,7 @@ class BasecampsActivitiesController < ApplicationController
     @user = current_user
     @trip = Trip.find(params[:trip_id])
 
-    # See how many itineraries match the user profile
-
+    # See how many itineraries match the user profile and trip search
     basecamps_activities = BasecampsActivity.select("basecamps_activities.*, COUNT(basecamps_activities_itineraries.itinerary_id) as nb_itineraries").joins(:itineraries)
       .joins("INNER JOIN user_activities ON user_activities.activity_id = itineraries.activity_id")
       .where(user_activities: {user_id: current_user.id})
@@ -16,20 +15,18 @@ class BasecampsActivitiesController < ApplicationController
       .order("COUNT(basecamps_activities_itineraries.itinerary_id) DESC")
       .to_a
 
-    @one_hour_polygon = @trip.one_hour_isochrone.points[0]
+    # Define the isochrone around
+    @one_hour_polygon = @trip.one_hour_isochrone_coordinates
 
     # Compute score also considering weather and localisation
-
-    basecamps_activities.sort_by! do |base|
-      score = basecamp_activity_score(base.nb_itineraries, base.weather, @trip, base.basecamp, base.basecamp.mountain_range.max_risk)
+    basecamps_activities.sort_by! do |basecamp_activity|
+      score(basecamp_activity, @trip)
     end
 
-    # Take only top
-
+    # Take only top 18
     @basecamps_activities = basecamps_activities.reverse[0..17]
 
     # Mapbox
-
     @markers = @basecamps_activities.map do |base|
       {
         lng: base.basecamp.coord_long,
@@ -66,56 +63,32 @@ class BasecampsActivitiesController < ApplicationController
   end
 
   def weather_day_score(forecast)
-    # if condition checks that there it'a s good day : no wind, rain and good visi
+    # if condition checks that there it'a s good day : no wind, rain and good vis.
     if forecast["day"]["maxwind_kph"] < 50 && forecast["day"]["totalprecip_mm"] < 1 && forecast["day"]["avgvis_km"] > 5
-      d_score = 1
+      day_score = 1
     else
-      d_score = 0
+      day_score = -1
     end
-    # ap "toto"
-    # ap d_score
-    d_score
+    return day_score
   end
 
   def weather_trip_score(start_date, end_date, weather)
-    w_score = 0
+    weather_score = 0
     start_date.upto(end_date) do |date|
       weather.forecast.each do |forecast|
-        w_score += weather_day_score(forecast) if (Date.parse forecast["date"]) == date
+        weather_score += weather_day_score(forecast) if (Date.parse forecast["date"]) == date
       end
     end
-    w_score
+    weather_score = [weather_score, 0].max
   end
 
-
-  def basecamp_activity_score(nb_itineraries, weather, trip, basecamp, avalanche)
-    avalanche = 0 if avalanche.nil?
-    w_score = weather_trip_score(trip.start_date, trip.end_date, weather)
-
-    base = Geokit::LatLng.new(basecamp.coord_lat, basecamp.coord_long)
-
-    if contains?(@one_hour_polygon, base)
-      distance_score = 0
-    else
-      distance_score = trip.distance_from(basecamp)
-    end
-
-    if nb_itineraries < 3 || avalanche > 4
-      score = -1000
-    else
-      score = [nb_itineraries, 15].min - (distance_score / 20) - 3 * avalanche + 5 * w_score
-    end
-    ap score
-    return score
-  end
-
-  def contains?(array, point)
-    last_point = array[-1]
+  def point_included_in_polygon?(polygon_array, point)
+    last_point = polygon_array[-1]
     oddNodes = false
     x = point.lng
     y = point.lat
 
-    array.each do |p|
+    polygon_array.each do |p|
       yi = p[1]
       xi = p[0]
       yj = last_point[1]
@@ -127,7 +100,29 @@ class BasecampsActivitiesController < ApplicationController
 
       last_point = p
     end
+    return oddNodes
+  end
 
-    oddNodes
+  def score(basecamp_activity, trip)
+    # Define all variables
+    bra = basecamp_activity.basecamp.mountain_range
+    basecamp = basecamp_activity.basecamp
+    weather = basecamp.weather
+    itinerary_count = basecamp_activity.itineraries.count
+
+    # Comupute subscores
+    bra.nil? ? avalanche_score = 0 : avalanche_score = bra.max_risk
+    # Weather score
+    weather_score = weather_trip_score(trip.start_date, trip.end_date, weather)
+    # Distance score
+    center = Geokit::LatLng.new(basecamp.coord_lat, basecamp.coord_long)
+    if point_included_in_polygon?(@one_hour_polygon, center)
+      distance_score = 0
+    else
+      distance_score = trip.distance_from(basecamp)
+    end
+
+    # Compute final score
+    score = weather_score * [(itinerary_count / 2 * trip.duration), 4].min - (distance_score / 20) - avalanche_score ** 2
   end
 end

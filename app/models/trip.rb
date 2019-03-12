@@ -13,7 +13,11 @@ class Trip < ApplicationRecord
   geocoded_by :location, latitude: :coord_lat, longitude: :coord_long
   after_validation :geocode, if: :will_save_change_to_location?
 
-  def one_hour_isochrone
+  def duration
+    self.start_date.upto(self.end_date).to_a.size
+  end
+
+  def one_hour_isochrone_coordinates
     url = "https://api.openrouteservice.org/isochrones?api_key=#{ENV['OPENROUTE_API_KEY']}&locations=#{self.coord_long},#{self.coord_lat}&profile=driving-car&range=3600"
     response = JSON.parse(open(url).read)["features"][0]["geometry"]["coordinates"][0]
 
@@ -24,7 +28,7 @@ class Trip < ApplicationRecord
         Geokit::LatLng.new(lat, long)
       end
     ])
-    polygon
+    return polygon.points[0]
   end
 
 end
