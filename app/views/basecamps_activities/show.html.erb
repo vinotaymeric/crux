@@ -3,11 +3,11 @@
 
   <% if @trip.validated == false %>
   <div class="fixed-action-btn card-panel sticky-cta hide", id="validation-basecamp-button">
-    <%= link_to "Valider ce camp", trip_path(@trip), method: :put, class: 'btn' %>
+    <%= link_to "Valider ce camp", trip_basecamps_activity_path(@trip, @basecamp_activity), method: :put, class: 'btn' %>
   </div>
   <% else %>
   <div class="fixed-action-btn card-panel sticky-cta">
-    <%= link_to "Ajouter des itinéraires", trip_path(@trip), method: :put, class: 'btn' %>
+    <%= link_to "Ajouter des itinéraires", trip_basecamps_activity_path(@trip, @basecamp_activity), method: :put, class: 'btn' %>
   </div>
   <% end %>
 

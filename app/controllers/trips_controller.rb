@@ -11,6 +11,9 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
+    # !!! This is a very dirty hack, I don't know why but the trip has to have a basecamp_activity
+    @trip.basecamps_activity = BasecampsActivity.find(6456)
+    # Improve if you can ;)
     @trip.save!
     redirect_to trip_basecamps_activities_path(@trip)
   end
