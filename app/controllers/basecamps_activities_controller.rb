@@ -70,6 +70,26 @@ class BasecampsActivitiesController < ApplicationController
     end
   end
 
+  def update
+    @trip = Trip.find(params[:trip_id])
+    basecamp_activity = BasecampsActivity.find(params[:id])
+
+    if @trip.validated
+      @trip.validated = false
+    else
+      @trip.validated = true
+      @trip.basecamps_activity = basecamp_activity
+    end
+
+    @trip.save!
+
+    if @trip.validated
+      flash[:notice] = 'Vos itinéraires sont disponibles en mode offline'
+    end
+
+    redirect_back(fallback_location: root_path)
+  end
+
   private
 
   def init_mark_down_parser
