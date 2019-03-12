@@ -18,11 +18,19 @@ class BasecampsActivitiesController < ApplicationController
     # Define the isochrone around
     @one_hour_polygon = @trip.one_hour_isochrone_coordinates
 
-    # Compute score also considering weather and localisation
-    basecamps_activities.sort_by! do |basecamp_activity|
+    # Compute current score
+    basecamps_activities.each do |basecamp_activity|
       @weather_icons = weather_icons(basecamp_activity, @trip)
-      score(basecamp_activity, @trip)
+      basecamp_activity.current_score = score(basecamp_activity, @trip)
     end
+
+    # # Sort by distance first in case their is a score equality
+    # basecamps_activities.sort_by! do |basecamp_activity|
+    #   @trip.distance_from(basecamp_activity.basecamp)
+    # end
+
+    # Sort by score and send weather to the view for the top
+    basecamps_activities.sort_by! { |basecamp_activity| [basecamp_activity.current_score, - @trip.distance_from(basecamp_activity.basecamp)]}
 
     # Take only top 18
     @basecamps_activities = basecamps_activities.reverse[0..17]

@@ -31,15 +31,15 @@
                     <div class="card-stacked black-font"">
                       <div class="card-content" data-coords="<%= { ori_lat: @trip.coord_lat, ori_long: @trip.coord_long, desti_lat: base.basecamp.coord_lat, desti_long: base.basecamp.coord_long }.to_json %>">
                         <% b_a_name = base.basecamp.name.encode("iso-8859-1").force_encoding("utf-8") %>
-                        <% if counter < 7 %>
-                          <p class="strong">
+                        <p class="strong">
+                        <% if base.current_score > 0 %>
                           <%= b_a_name %><span>  <i class="fas fa-heart"></i></span>
-                          </p>
+                        <% elsif base.current_score > -5 %>
+                          <strong style="font-weight: lighter;"><%= b_a_name %><span></strong>
                         <% else %>
-                          <p>
-                          <strong style="color: #071013;"><%= b_a_name %></strong>
-                          </p>
+                          <strong style="color: rgba(7,16,19, 0.8); font-weight: lighter;"><%= b_a_name %><span>  <i class="far fa-frown"></i></span></strong>
                         <% end %>
+                        </p>
                       <br>
                       <p id="itinerary-number" ><strong><%= base.nb_itineraries %></strong> itinéraires en <strong><%= base.activity.name.split(" ")[0] %></strong></p>
                       <br>
