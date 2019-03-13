@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_12_150946) do
+ActiveRecord::Schema.define(version: 2019_03_12_155731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,12 @@ ActiveRecord::Schema.define(version: 2019_03_12_150946) do
     t.datetime "updated_at", null: false
     t.string "level"
     t.index ["activity_id"], name: "index_itineraries_on_activity_id"
+  end
+
+  create_table "itinerary_jsons", force: :cascade do |t|
+    t.string "json"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "mountain_ranges", force: :cascade do |t|

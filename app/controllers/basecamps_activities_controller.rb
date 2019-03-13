@@ -20,7 +20,6 @@ class BasecampsActivitiesController < ApplicationController
 
     # Compute current score
     basecamps_activities.each do |basecamp_activity|
-      @weather_icons = weather_icons(basecamp_activity, @trip)
       basecamp_activity.current_score = score(basecamp_activity, @trip)
     end
 
@@ -123,20 +122,6 @@ class BasecampsActivitiesController < ApplicationController
       end
     end
     weather_score = [weather_score, 0.5].max
-  end
-
-  def weather_icons(basecamp_activity, trip)
-    icons = []
-    start_date = trip.start_date
-    end_date = trip.end_date
-    weather = basecamp_activity.basecamp.weather
-
-    start_date.upto(end_date) do |date|
-      weather.forecast.each do |forecast|
-        icons << forecast["day"]["condition"]["icon"].to_s if (Date.parse forecast["date"]) == date
-      end
-    end
-    return icons
   end
 
   def point_included_in_polygon?(polygon_array, point)
