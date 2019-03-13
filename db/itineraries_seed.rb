@@ -49,11 +49,6 @@ sitemap1.xpath("//loc").each do |url|
 end
 
 itinerary_ids.map! { |id| id.to_i }
-itinerary_ids.select! { |id| id > 49833 }
-
-
-itinerary_ids.map! { |id| id.to_i }
-itinerary_ids.select! { |id| id > 53958 }
 
 
 # Seeding itineraries

@@ -51,7 +51,7 @@
                       <% end %>
                       <br>
                       <p>
-                      <% @weather_icons.each do |icon_url| %>
+                      <% base.weather_icons(@trip).each do |icon_url| %>
                         <img src="<%= "http:" + icon_url %>" style="width: 32px; height: 32px;">
                       <% end %>
                       </p>
