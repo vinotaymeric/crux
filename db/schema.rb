@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_12_155731) do
+ActiveRecord::Schema.define(version: 2019_03_13_094017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2019_03_12_155731) do
     t.bigint "weather_id"
     t.string "code_insee"
     t.string "geoname"
+    t.integer "source_id"
     t.index ["activity_id"], name: "index_basecamps_on_activity_id"
     t.index ["mountain_range_id"], name: "index_basecamps_on_mountain_range_id"
     t.index ["weather_id"], name: "index_basecamps_on_weather_id"
@@ -87,7 +88,10 @@ ActiveRecord::Schema.define(version: 2019_03_12_155731) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "level"
+    t.integer "source_id"
+    t.bigint "basecamp_id"
     t.index ["activity_id"], name: "index_itineraries_on_activity_id"
+    t.index ["basecamp_id"], name: "index_itineraries_on_basecamp_id"
   end
 
   create_table "itinerary_jsons", force: :cascade do |t|
@@ -186,6 +190,7 @@ ActiveRecord::Schema.define(version: 2019_03_12_155731) do
   add_foreign_key "favorite_itineraries", "itineraries"
   add_foreign_key "favorite_itineraries", "trips"
   add_foreign_key "itineraries", "activities"
+  add_foreign_key "itineraries", "basecamps"
   add_foreign_key "trips", "basecamps_activities"
   add_foreign_key "trips", "users"
   add_foreign_key "trips_basecamps", "basecamps"
