@@ -1,23 +1,6 @@
-<!-- <div class="row" style="margin-bottom: -15px; margin-left: 15px;">
-  <div class="col s6 offset-s2">
-    <ul class="list-inline tabs-underlined">
-      <li>
-          <input id="algoliaSearch" class="form-control tab-underlined active" type="search" placeholder="Recherche un iti." aria-label="Search" style="border: 1px solid black; border-radius: 2px; color: black; width: 200px; padding-left: 5px; font-size: 1.1em;">
-      </li>
-    </ul>
-  </div>
-</div> -->
-
-
 <div id="my-itineraries">
   <%= render @itineraries %>
 </div>
-
-<% if @itineraries.next_page %>
-   <div id="infinite-scrolling">
-        <%= will_paginate %>
-    </div>
-<% end %>
 
 
 

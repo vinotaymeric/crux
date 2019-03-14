@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_14_173146) do
+ActiveRecord::Schema.define(version: 2019_03_14_200047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,12 +108,6 @@ ActiveRecord::Schema.define(version: 2019_03_14_173146) do
     t.index ["hut_id"], name: "index_itineraries_on_hut_id"
   end
 
-  create_table "itinerary_jsons", force: :cascade do |t|
-    t.string "json"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "mountain_ranges", force: :cascade do |t|
     t.string "name"
     t.string "rosace_url"
@@ -127,6 +121,14 @@ ActiveRecord::Schema.define(version: 2019_03_14_173146) do
     t.float "coord_long"
     t.date "bra_date"
     t.integer "max_risk"
+  end
+
+  create_table "outings", force: :cascade do |t|
+    t.bigint "itinerary_id"
+    t.string "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["itinerary_id"], name: "index_outings_on_itinerary_id"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -195,6 +197,7 @@ ActiveRecord::Schema.define(version: 2019_03_14_173146) do
   add_foreign_key "itineraries", "activities"
   add_foreign_key "itineraries", "basecamps"
   add_foreign_key "itineraries", "huts"
+  add_foreign_key "outings", "itineraries"
   add_foreign_key "trips", "areas"
   add_foreign_key "trips", "user_activities"
   add_foreign_key "trips", "users"

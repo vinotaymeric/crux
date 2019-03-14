@@ -1,7 +1,7 @@
 require 'json'
 require 'open-uri'
 require 'nokogiri'
-require_relative 'seed_functions'
+require_relative 'lib/seed_functions'
 require_relative 'lib/bra_functions'
 require_relative 'lib/basecamp'
 require 'date'
@@ -52,6 +52,10 @@ end
 
 itinerary_ids.uniq!
 reached_id = Itinerary.maximum('source_id')
+
+p itinerary_ids.count
+p itinerary_ids.last
+p reached_id
 
 itinerary_ids.each do |id|
   next if id.to_i <= reached_id
@@ -173,13 +177,22 @@ itinerary_ids.each do |id|
   end
 
   itinerary.save!
+
+  # Outings
+  if itinerary.number_of_outing > 0
+    itinerary_hash["associations"]["recent_outings"]["documents"].each do |outing|
+      Outing.create!(itinerary: itinerary, date: outing["date_start"])
+    end
+  end
+
   p id
   print "."
-  sleep(0.5)
+  sleep(0.2)
   rescue Exception => e
   puts "#{id} a pété"
   puts e.message
   end
+
 end
 
 # Once itineries seed is completed

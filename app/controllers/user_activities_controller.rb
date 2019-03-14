@@ -22,6 +22,8 @@ class UserActivitiesController < ApplicationController
       @itineraries = @area.itineraries.where(activity_id: @activity.id ).order(picture_url: :asc)
     end
 
+    @itineraries.sort_by! { |itinerary| itinerary.score}.reverse
+
     @favorite_itinerary = FavoriteItinerary.new
 
     # Mapbox

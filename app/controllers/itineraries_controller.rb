@@ -3,11 +3,8 @@ class ItinerariesController < ApplicationController
   before_action :init_mark_down_parser, only: [:show, :index]
 
   def index
-      # basecamp = params[:basecamp_id]
-      # @itineraries = Itinerary.where(basecamp_id: basecamp.id)
-      #@itineraries = Itinerary.where(activity_id: 13)[-50..-1]
-
-     @itineraries =Itinerary.all.paginate(page: params[:page], per_page: 12).order("difficulty asc")
+     @itineraries =Itinerary.all.order("number_of_outing desc")[0..100]
+     # paginate(page: params[:page], per_page: 12)
   end
 
   def show

@@ -9,6 +9,7 @@ class Itinerary < ApplicationRecord
   has_many :trips, through: :favorite_itinerary
   has_many :basecamps_activities_itineraries
   has_many :basecamps_activities, through: :basecamps_activities_itineraries
+  has_many :outings
   geocoded_by :address, latitude: :coord_lat, longitude: :coord_long
   self.per_page = 3
 
@@ -73,4 +74,38 @@ class Itinerary < ApplicationRecord
     self.picture_url.nil? ? placeholder : self.picture_url
   end
 
+  def outing_months
+    outings = self.outings
+    outings_per_month = {
+      1 => 0,
+      2 => 0,
+      3 => 0,
+      4 => 0,
+      5 => 0,
+      6 => 0,
+      7 => 0,
+      8 => 0,
+      9 => 0,
+      10 => 0,
+      11 => 0,
+      12 => 0
+    }
+    outings.each do |outing|
+      next if outing.date.nil?
+      month = outing.date.split("-")[1].to_i
+      outings_per_month[month] += 1
+    end
+
+    outings_per_month
+  end
+
+  def score
+    self.picture_url.nil? ? score = 0.2 : score = 1
+    p score
+    score = score / 5 if self.number_of_outing < 2
+    p score
+    score *= 5 if self.outing_months[Date.today.month] > 0
+    p score
+    return score
+  end
 end
