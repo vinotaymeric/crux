@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_13_094017) do
+ActiveRecord::Schema.define(version: 2019_03_14_173146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,43 +21,43 @@ ActiveRecord::Schema.define(version: 2019_03_13_094017) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "areas", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "coord_long"
+    t.float "coord_lat"
+    t.bigint "weather_id"
+    t.float "temp_score"
+    t.string "temp_activity"
+    t.bigint "city_id"
+    t.index ["city_id"], name: "index_areas_on_city_id"
+    t.index ["weather_id"], name: "index_areas_on_weather_id"
+  end
+
   create_table "basecamps", force: :cascade do |t|
     t.string "name"
-    t.string "location"
     t.float "coord_long"
     t.float "coord_lat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "activity_id"
-    t.integer "city_inhab"
     t.bigint "mountain_range_id"
-    t.bigint "weather_id"
+    t.integer "source_id"
+    t.bigint "area_id"
+    t.index ["area_id"], name: "index_basecamps_on_area_id"
+    t.index ["mountain_range_id"], name: "index_basecamps_on_mountain_range_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.float "coord_long"
+    t.float "coord_lat"
+    t.string "city_inhab"
     t.string "code_insee"
     t.string "geoname"
-    t.integer "source_id"
-    t.index ["activity_id"], name: "index_basecamps_on_activity_id"
-    t.index ["mountain_range_id"], name: "index_basecamps_on_mountain_range_id"
-    t.index ["weather_id"], name: "index_basecamps_on_weather_id"
-  end
-
-  create_table "basecamps_activities", force: :cascade do |t|
-    t.bigint "activity_id"
-    t.bigint "basecamp_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "itinerary_count"
-    t.integer "current_score"
-    t.index ["activity_id"], name: "index_basecamps_activities_on_activity_id"
-    t.index ["basecamp_id"], name: "index_basecamps_activities_on_basecamp_id"
-  end
-
-  create_table "basecamps_activities_itineraries", force: :cascade do |t|
-    t.bigint "itinerary_id"
-    t.bigint "basecamps_activity_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["basecamps_activity_id"], name: "index_basecamps_activities_itineraries_on_basecamps_activity_id"
-    t.index ["itinerary_id"], name: "index_basecamps_activities_itineraries_on_itinerary_id"
+    t.bigint "mountain_range_id"
+    t.index ["mountain_range_id"], name: "index_cities_on_mountain_range_id"
   end
 
   create_table "favorite_itineraries", force: :cascade do |t|
@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(version: 2019_03_13_094017) do
     t.datetime "updated_at", null: false
     t.index ["itinerary_id"], name: "index_favorite_itineraries_on_itinerary_id"
     t.index ["trip_id"], name: "index_favorite_itineraries_on_trip_id"
+  end
+
+  create_table "huts", force: :cascade do |t|
+    t.float "coord_long"
+    t.float "coord_lat"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "source_id"
   end
 
   create_table "itineraries", force: :cascade do |t|
@@ -90,8 +99,13 @@ ActiveRecord::Schema.define(version: 2019_03_13_094017) do
     t.string "level"
     t.integer "source_id"
     t.bigint "basecamp_id"
+    t.bigint "hut_id"
+    t.string "height_diff_down"
+    t.string "ski_rating"
+    t.string "hiking_rating"
     t.index ["activity_id"], name: "index_itineraries_on_activity_id"
     t.index ["basecamp_id"], name: "index_itineraries_on_basecamp_id"
+    t.index ["hut_id"], name: "index_itineraries_on_hut_id"
   end
 
   create_table "itinerary_jsons", force: :cascade do |t|
@@ -120,15 +134,16 @@ ActiveRecord::Schema.define(version: 2019_03_13_094017) do
     t.date "start_date"
     t.date "end_date"
     t.bigint "user_id"
-    t.string "favorite_activity"
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "coord_lat"
     t.float "coord_long"
     t.boolean "validated"
-    t.bigint "basecamps_activity_id"
-    t.index ["basecamps_activity_id"], name: "index_trips_on_basecamps_activity_id"
+    t.bigint "area_id"
+    t.bigint "user_activity_id"
+    t.index ["area_id"], name: "index_trips_on_area_id"
+    t.index ["user_activity_id"], name: "index_trips_on_user_activity_id"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
@@ -139,15 +154,6 @@ ActiveRecord::Schema.define(version: 2019_03_13_094017) do
     t.datetime "updated_at", null: false
     t.index ["basecamp_id"], name: "index_trips_basecamps_on_basecamp_id"
     t.index ["trip_id"], name: "index_trips_basecamps_on_trip_id"
-  end
-
-  create_table "trips_basecamps_activities", force: :cascade do |t|
-    t.bigint "basecamps_activity_id"
-    t.bigint "trip_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["basecamps_activity_id"], name: "index_trips_basecamps_activities_on_basecamps_activity_id"
-    t.index ["trip_id"], name: "index_trips_basecamps_activities_on_trip_id"
   end
 
   create_table "user_activities", force: :cascade do |t|
@@ -174,29 +180,26 @@ ActiveRecord::Schema.define(version: 2019_03_13_094017) do
   end
 
   create_table "weathers", force: :cascade do |t|
-    t.integer "weekend_score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "forecast"
   end
 
-  add_foreign_key "basecamps", "activities"
+  add_foreign_key "areas", "cities"
+  add_foreign_key "areas", "weathers"
+  add_foreign_key "basecamps", "areas"
   add_foreign_key "basecamps", "mountain_ranges"
-  add_foreign_key "basecamps", "weathers"
-  add_foreign_key "basecamps_activities", "activities"
-  add_foreign_key "basecamps_activities", "basecamps"
-  add_foreign_key "basecamps_activities_itineraries", "basecamps_activities"
-  add_foreign_key "basecamps_activities_itineraries", "itineraries"
+  add_foreign_key "cities", "mountain_ranges"
   add_foreign_key "favorite_itineraries", "itineraries"
   add_foreign_key "favorite_itineraries", "trips"
   add_foreign_key "itineraries", "activities"
   add_foreign_key "itineraries", "basecamps"
-  add_foreign_key "trips", "basecamps_activities"
+  add_foreign_key "itineraries", "huts"
+  add_foreign_key "trips", "areas"
+  add_foreign_key "trips", "user_activities"
   add_foreign_key "trips", "users"
   add_foreign_key "trips_basecamps", "basecamps"
   add_foreign_key "trips_basecamps", "trips"
-  add_foreign_key "trips_basecamps_activities", "basecamps_activities"
-  add_foreign_key "trips_basecamps_activities", "trips"
   add_foreign_key "user_activities", "activities"
   add_foreign_key "user_activities", "users"
 end

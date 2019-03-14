@@ -2,12 +2,9 @@ require "objspace"
 require "addressable"
 
 class Itinerary < ApplicationRecord
-
-  include AlgoliaSearch
-  algoliasearch if: :small? do
-  end
-
   belongs_to :activity
+  belongs_to :basecamp
+  belongs_to :hut, optional: true
   has_many :favorite_itineraries
   has_many :trips, through: :favorite_itinerary
   has_many :basecamps_activities_itineraries
@@ -45,6 +42,35 @@ class Itinerary < ApplicationRecord
       end
     end
     outing_ids
+  end
+
+  def universal_difficulty
+    expérimenté = ["TD-", "TD", "TD+", "ED-", "ED", "ED+", "T5"]
+    intermédiaire = ["D-", "D", "D+", "AD-", "AD", "AD+", "T4", "T3"]
+    débutant = ["PD-", "PD", "PD+", "F-", "F", "F+", "T2", "T1"]
+
+    if self.difficulty != nil
+      technical_difficulty = self.difficulty
+    elsif self.ski_rating != nil
+      technical_difficulty = self.ski_rating
+    elsif self.hiking_rating != nil
+      technical_difficulty = self.hiking_rating
+    end
+
+    if expérimenté.include?(technical_difficulty)
+      universal_difficulty = "expérimenté"
+    elsif intermédiaire.include?(technical_difficulty)
+      universal_difficulty = "intermédiaire"
+    else
+      universal_difficulty = "débutant"
+    end
+
+    universal_difficulty
+  end
+
+  def picture_url_p
+    placeholder = "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg"
+    self.picture_url.nil? ? placeholder : self.picture_url
   end
 
 end

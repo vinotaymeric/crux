@@ -1,0 +1,45 @@
+<div class="col s12 m4">
+  <div class="card small">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="<%= itinerary.picture_url_p %>">
+    </div>
+    <div class="card-content">
+      <span class="title-card ellsipsised card-title activator grey-text text-darken-4"><%= itinerary.name.split("-")[0] %></span>
+      <p>
+        <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Altitude max"><%= itinerary.elevation_max %>m</span>
+        <% if itinerary.height_diff_up != nil%>
+          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Orientation principale">+ <%= itinerary.height_diff_up %> m</span>
+        <% end %>
+        <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.difficulty %></span>
+        <% if itinerary.orientations != nil%>
+          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Orientation principale"><%= itinerary.orientations.gsub("\"", "") %></span>
+        <% end %>
+        <div class="right-align" id="favorite">
+
+          <% if trip.validated%>
+            <a class="fas fa-mountain bigger add-itinerary"></a>
+          <% else %>
+
+            <% if trip.itineraries.distinct.include?(itinerary) %>
+            <a onclick="M.toast({html: 'Itinéraire enlevé', classes: 'toaster remove'})" class="fas fa-mountain bigger add-itinerary"></a>
+            <% else %>
+            <a onclick="M.toast({html: 'Itinéraire ajouté', classes: 'toaster'})" class="fas fa-plus-circle bigger add-itinerary"></a>
+
+            <% end %>
+
+          <% end %>
+        </div>
+
+          <%= simple_form_for favorite, remote: true do |f| %>
+          <%= f.input  :trip_id, input_html: {value: trip.id} %>
+          <%= f.input  :itinerary_id, input_html: {value: itinerary.id} %>
+          <% end %>
+
+      </p>
+    </div>
+    <div class="card-reveal">
+      <p class="card-title grey-text text-darken-4"><strong><%= itinerary.name %></strong><i class="material-icons right absolute">close</i></p>
+      <p><%= render partial: "itinerary_description", locals: {itinerary: itinerary} %></p>
+    </div>
+  </div>
+</div>

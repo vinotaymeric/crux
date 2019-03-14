@@ -1,4 +1,3 @@
 class Weather < ApplicationRecord
-  has_one :basecamp
-
+  has_one :area
 end

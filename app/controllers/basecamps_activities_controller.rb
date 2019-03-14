@@ -7,7 +7,8 @@ class BasecampsActivitiesController < ApplicationController
     @trip = Trip.find(params[:trip_id])
 
     # See how many itineraries match the user profile and trip search
-    basecamps_activities = BasecampsActivity.select("basecamps_activities.*, COUNT(basecamps_activities_itineraries.itinerary_id) as nb_itineraries").joins(:itineraries)
+    basecamps_activities = BasecampsActivity.select("basecamps_activities.*, COUNT(basecamps_activities_itineraries.itinerary_id) as nb_itineraries")
+      .joins(:itineraries)
       .joins("INNER JOIN user_activities ON user_activities.activity_id = itineraries.activity_id")
       .where(user_activities: {user_id: current_user.id})
       .where("user_activities.level = itineraries.level")
@@ -16,7 +17,7 @@ class BasecampsActivitiesController < ApplicationController
       .to_a
 
     # Define the isochrone around
-    @one_hour_polygon = @trip.one_hour_isochrone_coordinates
+    @one_hour_polygon = @trip.isochrone_coordinates
 
     # Compute current score
     basecamps_activities.each do |basecamp_activity|
@@ -168,3 +169,6 @@ class BasecampsActivitiesController < ApplicationController
     score = weather_score * [(itinerary_count / (2 * trip.duration)), 4].min - (distance_score / (5 * trip.duration)) - avalanche_score ** 2
   end
 end
+
+
+

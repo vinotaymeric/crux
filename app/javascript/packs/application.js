@@ -63,7 +63,7 @@ initToggleRemove();
 initMapbox();
 
 //trip form validation
-interested();
+// interested();
 
 
 
@@ -122,12 +122,22 @@ const adjustBanner = () => {
 
 adjustBanner();
 
-// Algolia
-search();
+// Algolia : if needed ;)
+// search();
 
+const source_icons = document.querySelectorAll(".icon-source");
 
+const showForm = (activity) => {
+  const form = document.querySelector(`.icon-target#${activity}`)
+  form.classList.toggle("hidden");
+}
 
-
+source_icons.forEach( (element) => {
+  element.addEventListener('click', (e) => {
+      e.currentTarget.classList.toggle("selected-icon");
+      showForm(e.currentTarget.id);
+    });
+});
 
 
 

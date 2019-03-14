@@ -5,10 +5,16 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :trips do
-    resources :basecamps_activities, only: [:show, :index, :update]
+    resources :areas, only: [:show, :index, :update] do
+      resources :user_activities, only: :show
+      put '/user_activities/:id', to: 'user_activities#update_trip', as: 'update_trip'
+    end
   end
 
   resources :itineraries, only: [:show, :index]
+
   resources :user_activities, only: [:create, :update]
+  post '/user_activities', to: 'user_activities#update_profile', as: 'update_profile'
+
   resources :favorite_itineraries, only: [:create, :update]
 end
