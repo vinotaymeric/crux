@@ -17,13 +17,14 @@ class ApplicationRecord < ActiveRecord::Base
 
   def double_polygon
     polygon = self.isochrone_coordinates
+    polygons = [polygon]
+
     points = []
     points << polygon[0]
     slice = (polygon.size / 4).round.to_i
     points << polygon[slice]
     points << polygon[slice * 2]
     points << polygon[slice * 3]
-    polygons = [polygon]
 
     points.each do |point|
       url = "https://api.openrouteservice.org/isochrones?api_key=#{ENV['OPENROUTE_API_KEY']}&locations=#{point[1]},#{point[0]}&profile=driving-car&range=3600"
@@ -36,7 +37,7 @@ class ApplicationRecord < ActiveRecord::Base
           Geokit::LatLng.new(lat, long)
         end
       ])
-      polygons << polygon
+      polygons << polygon.points[0]
     end
     polygons
   end

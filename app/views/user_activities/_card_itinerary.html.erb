@@ -10,10 +10,7 @@
         <% if itinerary.height_diff_up != nil%>
           <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Orientation principale">+ <%= itinerary.height_diff_up %> m</span>
         <% end %>
-        <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.difficulty %></span>
-        <% if itinerary.orientations != nil%>
-          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Orientation principale"><%= itinerary.orientations.gsub("\"", "") %></span>
-        <% end %>
+        <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.universal_difficulty %></span>
         <div class="right-align" id="favorite">
 
           <% if trip.validated%>

@@ -5,11 +5,20 @@ class Activity < ApplicationRecord
 
   # tout est às dynamiser
   def placeholder_image
-    "crux/images/ski.png.png"
+    cloudinary_url = "https://res.cloudinary.com/dbehokgcg/image/upload/v1552908931"
+    if self.name == "skitouring"
+      "#{cloudinary_url}/ski.png"
+    elsif self.name == "mountain_climbing"
+    "#{cloudinary_url}/alpi.png"
+    elsif self.name == "rock_climbing"
+      "#{cloudinary_url}/escalade.png"
+    else
+      "#{cloudinary_url}/hike.jpg"
+    end
   end
 
   NAMES = [
-          ["snowshoeing", "raquette"], ["skitouring", "ski"], ["hiking", "randonnée"],
+          ["snowshoeing", "raquette"], ["skitouring", "ski de rando"], ["hiking", "randonnée"],
           ["snow_ice_mixed", "mixte"], ["mountain_climbing", "alpinisme"], ["rock_climbing", "escalade"],
           ["ice_climbing", "cascade"], ["via_ferrata", "via ferrata"]
           ]

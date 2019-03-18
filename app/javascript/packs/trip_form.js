@@ -15,7 +15,7 @@ const updateCTA = () =>{
     return
   }
   choices.forEach(choice => {
-    if (choice.value === "Pas intéressé") {
+    if (choice.value === "Niveau ?") {
       x += 1;
     }
   });

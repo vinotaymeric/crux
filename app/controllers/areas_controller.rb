@@ -9,7 +9,7 @@ class AreasController < ApplicationController
     areas_activities = []
     current_user.user_activities.each do |user_activity|
 
-      next if user_activity.level == "Pas intéressé" || user_activity.level.nil?
+      next if user_activity.level == "Niveau ?" || user_activity.level.nil?
 
       activity = user_activity.activity
 
@@ -17,9 +17,6 @@ class AreasController < ApplicationController
       .joins(:itineraries)
       .where(itineraries: {activity_id: activity.id, universal_difficulty: user_activity.level.downcase })
       .group("areas.id HAVING SUM(itineraries.score) > 0")
-      # To fix
-      # .where(itineraries: {activity_id: activity.id, universal_difficulty: 'expérimenté' })
-
 
       area_activity.each { |area| area.temp_activity = activity.name}
       areas_activities << area_activity
@@ -46,7 +43,7 @@ class AreasController < ApplicationController
       {
         lng: area.coord_long,
         lat: area.coord_lat,
-        # infoWindow: render_to_string(partial: "infowindow", locals: { base: area, trip: @trip }),
+        infoWindow: render_to_string(partial: "infowindow", locals: {area: area}),
         image_url: helpers.asset_url('https://cdn4.iconfinder.com/data/icons/eldorado-building/40/hovel_1-512.png')
       }
     end
@@ -66,7 +63,7 @@ class AreasController < ApplicationController
   end
 
   def weather_day_score(forecast)
-    if forecast["day"]["maxwind_kph"] < 50 && forecast["day"]["totalprecip_mm"] < 1 && forecast["day"]["avgvis_km"] > 5
+    if forecast["day"]["maxwind_kph"] < 50 && forecast["day"]["totalprecip_mm"] < 2 && forecast["day"]["avgvis_km"] > 5
       day_score = 1
     else
       day_score = -1
@@ -102,11 +99,19 @@ class AreasController < ApplicationController
     # elsif area.included_in_polygon?(double_polygon[1]) || area.included_in_polygon?(double_polygon[2]) || area.included_in_polygon?(double_polygon[3]) || area.included_in_polygon?(double_polygon[4])
     #   distance_score = 2
     else
-      distance_score = 1 + trip.distance_from(area) / 100
+      distance_score = 1 + trip.distance_from(area) / 50
     end
 
     # Compute final score
     score = ([weather_score, [(itinerary_count / 2), trip.duration].min].min) / distance_score ** (1.05 - trip.duration / 20)
+
+    # p city.name
+    # p "weather_score: #{weather_score}"
+    # p "itinerary_count: #{itinerary_count}"
+    # p "distance_score: #{distance_score}"
+    # p "score: #{score}"
+
+    # return score
 
   end
 end

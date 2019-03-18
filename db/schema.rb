@@ -26,10 +26,10 @@ ActiveRecord::Schema.define(version: 2019_03_15_174118) do
     t.datetime "updated_at", null: false
     t.float "coord_long"
     t.float "coord_lat"
-    t.bigint "weather_id"
     t.float "temp_score"
     t.string "temp_activity"
     t.bigint "city_id"
+    t.bigint "weather_id"
     t.index ["city_id"], name: "index_areas_on_city_id"
     t.index ["weather_id"], name: "index_areas_on_weather_id"
   end

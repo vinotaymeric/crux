@@ -25,19 +25,19 @@
                     <div class="card-stacked black-font"">
                       <div class="card-content" data-coords="<%= { ori_lat: @trip.coord_lat, ori_long: @trip.coord_long, desti_lat: area.coord_lat, desti_long: area.coord_long }.to_json %>">
                         <p class="strong">
-                        <% if area.temp_score > @trip.duration / 1.5 %>
+                        <% if area.temp_score > @trip.duration / 2.5 %>
                           <%= area.city.clean_name %><span>  <i class="fas fa-heart"></i></span>
-                        <% elsif area.temp_score > @trip.duration / 2 %>
+                        <% elsif area.temp_score > @trip.duration / 5 %>
                           <strong style="font-weight: lighter;"><%= area.city.clean_name %><span></strong>
                         <% else %>
                           <strong style="color: rgba(7,16,19, 0.8); font-weight: lighter;"><%= area.city.clean_name %><span>  <i class="far fa-frown"></i></span></strong>
                         <% end %>
                         </p>
                       <br>
-                      <p id="itinerary-number" ><strong><%= area.nb_itineraries %></strong> itinéraires en <strong><%= activity.short_name %></strong> <%= area.temp_score %></p>
+                      <p id="itinerary-number" ><strong><%= area.nb_itineraries %></strong> itinéraires en <strong><%= activity.short_name %></strong></p>
                       <br>
 
-                      <% if area.city.mountain_range != nil && area.city.mountain_range.max_risk != nil   %>
+                      <% if area.city.mountain_range != nil && area.city.mountain_range.max_risk != nil && activity.name == "skitouring"    %>
 
                         <% if area.city.mountain_range.max_risk > 2 %>
                         <p><i class="fas fa-exclamation-triangle"></i> BRA risqué (<%= area.city.mountain_range.max_risk %> / 5)</p>

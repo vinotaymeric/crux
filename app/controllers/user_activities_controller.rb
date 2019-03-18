@@ -4,7 +4,7 @@ class UserActivitiesController < ApplicationController
   def update
     @user_activity = UserActivity.find_by(user: current_user, activity: user_activity_params[:activity_id])
     @user_activity.update!(user_activity_params)
-    @user_activity.update!(level: nil) if @user_activity.level == "Pas intéressé"
+    @user_activity.update!(level: nil) if @user_activity.level == "Niveau ?"
     head 200
   end
 
