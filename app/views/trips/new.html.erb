@@ -8,14 +8,14 @@
             <div class="row">
 
               <% @unset_activities.each do |user_activity| %>
-              <div class="col s3">
+              <div class="col s3 m2">
 
                 <%= image_tag "icons/#{user_activity.activity.name}.png", class: 'circle responsive-img small icon-source', id: user_activity.activity.name %>
 
               </div>
               <% end %>
               <% @set_activities.each do |user_activity| %>
-              <div class="col s3">
+              <div class="col s3 m2">
                 <%= image_tag "icons/#{user_activity.activity.name}.png", class: 'circle responsive-img small icon-source selected-icon', id: user_activity.activity.name %>
               </div>
               <% end %>

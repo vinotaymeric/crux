@@ -19,10 +19,10 @@ class UserActivitiesController < ApplicationController
     if @trip.validated
       @itineraries = @trip.itineraries.distinct.order(picture_url: :asc)
     else
-      @itineraries = @area.itineraries.where(activity_id: @activity.id ).order(picture_url: :asc)
+      @itineraries = @area.itineraries.where(activity_id: @activity.id, universal_difficulty: @user_activity.level.downcase ).order(picture_url: :asc)
     end
 
-    @itineraries.sort_by! { |itinerary| itinerary.score}.reverse
+    @itineraries.to_a.sort_by! { |itinerary| itinerary.score}.reverse
 
     @favorite_itinerary = FavoriteItinerary.new
 

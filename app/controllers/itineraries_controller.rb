@@ -3,12 +3,13 @@ class ItinerariesController < ApplicationController
   before_action :init_mark_down_parser, only: [:show, :index]
 
   def index
-     @itineraries =Itinerary.all.order("number_of_outing desc")[0..100]
+     @itineraries =Itinerary.all.order("number_of_outing desc")[0..20]
      # paginate(page: params[:page], per_page: 12)
   end
 
   def show
     @itinerary = Itinerary.find(params[:id])
+    @itinerary.update_recent_conditions
   end
 
   private

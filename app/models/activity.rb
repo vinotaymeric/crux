@@ -25,6 +25,8 @@ class Activity < ApplicationRecord
     ids << Activity.find_by(name: "snow_ice_mixed").id
     ids << Activity.find_by(name: "ice_climbing").id
     ids << Activity.find_by(name: "via_ferrata").id
+    ids << Activity.find_by(name: "mountain_biking").id
+    ids << Activity.find_by(name: "slacklining").id
     ids
   end
 end

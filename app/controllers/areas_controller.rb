@@ -9,52 +9,34 @@ class AreasController < ApplicationController
     areas_activities = []
     current_user.user_activities.each do |user_activity|
 
-      p "skip" if user_activity.level == "Pas intéressé" || user_activity.level.nil?
       next if user_activity.level == "Pas intéressé" || user_activity.level.nil?
 
       activity = user_activity.activity
-      p activity
-      area_activity = Area.select("areas.*, COUNT(DISTINCT itineraries.id) as nb_itineraries")
-      .joins(:itineraries)
-      .joins("INNER JOIN user_activities ON user_activities.activity_id = itineraries.activity_id")
-      .where(user_activities: {user_id: current_user.id})
-      .where(itineraries: {activity_id: activity.id})
-      .group("areas.id")
-      .order("nb_itineraries DESC")
 
-    area_activity.each { |area| area.temp_activity = activity.name}
-    areas_activities << area_activity
+      area_activity = Area.select("areas.*, SUM(itineraries.score) as nb_good_itineraries, COUNT(itineraries.id) as nb_itineraries")
+      .joins(:itineraries)
+      .where(itineraries: {activity_id: activity.id, universal_difficulty: user_activity.level.downcase })
+      .group("areas.id HAVING SUM(itineraries.score) > 0")
+      # To fix
+      # .where(itineraries: {activity_id: activity.id, universal_difficulty: 'expérimenté' })
+
+
+      area_activity.each { |area| area.temp_activity = activity.name}
+      areas_activities << area_activity
     end
 
+
     @one_hour_polygon = @trip.isochrone_coordinates
+    # double_polygon = @trip.double_polygon
 
     areas_activities.flatten!
-    # Remove area not linked to a city, mostly out of France
-    areas_activities.select! { |area_activity| area_activity.city != nil }
+
+    areas_activities.select! { |area_activity| area_activity.city != nil}
 
     areas_activities.sort_by! do |area_activity|
       area_activity.temp_score = score(area_activity, @trip)
       [area_activity.temp_score, - @trip.distance_from(area_activity)]
     end
-
-    # areas = Area.select("areas.*, COUNT(DISTINCT itineraries.id) as nb_itineraries")
-    #   .joins(:itineraries)
-    #   .joins("INNER JOIN user_activities ON user_activities.activity_id = itineraries.activity_id")
-    #   .where(user_activities: {user_id: current_user.id})
-    #   .group("areas.id")
-    #   .order("nb_itineraries DESC")
-    #   .to_a
-      # .where("user_activities.level = #{itineraries.universal_difficulty}") ==> handle at last
-
-    # Define the isochrone around
-
-    # Compute current score
-    # areas.each do |area|
-    #   area.current_score = score(area, @trip)
-    # end
-
-    # # Sort by score, then distance in case of equality
-    # areas.sort_by! { |area| [area.current_score, - @trip.distance_from(area)]}
 
     # Take only top 18 and send them to the view
     @areas = areas_activities.reverse[0..17]
@@ -95,6 +77,7 @@ class AreasController < ApplicationController
   def weather_trip_score(start_date, end_date, weather)
     weather_score = 0
     start_date.upto(end_date) do |date|
+      next if weather.forecast.nil?
       weather.forecast.each do |forecast|
         weather_score += weather_day_score(forecast) if (Date.parse forecast["date"]) == date
       end
@@ -105,23 +88,25 @@ class AreasController < ApplicationController
   def score(area, trip)
     # Define all variables
     city = area.city
-    bra = city.mountain_range
+    # bra = city.mountain_range
     weather = area.weather
-    itinerary_count = area.itineraries.count
+    itinerary_count = area.nb_good_itineraries
 
     # Comupute subscores
-    bra.nil? || bra.max_risk.nil? ? avalanche_score = 0 : avalanche_score = bra.max_risk
+    # bra.nil? || bra.max_risk.nil? ? avalanche_score = 0 : avalanche_score = bra.max_risk
     # Weather score
-    weather_score = 0
-    # weather_score = weather_trip_score(trip.start_date, trip.end_date, weather)
+    weather_score = weather_trip_score(trip.start_date, trip.end_date, weather)
     # Distance score
     if area.included_in_polygon?(@one_hour_polygon)
-      distance_score = 0
+      distance_score = 1
+    # elsif area.included_in_polygon?(double_polygon[1]) || area.included_in_polygon?(double_polygon[2]) || area.included_in_polygon?(double_polygon[3]) || area.included_in_polygon?(double_polygon[4])
+    #   distance_score = 2
     else
-      distance_score = trip.distance_from(area)
+      distance_score = 1 + trip.distance_from(area) / 100
     end
 
     # Compute final score
-    score = weather_score * [(itinerary_count / (2 * trip.duration)), 4].min - (distance_score / (5 * trip.duration)) - avalanche_score ** 2
+    score = ([weather_score, [(itinerary_count / 2), trip.duration].min].min) / distance_score ** (1.05 - trip.duration / 20)
+
   end
 end
