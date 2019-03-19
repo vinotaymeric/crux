@@ -24,6 +24,15 @@ class Itinerary < ApplicationRecord
     end
   end
 
+  def short_name
+    if self.name.size > 50
+      name = self.name[0..50] + "..."
+    else
+      name = self.name
+    end
+    return name
+  end
+
   def update_recent_conditions
     begin
     api_call("routes", self.source_id)["associations"]["recent_outings"]["documents"].each do |outing|

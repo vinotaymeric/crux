@@ -4,13 +4,13 @@
       <img class="activator" src="<%= itinerary.picture_url_p %>">
     </div>
     <div class="card-content">
-      <span class="title-card ellsipsised card-title activator grey-text text-darken-4"><%= itinerary.name.split("-")[0] %></span>
       <p>
+      <span class="title-card ellsipsised card-title activator grey-text text-darken-4"><%= itinerary.short_name %></span>
         <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Altitude max"><%= itinerary.elevation_max %>m</span>
         <% if itinerary.height_diff_up != nil%>
-          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Orientation principale">+ <%= itinerary.height_diff_up %> m</span>
+          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Dénivelé positif">+ <%= itinerary.height_diff_up %> m</span>
         <% end %>
-        <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.universal_difficulty %></span>
+        <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.universal_difficulty.capitalize %></span>
         <div class="right-align" id="favorite">
 
           <% if trip.validated%>

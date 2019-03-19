@@ -90,11 +90,11 @@ li {
 }
 
 .title-card.ellsipsised {
-  font-size: 1.3rem !important;
+  font-size: 1.1rem !important;
+  line-height: 20px !important;
   color: black !important;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  font-weight: bold !important;
+  text-align: center !important;
 }
 
 .toaster {
