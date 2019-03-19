@@ -1,6 +1,13 @@
 class TripsController < ApplicationController
   def new
-    @user_activities = current_user.nil? ? [] : current_user.user_activities.order(:activity_id)
+
+    @expert_activities_ids = Activity.expert_activities
+
+    @user_activities = current_user.user_activities.where.not(activity_id: @expert_activities_ids)
+
+    @unset_activities = @user_activities.where(level: nil)
+    @set_activities = @user_activities.where('level IS NOT NULL')
+
     @trip = Trip.new
   end
 
@@ -11,11 +18,8 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     @trip.user = current_user
-    # !!! This is a very dirty hack, I don't know why but the trip has to have a basecamp_activity
-    @trip.basecamps_activity = BasecampsActivity.find(6456)
-    # Improve if you can ;)
     @trip.save!
-    redirect_to trip_basecamps_activities_path(@trip)
+    redirect_to trip_cities_path(@trip)
   end
 
   def show

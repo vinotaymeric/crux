@@ -33,13 +33,15 @@
         <div class="card-stacked">
           <div class="card-content">
 
-            <% if @itinerary.recent_conditions.nil? %>
+            <% if @itinerary.recent_outings.blank? %>
               <h6>Pas de sorties récentes</h6>
             <% else %>
               <h6>Sorties récentes:</h6>
               <ul>
-                <% @itinerary.recent_conditions.each do |id| %>
-                <li><a href="<%= "https://www.camptocamp.org/outings/#{id[0]}" %>">Sortie le <%= id[1] %></a> sur CamptoCamp</li>
+                <% @itinerary.recent_outings.reverse.each do |outing| %>
+                <p><strong>Sortie du <%= outing.date %></strong></p>
+                <p style="white-space: pre-line; justify-content: start;"><%= outing.content %></p>
+                <br>
                 <% end %>
               </ul>
             <% end %>

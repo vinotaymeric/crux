@@ -30,27 +30,28 @@ def filter_on_cities(cities, min_inhab = 0, departments = [])
   cities
 end
 
-def set_mountain_range(basecamp, max_dist)
+def set_mountain_range(city, max_dist)
   mountain_ranges = MountainRange.all
   mountain_ranges.each do |mountain_range|
-    if basecamp.mountain_range.nil?
-      basecamp.mountain_range = mountain_range unless basecamp.distance_from(mountain_range) > max_dist
-    elsif basecamp.distance_from(mountain_range) < basecamp.distance_from(basecamp.mountain_range)
-      basecamp.mountain_range = mountain_range
+    if city.mountain_range.nil?
+      city.mountain_range = mountain_range unless city.distance_from(mountain_range) > max_dist
+    elsif city.distance_from(mountain_range) < city.distance_from(city.mountain_range)
+      city.mountain_range = mountain_range
     end
   end
-  basecamp
+  city
 end
 
-def feed_basecamps(cities, max_dist_from_mountain_range)
+def feed_cities(cities, max_dist_from_mountain_range)
   cities.each do |city|
-    new_basecamp = Basecamp.new(
+    new_city = City.new(
       name: city[:name],
       coord_long: city[:coord_long],
       coord_lat: city[:coord_lat],
-      city_inhab: city[:inhab]
+      city_inhab: city[:inhab],
+      code_insee: city[:code_insee]
     )
-    set_mountain_range(new_basecamp, max_dist_from_mountain_range)
-    new_basecamp.save!
+    set_mountain_range(new_city, max_dist_from_mountain_range)
+    new_city.save!
   end
 end

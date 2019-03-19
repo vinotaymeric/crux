@@ -63,7 +63,7 @@ initToggleRemove();
 initMapbox();
 
 //trip form validation
-interested();
+// interested();
 
 
 
@@ -122,12 +122,23 @@ const adjustBanner = () => {
 
 adjustBanner();
 
-// Algolia
-search();
+// Algolia : if needed ;)
+// search();
 
+const source_icons = document.querySelectorAll(".icon-source");
 
+const showForm = (activity) => {
+  const formDiv = document.querySelector(`.icon-target#${activity}`)
+  const form = document.querySelector(`.form-control.select.optional.${activity}`);
+  form.closest('select').value = "Niveau ?";
+  Rails.fire(form.closest('form'), 'submit')
+  formDiv.classList.toggle("hidden");
+}
 
-
-
-
+source_icons.forEach( (element) => {
+  element.addEventListener('click', (e) => {
+      e.currentTarget.classList.toggle("selected-icon");
+      showForm(e.currentTarget.id);
+    });
+});
 

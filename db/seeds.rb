@@ -1,43 +1,69 @@
 require 'json'
 require 'open-uri'
 require 'nokogiri'
+require_relative 'lib/seed_functions'
+require_relative 'lib/bra_functions'
+require_relative 'lib/basecamp'
+require 'date'
+require 'pry'
+require "base64"
 
-ItineraryJson.delete_all
+# db_areas = Area.where.not(coord_long: nil)
 
-puts "Seeding Itineraries..."
+# db_areas.each do |area|
+#   next if area.weather != nil
+#   p area.id
 
-def api_call(itinerary, id)
-  url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"
-  p url
-  JSON.parse(open(url).read)
-end
+#   closest_area = db_areas.where.not(id: area.id, weather_id: nil).sort_by { |area2| area2.distance_from(area) }[0]
+#   # p area.distance_from(closest_area)
+#   if area.distance_from(closest_area) > 50 || closest_area.nil?
+#     weather = Weather.new()
+#     area.update!(weather: weather)
+#   else
+#     area.update!(weather: closest_area.weather)
+#   end
 
-sitemap0 = Nokogiri::HTML(open("https://www.camptocamp.org/sitemaps/r/0.xml"))
-sitemap1 = Nokogiri::HTML(open("https://www.camptocamp.org/sitemaps/r/1.xml"))
-itinerary_ids = []
+# end
 
-sitemap0 = Nokogiri::HTML(open("https://www.camptocamp.org/sitemaps/r/0.xml"))
-sitemap1 = Nokogiri::HTML(open("https://www.camptocamp.org/sitemaps/r/1.xml"))
-itinerary_ids = []
 
-sitemap0.xpath("//loc").each do |url|
-  itinerary_ids << url.to_s.split("/")[4]
-end
+# Weather.all.each do |weather|
+#   begin
+#   next if weather.forecast != nil
 
-sitemap1.xpath("//loc").each do |url|
-  itinerary_ids << url.to_s.split("/")[4]
-end
+#   area = weather.areas[0]
+#   # p weather_api_call(area.coord_lat, area.coord_long)
+#   weather_hash = weather_api_call(area.coord_lat, area.coord_long)
+#   weather.forecast = weather_hash["forecast"]["forecastday"]
+#   weather.save!
+#   rescue Exception => e
+#   puts e.message
+#   end
+# end
 
-p itinerary_ids
-
-itinerary_ids.each do |id|
+City.all.each do |city|
   begin
-  itinerary_hash = api_call("routes", id)
-  iti_json = ItineraryJson.new(json: itinerary_hash.to_s)
-  iti_json.save!
+  next if city.areas == nil
+  next if city.areas[0].weather_id == nil
+  weather_id = city.areas[0].weather_id
+  p weather_id
+  weather = Weather.find(weather_id)
+  city.update!(weather: weather)
+  p city.id
   rescue Exception => e
-  p "id #{id} a pété"
+  puts e.message
   end
-  sleep(1)
 end
 
+# Itinerary.all.each do |itinerary|
+#   next if itinerary.difficulty != nil
+#   begin
+#   itinerary_hash = api_call("routes", itinerary.source_id)
+#   itinerary.update!(difficulty: itinerary_hash["global_rating"])
+#   itinerary.update!(universal_difficulty: itinerary.universal_difficulty)
+#   itinerary.update_recent_conditions
+#   p itinerary.id
+#   sleep(0.1)
+#   rescue Exception => e
+#   p e.message
+#   end
+# end

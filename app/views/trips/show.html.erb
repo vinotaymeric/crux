@@ -1,5 +1,5 @@
 
-<div class="container basecamps-activities-container"  data-ors-api-key="<%= ENV['ORS_API_KEY'] %>">
+<div class="container basecamps-activities-container"  data-ors-api-key="<%= ENV['OPENROUTE_API_KEY2'] %>">
   <h3>Choisis ton camp de base</h3>
   <div class="row">
 
@@ -9,7 +9,7 @@
       <div class="card card-basecamp-activity horizontal small">
         <div class="card-image">
           <% if base.activity.name == "ski de randonnée" %>
-            
+
           <% elsif base.activity.name == "alpinisme" %>
             <%= image_tag "alpi.jpg" %>
           <% elsif base.activity.name == "escalade" %>

@@ -1,0 +1,11 @@
+<div style="background-color: rgba(38,166,154, 0.5); width: auto;">
+  A moins de 1h en voiture
+</div>
+<div
+  id="map"
+  style="
+  height: 600px;"
+  data-markers="<%= @markers.to_json %>";
+  data-polygon="<%= @one_hour_polygon.to_json %>";
+  data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>";>
+</div>

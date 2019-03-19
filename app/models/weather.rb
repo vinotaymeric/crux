@@ -1,4 +1,4 @@
 class Weather < ApplicationRecord
-  has_one :basecamp
-
+  has_many :cities
+  has_many :itineraries, through: :areas
 end
