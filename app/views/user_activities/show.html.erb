@@ -1,15 +1,15 @@
 <div class="container">
   <p class="ellipsis center-align strong" style="margin-bottom: -8px">
-    <%= link_to "", trip_areas_path(@trip, @area), class: "fas fa-chevron-circle-left" %></i><span style="padding-left: 10px;"><%= @activity.short_name.capitalize %> à <%= @city.clean_name %></span>
+    <%= link_to "", trip_cities_path(@trip, @city), class: "fas fa-chevron-circle-left" %></i><span style="padding-left: 10px;"><%= @activity.short_name.capitalize %> à <%= @city.clean_name %></span>
   </p>
 
   <% if @trip.validated == false %>
   <div class="fixed-action-btn card-panel sticky-cta hide", id="validation-basecamp-button">
-    <%= link_to "Valider ce camp", trip_area_update_trip_path(@trip, @area, @user_activity), method: :put, class: 'btn' %>
+    <%= link_to "Valider ce camp", trip_city_update_trip_path(@trip, @city, @user_activity), method: :put, class: 'btn' %>
   </div>
   <% else %>
   <div class="fixed-action-btn card-panel sticky-cta">
-    <%= link_to "Ajouter des itinéraires", trip_area_update_trip_path(@trip, @area, @user_activity), method: :put, class: 'btn' %>
+    <%= link_to "Ajouter des itinéraires", trip_city_update_trip_path(@trip, @city, @user_activity), method: :put, class: 'btn' %>
   </div>
   <% end %>
 

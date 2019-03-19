@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_15_174118) do
+ActiveRecord::Schema.define(version: 2019_03_19_103448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,12 +26,8 @@ ActiveRecord::Schema.define(version: 2019_03_15_174118) do
     t.datetime "updated_at", null: false
     t.float "coord_long"
     t.float "coord_lat"
-    t.float "temp_score"
-    t.string "temp_activity"
     t.bigint "city_id"
-    t.bigint "weather_id"
     t.index ["city_id"], name: "index_areas_on_city_id"
-    t.index ["weather_id"], name: "index_areas_on_weather_id"
   end
 
   create_table "basecamps", force: :cascade do |t|
@@ -57,7 +53,11 @@ ActiveRecord::Schema.define(version: 2019_03_15_174118) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "mountain_range_id"
+    t.float "temp_score"
+    t.string "temp_activity"
+    t.bigint "weather_id"
     t.index ["mountain_range_id"], name: "index_cities_on_mountain_range_id"
+    t.index ["weather_id"], name: "index_cities_on_weather_id"
   end
 
   create_table "favorite_itineraries", force: :cascade do |t|
@@ -146,9 +146,9 @@ ActiveRecord::Schema.define(version: 2019_03_15_174118) do
     t.float "coord_lat"
     t.float "coord_long"
     t.boolean "validated"
-    t.bigint "area_id"
     t.bigint "user_activity_id"
-    t.index ["area_id"], name: "index_trips_on_area_id"
+    t.bigint "city_id"
+    t.index ["city_id"], name: "index_trips_on_city_id"
     t.index ["user_activity_id"], name: "index_trips_on_user_activity_id"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
@@ -192,17 +192,17 @@ ActiveRecord::Schema.define(version: 2019_03_15_174118) do
   end
 
   add_foreign_key "areas", "cities"
-  add_foreign_key "areas", "weathers"
   add_foreign_key "basecamps", "areas"
   add_foreign_key "basecamps", "mountain_ranges"
   add_foreign_key "cities", "mountain_ranges"
+  add_foreign_key "cities", "weathers"
   add_foreign_key "favorite_itineraries", "itineraries"
   add_foreign_key "favorite_itineraries", "trips"
   add_foreign_key "itineraries", "activities"
   add_foreign_key "itineraries", "basecamps"
   add_foreign_key "itineraries", "huts"
   add_foreign_key "outings", "itineraries"
-  add_foreign_key "trips", "areas"
+  add_foreign_key "trips", "cities"
   add_foreign_key "trips", "user_activities"
   add_foreign_key "trips", "users"
   add_foreign_key "trips_basecamps", "basecamps"

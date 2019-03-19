@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :trips do
-    resources :areas, only: [:show, :index, :update] do
+    resources :cities, only: [:show, :index, :update] do
       resources :user_activities, only: :show
       put '/user_activities/:id', to: 'user_activities#update_trip', as: 'update_trip'
     end

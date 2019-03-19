@@ -9,17 +9,16 @@ class UserActivitiesController < ApplicationController
   end
 
   def show
-    @area = Area.find(params[:area_id])
-    @city = @area.city
+    @city = City.find(params[:city_id])
     @trip = Trip.find(params[:trip_id])
     @user_activity = UserActivity.find(params[:id])
     @activity = Activity.find(@user_activity.activity_id)
-    @mountain_range = @area.city.mountain_range
+    @mountain_range = @city.mountain_range
 
     if @trip.validated
       @itineraries = @trip.itineraries.distinct.order(picture_url: :asc)
     else
-      @itineraries = @area.itineraries.where(activity_id: @activity.id, universal_difficulty: @user_activity.level.downcase ).order(picture_url: :asc)
+      @itineraries = @city.itineraries.where(activity_id: @activity.id, universal_difficulty: @user_activity.level.downcase ).order(picture_url: :asc)
     end
 
     @itineraries.to_a.sort_by! { |itinerary| itinerary.score}.reverse
@@ -39,14 +38,14 @@ class UserActivitiesController < ApplicationController
 
   def update_trip
     @trip = Trip.find(params[:trip_id])
-    area = Area.find(params[:area_id])
+    city = City.find(params[:city_id])
     user_activity = UserActivity.find(params[:id])
 
     if @trip.validated
       @trip.validated = false
     else
       @trip.validated = true
-      @trip.area = area
+      @trip.city = city
       @trip.user_activity = user_activity
     end
 

@@ -15,9 +15,9 @@
           </div>
           <div class="card-action">
             <% if trip.validated %>
-            <%= link_to 'Voir les itinéraires', trip_area_user_activity_path(trip, trip.area, trip.user_activity), class: 'waves-effect waves-light btn-small btn-my-trips' %>
+            <%= link_to 'Voir les itinéraires', trip_city_user_activity_path(trip, trip.city, trip.user_activity), class: 'waves-effect waves-light btn-small btn-my-trips' %>
             <% else %>
-              <%= link_to 'Reprendre la sélection', trip_areas_path(trip), class: "waves-effect waves-light btn-small btn-my-trips" %>
+              <%= link_to 'Reprendre la sélection', trip_cities_path(trip), class: "waves-effect waves-light btn-small btn-my-trips" %>
             <% end %>
           </div>
         </div>

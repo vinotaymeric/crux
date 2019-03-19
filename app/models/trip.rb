@@ -3,7 +3,7 @@ require 'open-uri'
 
 class Trip < ApplicationRecord
   belongs_to :user
-  belongs_to :area, optional: true
+  belongs_to :city, optional: true
   belongs_to :user_activity, optional: true
   belongs_to :basecamps_activity, optional: true
   has_many :favorite_itineraries

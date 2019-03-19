@@ -19,7 +19,7 @@ class TripsController < ApplicationController
     @trip = Trip.new(trip_params)
     @trip.user = current_user
     @trip.save!
-    redirect_to trip_areas_path(@trip)
+    redirect_to trip_cities_path(@trip)
   end
 
   def show

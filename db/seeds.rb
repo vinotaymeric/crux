@@ -26,15 +26,29 @@ require "base64"
 # end
 
 
-Weather.all.each do |weather|
-  begin
-  next if weather.forecast != nil
+# Weather.all.each do |weather|
+#   begin
+#   next if weather.forecast != nil
 
-  area = weather.areas[0]
-  # p weather_api_call(area.coord_lat, area.coord_long)
-  weather_hash = weather_api_call(area.coord_lat, area.coord_long)
-  weather.forecast = weather_hash["forecast"]["forecastday"]
-  weather.save!
+#   area = weather.areas[0]
+#   # p weather_api_call(area.coord_lat, area.coord_long)
+#   weather_hash = weather_api_call(area.coord_lat, area.coord_long)
+#   weather.forecast = weather_hash["forecast"]["forecastday"]
+#   weather.save!
+#   rescue Exception => e
+#   puts e.message
+#   end
+# end
+
+City.all.each do |city|
+  begin
+  next if city.areas == nil
+  next if city.areas[0].weather_id == nil
+  weather_id = city.areas[0].weather_id
+  p weather_id
+  weather = Weather.find(weather_id)
+  city.update!(weather: weather)
+  p city.id
   rescue Exception => e
   puts e.message
   end
