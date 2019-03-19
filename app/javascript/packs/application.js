@@ -128,13 +128,16 @@ adjustBanner();
 const source_icons = document.querySelectorAll(".icon-source");
 
 const showForm = (activity) => {
-  const form = document.querySelector(`.icon-target#${activity}`)
-  form.classList.remove("hidden");
+  const formDiv = document.querySelector(`.icon-target#${activity}`)
+  const form = document.querySelector(`.form-control.select.optional.${activity}`);
+  form.closest('select').value = "Niveau ?";
+  Rails.fire(form.closest('form'), 'submit')
+  formDiv.classList.toggle("hidden");
 }
 
 source_icons.forEach( (element) => {
   element.addEventListener('click', (e) => {
-      e.currentTarget.classList.add("selected-icon");
+      e.currentTarget.classList.toggle("selected-icon");
       showForm(e.currentTarget.id);
     });
 });
