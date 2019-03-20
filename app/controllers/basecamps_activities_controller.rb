@@ -1,16 +1,15 @@
 class BasecampsActivitiesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:show, :index]
   before_action :init_mark_down_parser, only: :show
 
   def index
-    @user = current_user
+    @user = current_or_guest_user
     @trip = Trip.find(params[:trip_id])
 
     # See how many itineraries match the user profile and trip search
     basecamps_activities = BasecampsActivity.select("basecamps_activities.*, COUNT(basecamps_activities_itineraries.itinerary_id) as nb_itineraries")
       .joins(:itineraries)
       .joins("INNER JOIN user_activities ON user_activities.activity_id = itineraries.activity_id")
-      .where(user_activities: {user_id: current_user.id})
+      .where(user_activities: {user_id: current_or_guest_user.id})
       .where("user_activities.level = itineraries.level")
       .group("basecamps_activities.id")
       .order("COUNT(basecamps_activities_itineraries.itinerary_id) DESC")
@@ -57,7 +56,7 @@ class BasecampsActivitiesController < ApplicationController
     @basecamp = @basecamp_activity.basecamp
     @activity = @basecamp_activity.activity
     @mountain_range = @basecamp.mountain_range
-    user_level_for_activity = current_user.user_activities.find_by(activity_id: @activity.id).level
+    user_level_for_activity = current_or_guest_user.user_activities.find_by(activity_id: @activity.id).level
     @trip = Trip.find(params[:trip_id])
 
     if @trip.validated

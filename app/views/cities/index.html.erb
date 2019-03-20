@@ -16,7 +16,7 @@
             <% @cities.each do |city| %>
               <div class="col s12 m6">
                 <% activity = Activity.find_by(name: city.temp_activity) %>
-                <% user_activity = UserActivity.find_by(activity_id: activity.id) %>
+                <% user_activity = UserActivity.find_by(activity_id: activity.id, user_id: current_or_guest_user.id) %>
                 <%= link_to trip_city_user_activity_path(@trip, city, user_activity) do %>
                   <div class="card card-basecamp-activity horizontal small">
                     <div class="card-image">

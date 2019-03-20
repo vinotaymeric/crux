@@ -1,6 +1,9 @@
+require 'securerandom'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :authenticate_user!
+  after_action :current_or_guest_user, if: :devise_controller?
+  # before_action :authenticate_user!
 
   def execute_statement(sql)
     results = ActiveRecord::Base.connection.execute(sql)
@@ -15,4 +18,54 @@ class ApplicationController < ActionController::Base
   def default_url_options
     { host: ENV["HOST"] || "localhost:3000" }
   end
+
+ # if user is logged in, return current_user, else return guest_user
+  def current_or_guest_user
+    if current_user
+      if session[:guest_user_id] && session[:guest_user_id] != current_user.id
+        logging_in
+        # reload guest_user to prevent caching problems before destruction
+        guest_user(with_retry = false).try(:reload).try(:destroy)
+        session[:guest_user_id] = nil
+      end
+      current_user
+    else
+      guest_user
+    end
+  end
+
+  # find guest_user object associated with the current session,
+  # creating one as needed
+  def guest_user(with_retry = true)
+    # Cache the value the first time it's gotten.
+    @cached_guest_user ||= User.find(session[:guest_user_id] ||= create_guest_user.id)
+
+  rescue ActiveRecord::RecordNotFound # if session[:guest_user_id] invalid
+     session[:guest_user_id] = nil
+     guest_user if with_retry
+  end
+
+  def create
+    super
+    current_or_guest_user
+  end
+
+  private
+
+# called (once) when the user logs in
+  def logging_in
+
+    guest_trips = guest_user.trips.all
+    guest_trips.each do |trip|
+      trip.user_id = current_user.id
+      trip.save!
+    end
+
+    guest_user_activities = guest_user.user_activities.all
+    guest_user_activities.each do |user_activity|
+      user_activity.user_id = current_user.id
+      user_activity.save!
+    end
+  end
+
 end

@@ -1,13 +1,12 @@
 class CitiesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:show, :index]
   before_action :init_mark_down_parser, only: :show
 
   def index
-    @user = current_user
+    @user = current_or_guest_user
     @trip = Trip.find(params[:trip_id])
 
     cities_activities = []
-    current_user.user_activities.each do |user_activity|
+    current_or_guest_user.user_activities.each do |user_activity|
 
       next if user_activity.level == "Niveau ?" || user_activity.level.nil?
 

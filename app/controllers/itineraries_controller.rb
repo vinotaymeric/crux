@@ -1,5 +1,4 @@
 class ItinerariesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:show, :index]
   before_action :init_mark_down_parser, only: [:show, :index]
 
   def index
