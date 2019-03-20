@@ -1,4 +1,5 @@
 class TripsController < ApplicationController
+  before_action :authenticate_user!, only: :update
 
   def new
     user = current_or_guest_user
