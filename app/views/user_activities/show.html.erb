@@ -2,6 +2,17 @@
   <p class="ellipsis center-align strong" style="margin-bottom: -8px">
     <%= link_to "", trip_cities_path(@trip, @city), class: "fas fa-chevron-circle-left" %></i><span style="padding-left: 10px;"><%= @activity.short_name.capitalize %> à <%= @city.clean_name %></span>
   </p>
+  <br>
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="fas fa-rocket"></i>Envie d'une aventure clé en main ?</div>
+      <div class="collapsible-body">
+        <p>On se creuse la tête pour te proposer la logistique la plus simple (transport, hébergement), et te "packager" les meilleurs itinéraires. On te met en relation avec un sympathique professionnel de la montagne, si tu le souhaites. </p>
+        <%= link_to "Je veux bien de l'aide pipeuplait !", trip_requests_path(@trip), method: :post %>
+        <p><strong>C'est gratuit</strong> (alors non n'insiste pas, on ne te porte pas ton sac).</p>
+      </div>
+    </li>
+  </ul>
 
   <% if @trip.validated == false %>
   <div class="fixed-action-btn card-panel sticky-cta hide", id="validation-basecamp-button">

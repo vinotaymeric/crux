@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :user_activities, only: :show
       put '/user_activities/:id', to: 'user_activities#update_trip', as: 'update_trip'
     end
+    resources :requests, only: :create
   end
 
   resources :itineraries, only: [:show, :index]

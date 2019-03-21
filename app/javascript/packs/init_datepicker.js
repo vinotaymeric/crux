@@ -19,11 +19,13 @@ const initDatepicker = () => {
   document.addEventListener('DOMContentLoaded', function() {
     const today = new Date();
     const nextSaturday = getNextDayOfWeek(today, 6);
+    var afterTwoWeeks = new Date(+new Date + 12096e5);
     const options = {
         firstDay: 1,
         format: 'ddd dd mmmm yyyy',
         autoClose: true,
         minDate: today,
+        maxDate: afterTwoWeeks,
         defaultDate: nextSaturday,
         setDefaultDate: false,
         onSelect: function(returned_date){

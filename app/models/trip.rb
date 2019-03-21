@@ -1,6 +1,3 @@
-require 'json'
-require 'open-uri'
-
 class Trip < ApplicationRecord
   belongs_to :user
   belongs_to :city, optional: true

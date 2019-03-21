@@ -40,19 +40,19 @@ require "base64"
 #   end
 # end
 
-City.all.each do |city|
-  begin
-  next if city.areas == nil
-  next if city.areas[0].weather_id == nil
-  weather_id = city.areas[0].weather_id
-  p weather_id
-  weather = Weather.find(weather_id)
-  city.update!(weather: weather)
-  p city.id
-  rescue Exception => e
-  puts e.message
-  end
-end
+# City.all.each do |city|
+#   begin
+#   next if city.areas == nil
+#   next if city.areas[0].weather_id == nil
+#   weather_id = city.areas[0].weather_id
+#   p weather_id
+#   weather = Weather.find(weather_id)
+#   city.update!(weather: weather)
+#   p city.id
+#   rescue Exception => e
+#   puts e.message
+#   end
+# end
 
 # Itinerary.all.each do |itinerary|
 #   next if itinerary.difficulty != nil
@@ -67,3 +67,6 @@ end
 #   p e.message
 #   end
 # end
+
+# Cloudinary::Uploader.upload("https://media.camptocamp.org/c2corg-active/1540615817_369858027.png",
+#   :public_id => "toto", :overwrite => true)

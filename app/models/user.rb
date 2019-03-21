@@ -9,14 +9,14 @@ class User < ApplicationRecord
   has_many :trips
   after_create :create_user_activities
 
-  private
-
   def create_user_activities
     Activity.all.each do |activity|
       UserActivity.create!(user: self, activity: activity)
-      # self.user_activities.create!(activity: activity)
     end
   end
+
+  private
+
 
   def send_basecamp_email
     UserMailer.follow_basecamp(self).deliver_now

@@ -2,7 +2,7 @@ class UserActivitiesController < ApplicationController
   before_action :init_mark_down_parser, only: :show
 
   def update
-    @user_activity = UserActivity.find_by(user: current_user, activity: user_activity_params[:activity_id])
+    @user_activity = UserActivity.find_by(user: current_or_guest_user, activity: user_activity_params[:activity_id])
     @user_activity.update!(user_activity_params)
     @user_activity.update!(level: nil) if @user_activity.level == "Niveau ?"
     head 200
@@ -37,6 +37,8 @@ class UserActivitiesController < ApplicationController
   end
 
   def update_trip
+    redirect_to new_user_registration_path and return if current_user.nil?
+
     @trip = Trip.find(params[:trip_id])
     city = City.find(params[:city_id])
     user_activity = UserActivity.find(params[:id])

@@ -34,6 +34,7 @@ gem 'autoprefixer-rails'
 gem 'font-awesome-sass', '~> 5.5.0'
 gem 'simple_form'
 gem 'devise'
+gem 'devise-guests'
 gem 'sassc-rails'
 gem "algoliasearch-rails"
 gem 'geokit-rails'
