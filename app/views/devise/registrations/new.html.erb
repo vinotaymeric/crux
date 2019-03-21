@@ -8,9 +8,13 @@
               <%= f.error_notification %>
               <div class="input-field col s12 m12">
                 <%= f.input :email,
-                label: "Adresse email:",
+                label: "Email:",
                 required: true,
                 input_html: { autocomplete: "email" }%>,
+                <%= f.input :phone,
+                label: "Téléphone:",
+                required: false,
+                input_html: { autocomplete: "phone" }%>,
                 <%= f.input :password,
                 label: "Mot de passe:",
                 required: true,

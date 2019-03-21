@@ -3,6 +3,7 @@ require 'securerandom'
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :store_location
+  before_action :configure_permitted_parameters, if: :devise_controller?
   after_action :current_or_guest_user, if: :devise_controller?, only: :create
 
   def after_sign_up_path_for(user)
@@ -55,6 +56,11 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+def configure_permitted_parameters
+ devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password, :phone)}
+end
+
 
 # called (once) when the user logs in
   def logging_in
