@@ -3,6 +3,27 @@ require 'open-uri'
 require "base64"
 
 class UpdateForecast
+
+  ##### UPADATE WEATHER  ####
+  def api_call(lat, lon)
+    p url = "https://api.apixu.com/v1/forecast.json?key=#{ENV['WEATHER_KEY']}&q=#{lat},#{lon}&days=7"
+    JSON.parse(open(url).read)
+  end
+
+  def update_weather
+    Weather.all.each do |weather|
+      begin
+      city = weather.cities[0]
+      next if city.nil?
+      weather_hash = api_call(city.coord_lat, city.coord_long)
+      weather.forecast = weather_hash["forecast"]["forecastday"]
+      weather.save!
+      rescue Exception => e
+      puts e.message
+      end
+  end
+  ## END UPDATE WEATHER ##
+
   ## UPDATE BRA
   RANGES=[
     ["ARAVIS",14417,45.846413,6.334947],
@@ -32,9 +53,7 @@ class UpdateForecast
 
   def update_mountain_ranges_cron
     begin
-    #date = 20190303
     date = Date.today.prev_day.to_s.delete("-").to_i
-    # date = 20190303
     update_mountain_ranges(date)
     rescue Exception => e
       puts "bra_meteo_france indisponible "
@@ -79,7 +98,7 @@ class UpdateForecast
   end
   #
   def bra_per_range(bra_keys={})
-     url ="https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/BRA.#{bra_keys['massif']}.#{bra_keys['heures'].last}.xml"
+    url ="https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/BRA.#{bra_keys['massif']}.#{bra_keys['heures'].last}.xml"
     xml_noko_doc = xml_nokogiri_doc(url)
     #return bra_range_inf
       rosace = xml_noko_doc.xpath("//ImageCartoucheRisque ").text
@@ -157,35 +176,5 @@ class UpdateForecast
         end
     end
   end
-  ##### END UPDATE BRA ########
-
-  ##### UPADATE WEATHER  ####
-  def api_call(lat, lon)
-   p url = "https://api.apixu.com/v1/forecast.json?key=#{ENV['WEATHER_KEY']}&q=#{lat},#{lon}&days=7"
-    JSON.parse(open(url).read)
-  end
-
-  def update_weather
-    Weather.all.each do |weather|
-      begin
-      basecamp = weather.basecamp
-      weather_hash = api_call(basecamp.coord_lat, basecamp.coord_long)
-      score = 0
-      weather_hash["forecast"]["forecastday"].each do |day|
-        day_hash = day["day"]
-        score += day_hash["avgtemp_c"].to_i + day_hash["avgvis_km"].to_i - day_hash["maxwind_kph"].to_i - day_hash["totalprecip_mm"].to_i
-      end
-      weather.weekend_score = score
-      weather.forecast = weather_hash["forecast"]["forecastday"]
-      weather.save!
-
-      # Adding a rescue so that it works even a call fails
-      rescue Exception => e
-      puts "#weather {weather.id} a pété"
-      end
-    end
-  end
-  ## END UPDATE WEATHER ##
-
 end
 
