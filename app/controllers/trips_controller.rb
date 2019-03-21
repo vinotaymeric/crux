@@ -1,5 +1,4 @@
 class TripsController < ApplicationController
-  before_action :authenticate_user!, only: :update
 
   def new
     user = current_or_guest_user
@@ -21,30 +20,6 @@ class TripsController < ApplicationController
     @trip.user = current_or_guest_user
     @trip.save!
     redirect_to trip_cities_path(@trip)
-  end
-
-  def show
-  end
-
-  def update
-    @trip = Trip.find(params[:id])
-
-    if @trip.validated
-      @trip.validated = false
-    else
-      @trip.validated = true
-    end
-
-    @trip.save!
-
-    if @trip.validated
-      flash[:notice] = 'Vos itinéraires sont disponibles en mode offline'
-    end
-
-    redirect_back(fallback_location: root_path)
-  end
-
-  def edit
   end
 
   private

@@ -2,8 +2,12 @@ require 'securerandom'
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  after_action :current_or_guest_user, if: :devise_controller?
-  # before_action :authenticate_user!
+  before_action :store_location
+  after_action :current_or_guest_user, if: :devise_controller?, only: :create
+
+  def after_sign_up_path_for(user)
+    redirect_to :back
+  end
 
   def execute_statement(sql)
     results = ActiveRecord::Base.connection.execute(sql)
@@ -54,7 +58,6 @@ class ApplicationController < ActionController::Base
 
 # called (once) when the user logs in
   def logging_in
-
     guest_trips = guest_user.trips.all
     guest_trips.each do |trip|
       trip.user_id = current_user.id
@@ -66,6 +69,14 @@ class ApplicationController < ActionController::Base
       user_activity.user_id = current_user.id
       user_activity.save!
     end
+  end
+
+  def store_location
+    session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/ || request.get? == false
+  end
+
+  def after_sign_in_path_for(current_or_guest_user)
+    session[:previous_url] || root_path
   end
 
 end
