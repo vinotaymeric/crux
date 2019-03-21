@@ -10,6 +10,7 @@ class User < ApplicationRecord
   after_create :create_user_activities
 
   def create_user_activities
+    return if self.user_activities.count > 0
     Activity.all.each do |activity|
       UserActivity.create!(user: self, activity: activity)
     end

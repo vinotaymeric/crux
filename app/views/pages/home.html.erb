@@ -1,9 +1,9 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url('https://scontent-cdt1-1.xx.fbcdn.net/v/t31.0-8/11038143_790289401048459_1282230018834831290_o.jpg?_nc_cat=110&_nc_ht=scontent-cdt1-1.xx&oh=95522aab756387bb841cb2d6b754295c&oe=5D15D0DB');">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.0), rgba(0,0,0,0.1)), url('https://scontent-bru2-1.xx.fbcdn.net/v/t31.0-8/17834882_1297303597013701_1473251964652613264_o.jpg?_nc_cat=110&_nc_ht=scontent-bru2-1.xx&oh=c52e73b484f09b283610a694e948e50c&oe=5D09A9E4');">
   <div class="text-center">
     <h1>Une aventure t'attend</h1>
     <p>Crux analyse des <strong>milliers</strong> de données.</p>
     <p>Et te dit où les conditions sont <strong>optimales</strong>.</p>
-    <br><br><br>
+    <br><br>
     <%= link_to("Je pars en montagne", new_trip_path, class: "btn-outline") %>
   </div>
 </div>
@@ -11,27 +11,23 @@
 <div class="row home-content">
     <h4>Avant : c'était galère</h4>
     <p class="col s12 m4">
-      <i class="far fa-tired"></i> 2h pour checker 42 bulletins <strong>météo</strong>
-      <br><em>Attends, t'as regardé le vent en altitude ?</em>
+      <strong>2h</strong> pour checker 42 bulletins <strong>météo</strong>.
     </p>
     <p class="col s12 m4">
-      3h à chercher des <strong>itinéraires</strong> dans la jungle du web
-      <br><em>Il y en a 50 000 sur ce site, je commence par où ?</em>
+     <strong>3h</strong> à chercher des <strong>itinéraires</strong> sur douze sites.
     </p>
     <p class="col s12 m4">
-      30 min à <strong>s'engeuler</strong> avec son copain
-      <br><em>Chamonix je connais déjà je t'ai dit! </em>
+      <strong>1 min</strong> pour se rendre compte que c'est <strong>trop loin</strong>.
     </p>
     <p class="col s12 m4">
-      1 min pour se rendre compte que c'est <strong>trop loin</strong>
-      <br><em>5h30 de route c'est un peu long pour la journée...</em>
+      <strong>3 jours</strong> pour recommencer à zéro <i class="far fa-tired"></i>
     </p>
     <p class="col s12 m4">
-      3 jours pour <strong>recommencer à zéro</strong> <i class="far fa-tired"></i>
+      <em>Et, euh... on a la carte ? Il y a des avalanches en cette saison ? C'est quoi le matos ? On prend un guide ?</em>
     </p>
-    <p class="col s12 m4">
-      <i class="fas fa-arrow-circle-right"></i> Il y a des milliers de programmes possibles.<strong><br>
-      L'un est beaucoup mieux que les autres.</strong> <%= link_to("Découvre-le avec Crux.", new_trip_path, class: "fat-link") %>
+    <p class="col s12 m4 border-top">
+      <strong>Il existe des milliers de possibilités pour aller en montagne.</strong><br><br>
+      <i class="fas fa-arrow-circle-right"></i> Découvre le <%= link_to("programme idéal", new_trip_path, class: "fat-link") %> pour ta prochaine aventure.
     </p>
 </div>
 

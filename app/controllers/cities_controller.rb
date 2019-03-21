@@ -85,7 +85,7 @@ class CitiesController < ApplicationController
     # Define all variables
     # bra = city.mountain_range
     weather = city.weather
-    itinerary_count = city.nb_good_itineraries
+    itinerary_score = [city.nb_good_itineraries - 1, 0].min
 
     # Comupute subscores
     # bra.nil? || bra.max_risk.nil? ? avalanche_score = 0 : avalanche_score = bra.max_risk
@@ -101,11 +101,11 @@ class CitiesController < ApplicationController
     end
 
     # Compute final score
-    score = ([weather_score, [(itinerary_count / 2), trip.duration].min].min) / distance_score ** (1.05 - trip.duration / 20)
+    score = ([weather_score, [(itinerary_score / 2), trip.duration].min].min) / distance_score ** (1.05 - trip.duration / 20)
 
     # p city.name
     # p "weather_score: #{weather_score}"
-    # p "itinerary_count: #{itinerary_count}"
+    # p "itinerary_score: #{itinerary_score}"
     # p "distance_score: #{distance_score}"
     # p "score: #{score}"
 

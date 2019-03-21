@@ -26,19 +26,18 @@ require "base64"
 # end
 
 
-# Weather.all.each do |weather|
-#   begin
-#   next if weather.forecast != nil
-
-#   area = weather.areas[0]
-#   # p weather_api_call(area.coord_lat, area.coord_long)
-#   weather_hash = weather_api_call(area.coord_lat, area.coord_long)
-#   weather.forecast = weather_hash["forecast"]["forecastday"]
-#   weather.save!
-#   rescue Exception => e
-#   puts e.message
-#   end
-# end
+Weather.all.each do |weather|
+  begin
+  city = weather.cities[0]
+  next if city.nil?
+  weather_hash = weather_api_call(city.coord_lat, city.coord_long)
+  weather.forecast = weather_hash["forecast"]["forecastday"]
+  weather.save!
+  p weather.id
+  rescue Exception => e
+  puts e.message
+  end
+end
 
 # City.all.each do |city|
 #   begin
