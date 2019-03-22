@@ -65,9 +65,8 @@ class Itinerary < ApplicationRecord
       if date.upto(Date.today).to_a.size < 60
         recent_outings << [outing.date, outing.content]
       end
-    recent_outings
     end
-
+    recent_outings.sort_by! {|outing| outing[0]}.reverse
   end
 
   def universal_difficulty
@@ -131,5 +130,10 @@ class Itinerary < ApplicationRecord
     score = score / 3 if self.content.nil? || self.content.size < 500
     score *= 5 if self.outing_months[Date.today.month] > 0
     return score
+  end
+
+  def clean_content
+    content = self.content
+    content.gsub(/\[(.*?)\]/) {|tag| tag.split("|")[1] }.gsub("[","").gsub("]","")
   end
 end

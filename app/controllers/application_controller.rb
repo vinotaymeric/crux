@@ -64,16 +64,16 @@ end
 
 # called (once) when the user logs in
   def logging_in
-    guest_trips = guest_user.trips.all
-    guest_trips.each do |trip|
-      trip.user_id = current_user.id
-      trip.save!
-    end
-
     guest_user_activities = guest_user.user_activities.all
     guest_user_activities.each do |user_activity|
       user_activity.user_id = current_user.id
       user_activity.save!
+    end
+
+    guest_trips = guest_user.trips.all
+    guest_trips.each do |trip|
+      trip.user_id = current_user.id
+      trip.save!
     end
   end
 

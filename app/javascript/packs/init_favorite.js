@@ -8,31 +8,20 @@ const activateButtonBasecampValidation = () => {
   }
 }
 
-const initToggleRemove = () => {
-  const removeButton = document.querySelectorAll('.fa-mountain')
-  removeButton.forEach( (element) => {
-    element.addEventListener('click', (e) => {
-      e.currentTarget.classList.toggle('fa-mountain');
-      e.currentTarget.classList.toggle('fa-plus-circle');
-      activateButtonBasecampValidation();
-    });
-  });
-}
-
 const initToggleAdd = () => {
   const addButton = document.querySelectorAll('.fa-plus-circle')
   addButton.forEach( (element) => {
     element.addEventListener('click', (e) => {
-      e.currentTarget.closest('.card').classList.toggle('selected');
-      e.currentTarget.classList.toggle('fa-mountain');
-      e.currentTarget.classList.toggle('fa-plus-circle');
+      e.currentTarget.closest('.card').classList.add('selected');
+      e.currentTarget.classList.add('fa-mountain');
+      e.currentTarget.classList.remove('fa-plus-circle');
       activateButtonBasecampValidation();
     });
   });
 }
 
 const initFavorites = () => {
-  const favorites = document.querySelectorAll('#favorite');
+  const favorites = document.querySelectorAll('.fa-plus-circle');
   favorites.forEach( (element) => {
     element.addEventListener('click', (e) => {
       Rails.fire(e.currentTarget.nextElementSibling, 'submit')
@@ -52,4 +41,4 @@ const initValidateButton = () => {
   }
 }
 
-export { initToggleRemove, initToggleAdd, initFavorites, initValidateButton };
+export { initToggleAdd, initFavorites, initValidateButton };

@@ -11,7 +11,7 @@ import initDatepicker from './init_datepicker'
 import search from './algolia'
 
 import { initTransition} from '../components/transition';
-import { initToggleRemove, initToggleAdd, initFavorites, initValidateButton } from './init_favorite';
+import { initToggleAdd, initFavorites, initValidateButton } from './init_favorite';
 
 import initAutocomplete from '../plugins/init_autocomplete';
 import initDrivingTimeOnTrips from './init_driving_time_on_trips'
@@ -45,7 +45,6 @@ const addButton = document.querySelectorAll('.fa-plus-circle')
 
 if (addButton.length != 0) {
 initToggleAdd();
-initToggleRemove();
 }
 
 // Init tooltips

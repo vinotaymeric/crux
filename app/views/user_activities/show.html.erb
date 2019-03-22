@@ -1,14 +1,23 @@
 <div class="container">
   <p class="ellipsis center-align strong" style="margin-bottom: -8px">
-    <%= link_to "", trip_cities_path(@trip, @city), class: "fas fa-chevron-circle-left" %></i><span style="padding-left: 10px;"><%= @activity.short_name.capitalize %> à <%= @city.clean_name %></span>
+    <% if @trip.validated == false %>
+      <%= link_to "", trip_cities_path(@trip, @city), class: "fas fa-chevron-circle-left" %>
+    <% end %>
+    <span style="padding-left: 10px;"><%= @activity.short_name.capitalize %> à <%= @city.clean_name %></span>
   </p>
   <br>
   <ul class="collapsible">
     <li>
-      <div class="collapsible-header"><i class="fas fa-rocket"></i>Envie d'une aventure clé en main ?</div>
+      <div class="collapsible-header"><i class="fas fa-rocket crux-blue"></i>Besoin d'aide pour passer à l'action ?</div>
       <div class="collapsible-body">
-        <p>On se creuse la tête pour te proposer la logistique la plus simple (transport, hébergement), et te "packager" les meilleurs itinéraires. On te met en relation avec un sympathique professionnel de la montagne, si tu le souhaites. </p>
-        <%= link_to "Je veux bien de l'aide pipeuplait !", trip_requests_path(@trip), method: :post %>
+        <p>On te propose de bosser pour te :
+        <ul>
+          <li><i class="fas fa-check crux-blue"></i> proposer la logistique la plus simple (transport, hébergement),</li>
+          <li><i class="fas fa-check crux-blue"></i> <em>packager</em> les meilleurs itinéraires,</li>
+          <li><i class="fas fa-check crux-blue"></i> mettre en relation avec un sympathique professionnel de la montagne, si tu le souhaites.</li>
+        </ul>
+        </p>
+        <%= link_to "Je veux bien de l'aide", trip_requests_path(@trip), method: :post, class: 'btn' %>
         <p><strong>C'est gratuit</strong> (alors non n'insiste pas, on ne te porte pas ton sac).</p>
       </div>
     </li>
@@ -20,7 +29,7 @@
   </div>
   <% else %>
   <div class="fixed-action-btn card-panel sticky-cta">
-    <%= link_to "Ajouter des itinéraires", trip_city_update_trip_path(@trip, @city, @user_activity), method: :put, class: 'btn' %>
+    <%= link_to "Ajouter des itinéraires", trip_city_update_trip_path(@trip, @city, @user_activity), method: :put, class: 'btn blue' %>
   </div>
   <% end %>
 

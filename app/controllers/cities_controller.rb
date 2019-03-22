@@ -16,6 +16,7 @@ class CitiesController < ApplicationController
       .joins(:itineraries)
       .where(itineraries: {activity_id: activity.id, universal_difficulty: user_activity.level.downcase })
       .group("cities.id HAVING SUM(itineraries.score) > 0")
+      .order("nb_good_itineraries")
 
       city_activity.each { |city| city.temp_activity = activity.name}
       cities_activities << city_activity
@@ -27,6 +28,7 @@ class CitiesController < ApplicationController
 
     cities_activities.flatten!
 
+    # cities_activities.uniq! { |city_activity| city_activity.name }
     # cities_activities.select! { |city_activity| city_activity.city != nil}
 
     cities_activities.sort_by! do |city_activity|
@@ -42,8 +44,8 @@ class CitiesController < ApplicationController
       {
         lng: city.coord_long,
         lat: city.coord_lat,
-        infoWindow: render_to_string(partial: "infowindow", locals: {city: city}),
-        image_url: helpers.asset_url('https://cdn4.iconfinder.com/data/icons/eldorado-building/40/hovel_1-512.png')
+        infoWindow: render_to_string(partial: "infowindow", locals: {city: city, trip: @trip}),
+        image_url: "https://res.cloudinary.com/dbehokgcg/image/upload/v1553264629/#{city.temp_activity}.png",
       }
     end
     # Add trip start location

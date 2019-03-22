@@ -64,8 +64,7 @@ nav ul a {
   top: 10px;
   right: 10px;
   z-index: 2;
-  background-color: #23B5D3;
-  color: white;
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 5px;
   border-radius: 5px;
 }
@@ -86,4 +85,8 @@ nav ul a {
 
 .collapsible {
   font-size: 1.1rem;
+}
+
+.blue {
+  background-color: #23B5D3 !important;
 }

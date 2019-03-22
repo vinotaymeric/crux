@@ -34,13 +34,13 @@
           <div class="card-content">
 
             <% if @itinerary.recent_outings.blank? %>
-              <h6>Pas de sorties récentes</h6>
+              <h6 class="strong">Pas de sorties récentes</h6>
             <% else %>
-              <h6>Sorties récentes:</h6>
+              <h6 class="strong">Sorties récentes</h6>
               <ul>
-                <% @itinerary.recent_outings.reverse.each do |outing| %>
-                <p><strong>Sortie du <%= outing.date %></strong></p>
-                <p style="white-space: pre-line; justify-content: start;"><%= outing.content %></p>
+                <% @itinerary.recent_outings.each do |outing| %>
+                <p><strong>Sortie du <%= outing[0] %></strong></p>
+                <p style="white-space: pre-line; justify-content: start; max-width: 70vw"><i class="fas fa-quote-left crux-blue"></i> <em><%= outing[1] %></em> <i class="fas fa-quote-right crux-blue"></i></p>
                 <br>
                 <% end %>
               </ul>
@@ -53,10 +53,13 @@
 
     <div class="col s12">
       <div class="flex-object">
-        <iframe src=<%= "https://fatmap.com/@#{@itinerary.coord_lat},#{@itinerary.coord_long},#{@itinerary.elevation_max},-35.9049826,92.6848191,2388.9221056,normal" %> frameborder="" allowfullscreen="" width="100%" height="600"></iframe>
+        <iframe src=<%= "https://fatmap.com/@#{@itinerary.coord_lat},#{@itinerary.coord_long},#{@itinerary.elevation_max},-5.0001480,0,1582.8573116,normal" %> frameborder="" allowfullscreen="" width="100%" height="600"></iframe>
+        <!-- <iframe width="100%" height="750" frameBorder="0" src="https://fatmap.com/routeid/133158/Aiguille_de_Mex:_En_Boucle"></iframe> -->
       </div>
 
 
     </div>
   </div>
 </div>
+
+

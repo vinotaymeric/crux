@@ -26,7 +26,7 @@ nav {
 
 p {
   text-align: left;
-  font-size: 1em !important;
+  font-size: 1.1em !important;
 }
 
 .tabs .tab a:hover, .tabs .tab a.active {
@@ -215,7 +215,15 @@ margin-top: 3.5em;
 }
 
 .crux-blue {
-  color: rgba(35,181,211, 1)
+  color: rgba(35,181,211, 1) !important;
+}
+
+.crux-red {
+  color: #E71D36
+}
+
+.crux-black {
+  color: #071013;
 }
 
 .no-padding {

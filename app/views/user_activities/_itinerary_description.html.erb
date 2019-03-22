@@ -2,7 +2,7 @@
 
   <div id="itinerary-content">
     <%= link_to 'Topo détaillé', itinerary_path(itinerary) %>
-    <%= @markdown.render(itinerary.content.gsub(/\[img.*\[\/img\]/,'')).html_safe %>
+    <%= @markdown.render(itinerary.clean_content).html_safe %>
   </div>
 
 <% end %>
