@@ -1,6 +1,7 @@
 <% if itinerary.content %>
 
   <div id="itinerary-content">
+    <h6 class="strong">Topo</h6>
     <%= @markdown.render(itinerary.clean_content).html_safe %>
   </div>
 

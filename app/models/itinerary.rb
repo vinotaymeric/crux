@@ -65,10 +65,22 @@ class Itinerary < ApplicationRecord
       if date.upto(Date.today).to_a.size < 60
         recent_outings << [outing.date, outing.content]
       end
-    recent_outings
     end
-
+    recent_outings.sort_by! {|outing| outing[0]}.reverse
   end
+
+  # def recent_outings
+  #   outings = self.outings
+  #   recent_outings = []
+  #   outings.each do |outing|
+  #     date = Date.parse outing.date
+  #     if date.upto(Date.today).to_a.size < 60
+  #       return "toto"
+  #     else
+  #       return "tata"
+  #     end
+  #   end
+  # end
 
   def universal_difficulty
     expérimenté = ["TD-", "TD", "TD+", "ED-", "ED", "ED+", "T5", "5.5","5.4","5.3","5.2","5.1","4.3","4.2", "S5"]

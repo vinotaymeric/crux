@@ -34,13 +34,13 @@
           <div class="card-content">
 
             <% if @itinerary.recent_outings.blank? %>
-              <h6>Pas de sorties récentes</h6>
+              <h6 class="strong">Pas de sorties récentes</h6>
             <% else %>
-              <h6>Sorties récentes:</h6>
+              <h6 class="strong">Sorties récentes</h6>
               <ul>
-                <% @itinerary.recent_outings.reverse.each do |outing| %>
-                <p><strong>Sortie du <%= outing.date %></strong></p>
-                <p style="white-space: pre-line; justify-content: start;"><%= outing.content %></p>
+                <% @itinerary.recent_outings.each do |outing| %>
+                <p><strong>Sortie du <%= outing[0] %></strong></p>
+                <p style="white-space: pre-line; justify-content: start; max-width: 70vw"><i class="fas fa-quote-left crux-blue"></i> <em><%= outing[1] %></em> <i class="fas fa-quote-right crux-blue"></i></p>
                 <br>
                 <% end %>
               </ul>

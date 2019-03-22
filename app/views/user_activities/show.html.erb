@@ -8,16 +8,16 @@
   <br>
   <ul class="collapsible">
     <li>
-      <div class="collapsible-header"><i class="fas fa-rocket crux-blue"></i>Envie d'une aventure clé en main ?</div>
+      <div class="collapsible-header"><i class="fas fa-rocket crux-blue"></i>Besoin d'aide pour passer à l'action ?</div>
       <div class="collapsible-body">
-        <p>On se creuse la tête pour te
+        <p>On te propose de bosser pour te :
         <ul>
           <li><i class="fas fa-check crux-blue"></i> proposer la logistique la plus simple (transport, hébergement),</li>
-          <li><i class="fas fa-check crux-blue"></i> "packager" les meilleurs itinéraires,</li>
+          <li><i class="fas fa-check crux-blue"></i> <em>packager</em> les meilleurs itinéraires,</li>
           <li><i class="fas fa-check crux-blue"></i> mettre en relation avec un sympathique professionnel de la montagne, si tu le souhaites.</li>
         </ul>
         </p>
-        <%= link_to "Je veux bien de l'aide pipeuplait !", trip_requests_path(@trip), method: :post %>
+        <%= link_to "Je veux bien de l'aide", trip_requests_path(@trip), method: :post, class: 'btn' %>
         <p><strong>C'est gratuit</strong> (alors non n'insiste pas, on ne te porte pas ton sac).</p>
       </div>
     </li>
