@@ -32,9 +32,10 @@ const initToggleAdd = () => {
 }
 
 const initFavorites = () => {
-  const favorites = document.querySelectorAll('#favorite');
+  const favorites = document.querySelectorAll('.fa-plus-circle');
   favorites.forEach( (element) => {
     element.addEventListener('click', (e) => {
+      console.log(e.currentTarget.nextElementSibling);
       Rails.fire(e.currentTarget.nextElementSibling, 'submit')
     });
   });
