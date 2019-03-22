@@ -9,33 +9,37 @@ const activateButtonBasecampValidation = () => {
 }
 
 const initToggleRemove = () => {
-  const removeButton = document.querySelectorAll('.fa-mountain')
-  removeButton.forEach( (element) => {
-    element.addEventListener('click', (e) => {
-      e.currentTarget.classList.toggle('fa-mountain');
-      e.currentTarget.classList.toggle('fa-plus-circle');
-      activateButtonBasecampValidation();
-    });
-  });
+  // const removeButton = document.querySelectorAll('.fa-mountain')
+  // removeButton.forEach( (element) => {
+  //   element.addEventListener('click', (e) => {
+  //     e.currentTarget.classList.toggle('fa-mountain');
+  //     e.currentTarget.classList.toggle('fa-plus-circle');
+  //     activateButtonBasecampValidation();
+  //   });
+  // });
 }
 
 const initToggleAdd = () => {
   const addButton = document.querySelectorAll('.fa-plus-circle')
   addButton.forEach( (element) => {
     element.addEventListener('click', (e) => {
-      e.currentTarget.closest('.card').classList.toggle('selected');
-      e.currentTarget.classList.toggle('fa-mountain');
-      e.currentTarget.classList.toggle('fa-plus-circle');
+      e.currentTarget.closest('.card').classList.add('selected');
+      e.currentTarget.classList.add('fa-mountain');
+      e.currentTarget.classList.remove('fa-plus-circle');
       activateButtonBasecampValidation();
     });
   });
+}
+
+const insertIconToaster = (toaster_wording, icon) => {
+  const html = `<a onclick="M.toast({html: 'Itinéraire ${toaster_wording}, classes: 'toaster'})" class="fas bigger add-itinerary ${icon}"></a>`;
+  return html;
 }
 
 const initFavorites = () => {
   const favorites = document.querySelectorAll('.fa-plus-circle');
   favorites.forEach( (element) => {
     element.addEventListener('click', (e) => {
-      console.log(e.currentTarget.nextElementSibling);
       Rails.fire(e.currentTarget.nextElementSibling, 'submit')
     });
   });

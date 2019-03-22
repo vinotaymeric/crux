@@ -20,20 +20,20 @@
 
         <div class="right-align" id="favorite">
           <% if trip.validated%>
-            <a class="fas fa-mountain bigger add-itinerary"></a>
+            <%= link_to "", trip_favorite_itinerary_path(trip, itinerary), method: :delete, class: 'fas fa-trash crux-black add-itinerary' %>
           <% else %>
 
             <% if trip.itineraries.distinct.include?(itinerary) %>
-            <a onclick="M.toast({html: 'Itinéraire enlevé', classes: 'toaster remove'})" class="fas fa-mountain bigger add-itinerary"></a>
+              <a class="fas fa-mountain add-itinerary"></a>
             <% else %>
-            <a onclick="M.toast({html: 'Itinéraire ajouté', classes: 'toaster'})" class="fas fa-plus-circle bigger add-itinerary"></a>
-
+              <a onclick="M.toast({html: 'Itinéraire ajouté', classes: 'toaster'})" class="fas fa-plus-circle add-itinerary"></a>
             <% end %>
 
-          <% end %>
-          <%= simple_form_for favorite, remote: true do |f| %>
-          <%= f.input  :trip_id, input_html: {value: trip.id} %>
-          <%= f.input  :itinerary_id, input_html: {value: itinerary.id} %>
+            <%= simple_form_for [trip, favorite], remote: true do |f| %>
+            <%= f.input  :trip_id, input_html: {value: trip.id} %>
+            <%= f.input  :itinerary_id, input_html: {value: itinerary.id} %>
+            <% end %>
+
           <% end %>
         </div>
 
