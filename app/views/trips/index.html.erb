@@ -10,14 +10,15 @@
       </div>
         <div class="card-stacked">
           <div class="card-content">
-            <p class="title-card" style="font-weight: 500;">Sortie du <%= l trip.start_date, :format => :long %></p>
-            <p>depuis <%= trip.location.split(",")[0] %> </p>
+            <p class="title-card" style="font-weight: 500;">Sortie du <%= l trip.start_date, :format => :long %> au <%= l trip.end_date, :format => :long %></p>
+            <br>
+            <p><i class="fas fa-car"></i> depuis <%= trip.location.split(",")[0] %> </p>
           </div>
           <div class="card-action">
             <% if trip.validated %>
-            <%= link_to 'Voir les itinéraires', trip_city_user_activity_path(trip, trip.city, trip.user_activity), class: 'waves-effect waves-light btn-small btn-my-trips' %>
+            <%= link_to 'Voir les itinéraires', trip_city_user_activity_path(trip, trip.city, trip.user_activity), class: 'crux-blue' %>
             <% else %>
-              <%= link_to 'Reprendre la sélection', trip_cities_path(trip), class: "waves-effect waves-light btn-small btn-my-trips" %>
+              <%= link_to 'Reprendre la séléction', trip_cities_path(trip), class: 'crux-blue' %>
             <% end %>
           </div>
         </div>

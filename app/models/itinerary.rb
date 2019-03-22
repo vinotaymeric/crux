@@ -132,4 +132,9 @@ class Itinerary < ApplicationRecord
     score *= 5 if self.outing_months[Date.today.month] > 0
     return score
   end
+
+  def clean_content
+    content = self.content
+    content.gsub(/\[(.*?)\]/) {|tag| tag.split("|")[1] }.gsub("[","").gsub("]","")
+  end
 end

@@ -19,9 +19,6 @@
                 <% user_activity = UserActivity.find_by(activity_id: activity.id, user_id: current_or_guest_user.id) %>
                 <%= link_to trip_city_user_activity_path(@trip, city, user_activity) do %>
                   <div class="card card-basecamp-activity horizontal small">
-                    <div class="card-image">
-                      <%= cl_image_tag("#{Activity.find_by(name: city.temp_activity).placeholder_image}") %>
-                    </div>
                     <div class="card-stacked black-font"">
                       <div class="card-content" data-coords="<%= { ori_lat: @trip.coord_lat, ori_long: @trip.coord_long, desti_lat: city.coord_lat, desti_long: city.coord_long }.to_json %>">
                         <p class="strong">
@@ -34,7 +31,7 @@
                         <% end %>
                         </p>
                       <br>
-                      <p id="itinerary-number" ><strong><%= city.nb_itineraries %></strong> itinéraires de ton niveau en <strong><%= activity.short_name %></strong></p>
+                      <p id="itinerary-number" ><strong><%= city.nb_itineraries %></strong> itinéraires de ton niveau en <strong><span class="crux-blue"><%= activity.short_name %></span></strong></p>
                       <br>
 
                       <% if city.mountain_range != nil && city.mountain_range.max_risk != nil && activity.name == "skitouring"    %>

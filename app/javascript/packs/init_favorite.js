@@ -41,4 +41,4 @@ const initValidateButton = () => {
   }
 }
 
-export { initToggleRemove, initToggleAdd, initFavorites, initValidateButton };
+export { initToggleAdd, initFavorites, initValidateButton };
