@@ -8,17 +8,6 @@ const activateButtonBasecampValidation = () => {
   }
 }
 
-const initToggleRemove = () => {
-  // const removeButton = document.querySelectorAll('.fa-mountain')
-  // removeButton.forEach( (element) => {
-  //   element.addEventListener('click', (e) => {
-  //     e.currentTarget.classList.toggle('fa-mountain');
-  //     e.currentTarget.classList.toggle('fa-plus-circle');
-  //     activateButtonBasecampValidation();
-  //   });
-  // });
-}
-
 const initToggleAdd = () => {
   const addButton = document.querySelectorAll('.fa-plus-circle')
   addButton.forEach( (element) => {
@@ -29,11 +18,6 @@ const initToggleAdd = () => {
       activateButtonBasecampValidation();
     });
   });
-}
-
-const insertIconToaster = (toaster_wording, icon) => {
-  const html = `<a onclick="M.toast({html: 'Itinéraire ${toaster_wording}, classes: 'toaster'})" class="fas bigger add-itinerary ${icon}"></a>`;
-  return html;
 }
 
 const initFavorites = () => {
