@@ -21,6 +21,7 @@ class UpdateForecast
       rescue Exception => e
       puts e.message
       end
+    end
   end
   ## END UPDATE WEATHER ##
 
