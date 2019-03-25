@@ -15,6 +15,7 @@ class CitiesController < ApplicationController
       city_activity = City.select("cities.*, SUM(itineraries.score) as nb_good_itineraries, COUNT(itineraries.id) as nb_itineraries")
       .joins(:itineraries)
       .where(itineraries: {activity_id: activity.id, universal_difficulty: user_activity.level.downcase })
+      .where.not(itineraries: {picture_url: nil})
       .group("cities.id HAVING SUM(itineraries.score) > 0")
       .order("nb_good_itineraries")
 
