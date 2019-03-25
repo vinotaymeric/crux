@@ -4,5 +4,7 @@
     <h6 class="strong">Topo</h6>
     <%= @markdown.render(itinerary.clean_content).html_safe %>
   </div>
+  <br><br>
+  <p><em><a class="green-link" target="blank" href=<%= "https://www.camptocamp.org/routes/#{itinerary.source_id}" %>>Topo</a> issu du site <a class="green-link" target="blank" href="https://www.camptocamp.org/">Camptocamp</a> distribué sous licence <a class="green-link" target="blank" href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></em></p>
 
 <% end %>
