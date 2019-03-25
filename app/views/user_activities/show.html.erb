@@ -1,7 +1,7 @@
 <div class="container">
   <p class="ellipsis center-align strong" style="margin-bottom: -8px">
     <% if @trip.validated == false %>
-      <%= link_to "", trip_cities_path(@trip, @city), class: "fas fa-chevron-circle-left" %>
+      <%= link_to "", trip_cities_path(@trip), class: "fas fa-chevron-circle-left" %>
     <% end %>
     <span style="padding-left: 10px;"><%= @activity.short_name.capitalize %> à <%= @city.clean_name %></span>
   </p>
