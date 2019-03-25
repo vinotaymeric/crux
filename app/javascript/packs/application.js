@@ -11,7 +11,7 @@ import initDatepicker from './init_datepicker'
 import search from './algolia'
 
 import { initTransition} from '../components/transition';
-import { initToggleAdd, initFavorites, initValidateButton } from './init_favorite';
+import { initToggleAdd, initFavorites } from './init_favorite';
 
 import initAutocomplete from '../plugins/init_autocomplete';
 import initDrivingTimeOnTrips from './init_driving_time_on_trips'
@@ -37,7 +37,7 @@ initForm();
 
  // Set favorite
 
-initValidateButton();
+// initValidateButton();
 initFavorites();
 
 
@@ -121,6 +121,13 @@ const adjustBanner = () => {
 
 adjustBanner();
 
+
+// modal
+
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.modal');
+  var instances = M.Modal.init(elems);
+});
 // Algolia : if needed ;)
 // search();
 
@@ -141,3 +148,17 @@ source_icons.forEach( (element) => {
     });
 });
 
+
+// Search itineraries
+
+
+const initItinerarySearch = () => {
+  const searchBar = document.querySelector('#query');
+  if (searchBar === null) {return}
+
+  searchBar.addEventListener('keyup', (e) => {
+    Rails.fire(e.currentTarget.closest('form'), 'submit')
+  });
+}
+
+initItinerarySearch();

@@ -1,0 +1,4 @@
+<% search_result_itineraries.each do |itinerary| %>
+  <% next if itinerary.name.nil? || itinerary.universal_difficulty.nil? %>
+  <%= render partial: "card_itinerary", locals: {itinerary: itinerary, favorite: favorite, trip: trip} %>
+<% end %>

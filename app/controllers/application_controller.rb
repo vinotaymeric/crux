@@ -1,6 +1,7 @@
 require 'securerandom'
 
 class ApplicationController < ActionController::Base
+  respond_to :html, :js
   protect_from_forgery with: :exception
   before_action :store_location
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -82,7 +83,7 @@ end
   end
 
   def after_sign_in_path_for(current_or_guest_user)
-    session[:previous_url] || root_path
+    session[:previous_url].split("?")[0] || root_path
   end
 
 end

@@ -23,14 +23,15 @@
     </li>
   </ul>
 
+
   <% if @trip.validated == false %>
-  <div class="fixed-action-btn card-panel sticky-cta hide", id="validation-basecamp-button">
-    <%= link_to "Valider ce camp", trip_city_update_trip_path(@trip, @city, @user_activity), method: :put, class: 'btn' %>
-  </div>
+    <div class="fixed-action-btn card-panel sticky-cta", id="validation-basecamp-button">
+      <%= link_to "Valider la séléction", trip_city_update_trip_path(@trip, @city, @user_activity), method: :put, class: 'btn' %>
+    </div>
   <% else %>
-  <div class="fixed-action-btn card-panel sticky-cta">
-    <%= link_to "Ajouter des itinéraires", trip_city_update_trip_path(@trip, @city, @user_activity), method: :put, class: 'btn blue' %>
-  </div>
+    <div class="fixed-action-btn card-panel sticky-cta">
+      <%= link_to "Ajouter des itinéraires", trip_city_update_trip_path(@trip, @city, @user_activity), method: :put, class: 'btn blue' %>
+    </div>
   <% end %>
 
   <div class="row">
@@ -45,10 +46,33 @@
       </ul>
 
       <div id="itineraries" style="margin-top: 5px;">
+
+        <% if @trip.validated == false %>
+        <!-- Modal Trigger -->
+            <div class="center-align">Choisis parmi les <%= @itineraries.count %> itinéraires proches
+            ou <a class="green-link modal-trigger" href="#modal1">toute la base d'itinéraires</a>.</div>
+
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal">
+              <div class="modal-content">
+                <%= form_tag(trip_city_user_activity_path(@trip, @city, @user_activity), method: :get, remote: true) do %>
+                  <%= text_field_tag :query,
+                    params[:query],
+                    class: "form-control",
+                    placeholder: "Couloir Whymper, Mont Blanc..."
+                  %>
+                <% end %>
+
+                <div id="search-results">
+                </div>
+              </div>
+            </div>
+        <% end %>
+
         <div class="slide-container">
 
           <% @itineraries.each do |itinerary| %>
-          <% next if itinerary.name.nil? %>
+          <% next if itinerary.name.nil? || itinerary.universal_difficulty.nil? %>
           <%= render partial: "card_itinerary", locals: {itinerary: itinerary, favorite: @favorite_itinerary, trip: @trip} %>
           <% end %>
 

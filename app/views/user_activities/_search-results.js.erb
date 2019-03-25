@@ -1,0 +1,18 @@
+$("#search-results").html("<%= escape_javascript(render partial: 'results', locals: {search_result_itineraries: search_result_itineraries, favorite: favorite, trip: trip}) %>");
+
+var favoritesInModal = document.querySelectorAll('.fa-plus-circle');
+favoritesInModal.forEach( (element) => {
+  element.addEventListener('click', (e) => {
+    Rails.fire(e.currentTarget.nextElementSibling, 'submit')
+    // document.getElementById("validation-basecamp-button").classList.remove("transparent");
+  });
+});
+
+// var addButtonInModal = document.querySelectorAll('.fa-plus-circle')
+// addButtonInModal.forEach( (element) => {
+//   element.addEventListener('click', (e) => {
+//     e.currentTarget.closest('.card').classList.add('selected');
+//     e.currentTarget.classList.add('fa-mountain');
+//     e.currentTarget.classList.remove('fa-plus-circle');
+//   });
+// });
