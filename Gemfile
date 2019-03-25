@@ -38,7 +38,7 @@ gem 'devise-guests'
 gem 'sassc-rails'
 gem "algoliasearch-rails"
 gem 'geokit-rails'
-
+gem 'pg_search'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

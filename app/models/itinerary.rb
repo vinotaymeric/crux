@@ -12,9 +12,13 @@ class Itinerary < ApplicationRecord
   geocoded_by :address, latitude: :coord_lat, longitude: :coord_long
   self.per_page = 3
 
-  # def small?
-  #   ObjectSpace.memsize_of(content.to_json) < 10000
-  # end
+  # PG search is to slow
+  # include PgSearch
+  #   pg_search_scope :search_by_name_and_content,
+  #     against: [ :name, :content ],
+  #     using: {
+  #       tsearch: { prefix: true }
+  #     }
 
   def api_call(itinerary, id)
     url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"

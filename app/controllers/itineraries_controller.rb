@@ -3,7 +3,6 @@ class ItinerariesController < ApplicationController
 
   def index
      @itineraries =Itinerary.all.order("number_of_outing desc")[0..20]
-     # paginate(page: params[:page], per_page: 12)
   end
 
   def show

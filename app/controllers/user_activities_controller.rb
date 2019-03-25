@@ -14,8 +14,15 @@ class UserActivitiesController < ApplicationController
     @user_activity = UserActivity.find(params[:id])
     @activity = Activity.find(@user_activity.activity_id)
     @mountain_range = @city.mountain_range
+    @favorite_itinerary = FavoriteItinerary.new
 
-    if @trip.validated
+    if params[:query].present?
+      @itineraries = Itinerary.where("name ILIKE ?", "%#{params[:query]}%")[0..10]
+      respond_to do |format|
+        format.js { render partial: 'search-results', locals: {search_result_itineraries: @itineraries, favorite: @favorite_itinerary, trip: @trip}}
+      end
+      # @itineraries = Itinerary.where(name: params[:query])
+    elsif @trip.validated
       @itineraries = @trip.itineraries.distinct.order(picture_url: :asc)
     else
       @itineraries = @city.itineraries.where(activity_id: @activity.id, universal_difficulty: @user_activity.level.downcase ).order(picture_url: :asc)
@@ -23,7 +30,6 @@ class UserActivitiesController < ApplicationController
 
     @itineraries.to_a.sort_by! { |itinerary| itinerary.score}.reverse
 
-    @favorite_itinerary = FavoriteItinerary.new
 
     # Mapbox
     @markers = @itineraries.map do |itinerary|
