@@ -12,12 +12,13 @@ class Itinerary < ApplicationRecord
   geocoded_by :address, latitude: :coord_lat, longitude: :coord_long
   self.per_page = 3
 
-  include PgSearch
-    pg_search_scope :search_by_name_and_content,
-      against: [ :name, :content ],
-      using: {
-        tsearch: { prefix: true }
-      }
+  # PG search is to slow
+  # include PgSearch
+  #   pg_search_scope :search_by_name_and_content,
+  #     against: [ :name, :content ],
+  #     using: {
+  #       tsearch: { prefix: true }
+  #     }
 
   def api_call(itinerary, id)
     url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"

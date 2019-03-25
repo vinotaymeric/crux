@@ -18,7 +18,6 @@ class UserActivitiesController < ApplicationController
 
     if params[:query].present?
       @itineraries = Itinerary.where("name ILIKE ?", "%#{params[:query]}%")[0..10]
-      # @itineraries = Itinerary.search_by_name_and_content(params[:query])[0..10]
       respond_to do |format|
         format.js { render partial: 'search-results', locals: {search_result_itineraries: @itineraries, favorite: @favorite_itinerary, trip: @trip}}
       end

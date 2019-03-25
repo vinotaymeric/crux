@@ -1,4 +1,3 @@
-
 const interested = () => {
   updateCTA();
   const choices = document.querySelectorAll('#user_activity_level');
@@ -7,27 +6,26 @@ const interested = () => {
   });
 }
 
-const updateCTA = () =>{
-  var x = 0
-  const btnLetsGo = document.querySelector('#letsGoBtn');
-  const choices = document.querySelectorAll('#user_activity_level');
-  if (btnLetsGo == null){
-    return
-  }
-  choices.forEach(choice => {
-    if (choice.value === "Niveau ?") {
-      x += 1;
-    }
-  });
 
-  if (x == 4) {
-    btnLetsGo.disabled = true;
-  }else{
-    btnLetsGo.disabled = false;
-  }
+const showForm = (activity) => {
+  const formDiv = document.querySelector(`.icon-target#${activity}`)
+  const form = document.querySelector(`.form-control.select.optional.${activity}`);
+  form.closest('select').value = "Niveau ?";
+  Rails.fire(form.closest('form'), 'submit')
+  formDiv.classList.toggle("hidden");
 }
 
-export default interested;
+const initActivityIcons = () => {
+  const source_icons = document.querySelectorAll(".icon-source");
+  source_icons.forEach( (element) => {
+    element.addEventListener('click', (e) => {
+        e.currentTarget.classList.toggle("selected-icon");
+        showForm(e.currentTarget.id);
+      });
+  });
+}
+
+export { interested, initActivityIcons };
 
 
 
