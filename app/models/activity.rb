@@ -5,7 +5,7 @@ class Activity < ApplicationRecord
 
   # tout est às dynamiser
   def placeholder_image
-    cloudinary_url = "https://res.cloudinary.com/dbehokgcg/image/upload/v1552908931"
+    cloudinary_url = "https://res.cloudinary.com/dbehokgcg/image/upload/v1553506008"
     if self.name == "skitouring"
       "#{cloudinary_url}/ski.png"
     elsif self.name == "mountain_climbing"
@@ -13,7 +13,7 @@ class Activity < ApplicationRecord
     elsif self.name == "rock_climbing"
       "#{cloudinary_url}/escalade.png"
     else
-      "#{cloudinary_url}/hike.jpg"
+      "#{cloudinary_url}/hike.png"
     end
   end
 
