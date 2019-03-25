@@ -1,7 +1,7 @@
 <% if itinerary.content %>
 
   <div id="itinerary-content">
-    <%= link_to 'Topo détaillé', itinerary_path(itinerary) %>
+    <%= link_to 'Topo détaillé', itinerary_path(itinerary), class: "green-link" %>
     <%= @markdown.render(itinerary.clean_content).html_safe %>
   </div>
 
