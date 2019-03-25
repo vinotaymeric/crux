@@ -95,7 +95,7 @@ class Itinerary < ApplicationRecord
   end
 
   def picture_url_p
-    placeholder = "https://n-allo.be/wp-content/uploads/2016/08/ef3-placeholder-image-450x350.jpg"
+    placeholder = "https://res.cloudinary.com/dbehokgcg/image/upload/v1553511342/placeholder.png"
     self.picture_url.nil? ? placeholder : self.picture_url
   end
 

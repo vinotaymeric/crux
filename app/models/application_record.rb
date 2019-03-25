@@ -27,7 +27,7 @@ class ApplicationRecord < ActiveRecord::Base
     points << polygon[slice * 3]
 
     points.each do |point|
-      url = "https://api.openrouteservice.org/isochrones?api_key=#{ENV['OPENROUTE_API_KEY']}&locations=#{point[1]},#{point[0]}&profile=driving-car&range=3600"
+      url = "https://api.openrouteservice.org/isochrones?api_key=#{ENV['OPENROUTE_API_KEY']}&locations=#{point[0]},#{point[1]}&profile=driving-car&range=3600"
       p url
       response = JSON.parse(open(url).read)["features"][0]["geometry"]["coordinates"][0]
       polygon = Geokit::Polygon.new([
