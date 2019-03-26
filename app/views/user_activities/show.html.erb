@@ -59,14 +59,14 @@
             <% end %>
           </div>
 
-                <div id="search-results">
-                </div>
               </div>
             </div>
         <% end %>
 
         <div class="slide-container">
 
+          <div id="search-results">
+          </div>
           <% @itineraries.each do |itinerary| %>
           <% next if itinerary.name.nil? || itinerary.universal_difficulty.nil? %>
           <%= render partial: "card_itinerary", locals: {itinerary: itinerary, favorite: @favorite_itinerary, trip: @trip} %>
