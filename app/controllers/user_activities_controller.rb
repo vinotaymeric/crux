@@ -16,7 +16,7 @@ class UserActivitiesController < ApplicationController
     @mountain_range = @city.mountain_range
     @favorite_itinerary = FavoriteItinerary.new
 
-    if params[:query].present?
+    if params[:query].present? && !params[:query].blank?
       @itineraries = Itinerary.where("name ILIKE ?", "%#{params[:query]}%")[0..10]
       respond_to do |format|
         format.js { render partial: 'search-results', locals: {search_result_itineraries: @itineraries, favorite: @favorite_itinerary, trip: @trip}}

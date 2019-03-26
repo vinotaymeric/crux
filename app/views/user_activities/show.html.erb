@@ -45,23 +45,19 @@
         <li class="tab col s1"><a class="" href="#map-ba">Carte</a></li>
       </ul>
 
-      <div id="itineraries" style="margin-top: 5px;">
+      <div id="itineraries" style="margin: 10px;">
 
         <% if @trip.validated == false %>
-        <!-- Modal Trigger -->
-            <div class="center-align">Choisis parmi les <%= @itineraries.count %> itinéraires proches
-            ou <a class="green-link modal-trigger" href="#modal1">toute la base d'itinéraires</a>.</div>
 
-            <!-- Modal Structure -->
-            <div id="modal1" class="modal">
-              <div class="modal-content">
-                <%= form_tag(trip_city_user_activity_path(@trip, @city, @user_activity), method: :get, remote: true) do %>
-                  <%= text_field_tag :query,
-                    params[:query],
-                    class: "form-control",
-                    placeholder: "Couloir Whymper, Mont Blanc..."
-                  %>
-                <% end %>
+            <div class="left-align font-1em">Choisis parmi les <%= @itineraries.count %> itinéraires proches
+            <%= form_tag(trip_city_user_activity_path(@trip, @city, @user_activity), method: :get, remote: true) do %>
+              <%= text_field_tag :query,
+                params[:query],
+                class: "form-control left-align font-1em",
+                placeholder: "OU la base entière (e.g. tape Whymper...)"
+              %>
+            <% end %>
+          </div>
 
                 <div id="search-results">
                 </div>
