@@ -100,7 +100,7 @@ class Itinerary < ApplicationRecord
 
   def picture_url_p
     placeholder = "https://res.cloudinary.com/dbehokgcg/image/upload/v1553511342/placeholder.png"
-    self.picture_url.nil? ? placeholder : self.picture_url
+    self.picture_url.nil? ? placeholder : "#{self.picture_url[0..-5]}MI.jpg"
   end
 
   def outing_months
