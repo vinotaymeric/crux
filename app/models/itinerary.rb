@@ -12,14 +12,6 @@ class Itinerary < ApplicationRecord
   geocoded_by :address, latitude: :coord_lat, longitude: :coord_long
   self.per_page = 3
 
-  # PG search is to slow
-  # include PgSearch
-  #   pg_search_scope :search_by_name_and_content,
-  #     against: [ :name, :content ],
-  #     using: {
-  #       tsearch: { prefix: true }
-  #     }
-
   def api_call(itinerary, id)
     url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"
     begin
@@ -98,9 +90,17 @@ class Itinerary < ApplicationRecord
     universal_difficulty
   end
 
+  def small_picture
+    if self.picture_url[-3..-1] = "svg"
+      small_picture = "#{self.picture_url[0..-5]}MI.jpg"
+    else
+      small_picture = "#{self.picture_url[0..-5]}MI.#{self.picture_url[-3..-1]}"
+    end
+  end
+
   def picture_url_p
     placeholder = "https://res.cloudinary.com/dbehokgcg/image/upload/v1553511342/placeholder.png"
-    self.picture_url.nil? ? placeholder : "#{self.picture_url[0..-5]}MI.#{self.picture_url[-3..-1]}"
+    self.picture_url.nil? ? placeholder : small_picture
   end
 
   def outing_months
