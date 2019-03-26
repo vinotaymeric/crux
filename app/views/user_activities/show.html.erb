@@ -49,12 +49,12 @@
 
         <% if @trip.validated == false %>
 
-            <div class="left-align font-1em">Choisis parmi les <%= @itineraries.count %> itinéraires proches
+            <div class="left-align font-1em">Choisis parmi <%= @itineraries.count %> itinéraires proches
             <%= form_tag(trip_city_user_activity_path(@trip, @city, @user_activity), method: :get, remote: true) do %>
               <%= text_field_tag :query,
                 params[:query],
                 class: "form-control left-align font-1em",
-                placeholder: "OU la base entière (e.g. tape Whymper...)"
+                placeholder: "OU la base entière (e.g. \"Whymper\")"
               %>
             <% end %>
           </div>
