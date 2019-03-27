@@ -53,9 +53,10 @@
               <%= form_tag(trip_city_user_activity_path(@trip, @city, @user_activity), method: :get, remote: true) do %>
                 <%= text_field_tag :query,
                   params[:query],
-                  class: "form-control left-align font-1em",
-                  placeholder: "ou cherche + d'iti. (e.g. \"écrins\" + entrée)"
+                  class: "form-control left-align font-1em smaller-width",
+                  placeholder: "ou toute la base (e.g. \"whymper\")"
                 %>
+                <i class="fas fa-search" id="green-search"></i>
               <% end %>
             </div>
 
