@@ -50,17 +50,15 @@
         <% if @trip.validated == false %>
 
             <div class="left-align font-1em">Choisis parmi <%= @itineraries.count %> itinéraires proches
-            <%= form_tag(trip_city_user_activity_path(@trip, @city, @user_activity), method: :get, remote: true) do %>
-              <%= text_field_tag :query,
-                params[:query],
-                class: "form-control left-align font-1em",
-                placeholder: "OU la base entière (e.g. \"Whymper\")"
-              %>
-            <% end %>
-          </div>
-
-              </div>
+              <%= form_tag(trip_city_user_activity_path(@trip, @city, @user_activity), method: :get, remote: true) do %>
+                <%= text_field_tag :query,
+                  params[:query],
+                  class: "form-control left-align font-1em",
+                  placeholder: "OU la base entière (e.g. \"Whymper\")"
+                %>
+              <% end %>
             </div>
+
         <% end %>
 
         <div class="slide-container">
@@ -71,9 +69,10 @@
           <% next if itinerary.name.nil? || itinerary.universal_difficulty.nil? %>
           <%= render partial: "card_itinerary", locals: {itinerary: itinerary, favorite: @favorite_itinerary, trip: @trip} %>
           <% end %>
-
         </div>
+
       </div>
+
       <div id="weather">
         <div class="row">
           <%= render partial: "weather_infos", locals: {city: @city} %>
