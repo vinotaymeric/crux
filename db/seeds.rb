@@ -26,18 +26,18 @@ require "base64"
 # end
 
 
-Weather.all.each do |weather|
-  begin
-  city = weather.cities[0]
-  next if city.nil?
-  weather_hash = weather_api_call(city.coord_lat, city.coord_long)
-  weather.forecast = weather_hash["forecast"]["forecastday"]
-  weather.save!
-  p weather.id
-  rescue Exception => e
-  puts e.message
-  end
-end
+# Weather.all.each do |weather|
+#   begin
+#   city = weather.cities[0]
+#   next if city.nil?
+#   weather_hash = weather_api_call(city.coord_lat, city.coord_long)
+#   weather.forecast = weather_hash["forecast"]["forecastday"]
+#   weather.save!
+#   p weather.id
+#   rescue Exception => e
+#   puts e.message
+#   end
+# end
 
 # City.all.each do |city|
 #   begin
@@ -69,3 +69,12 @@ end
 
 # Cloudinary::Uploader.upload("https://media.camptocamp.org/c2corg-active/1540615817_369858027.png",
 #   :public_id => "toto", :overwrite => true)
+
+Itinerary.all.each do |iti|
+  begin
+  iti.update_recent_conditions
+  p iti.id
+  rescue Exception => e
+  p e.message
+  end
+end

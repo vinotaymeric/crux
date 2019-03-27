@@ -9,5 +9,8 @@ namespace :forecast do
     p "UPDATE WEATHER"
     UpdateForecast.new.update_weather
     p "UPDATE WEATHER AND BRA  END"
+    p "UPDATE ITI SCORE"
+    UpdateForecast.new.update_itineraries_score
+    p "UPDATE ITI SCORE ENDS"
   end
 end
