@@ -140,6 +140,7 @@ class UpdateForecast
         snow_image_url: snow_image_url,
         fresh_snow_image_url: fresh_snow_image_url,
         max_risk: xml_noko_doc.xpath("//RISQUE /@RISQUEMAXI ").first.value.to_i
+        # snow_starts_at: xml_noko_doc.xpath("//NIVEAU /@ALTI ").first.value.to_i
       }
       return bra_range_inf
   end
@@ -176,6 +177,18 @@ class UpdateForecast
           m.max_risk = bra_range[:max_risk]
           m.save!
         end
+    end
+  end
+
+  ##### UPDATE ITINERARIES SCORE  ####
+  def update_itineraries_score
+    Itinerary.all.each do |itinerary|
+      begin
+      p itinerary.id
+      itinerary.update!(score: itinerary.score_calculation)
+      rescue Exception => e
+        p e.message
+      end
     end
   end
 end

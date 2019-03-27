@@ -34,7 +34,7 @@ class Itinerary < ApplicationRecord
     api_call("routes", self.source_id)["associations"]["recent_outings"]["documents"].each do |outing|
       date = Date.parse outing["date_start"]
 
-      if date.upto(Date.today).to_a.size < 60
+      if date.upto(Date.today).to_a.size < 60000
         document_id = outing["document_id"]
         saved_outing = Outing.find_by(source_id: document_id)
         if saved_outing.nil?
@@ -128,11 +128,45 @@ class Itinerary < ApplicationRecord
     outings_per_month
   end
 
-  def score
-    self.picture_url.nil? ? score = 0.3 : score = 1
-    score = score / 3 if (self.number_of_outing + self.outings.count) < 2
-    score = score / 3 if self.content.nil? || self.content.size < 500
-    score *= 5 if self.outing_months[Date.today.month] > 0
+  def activity_score
+    month = Date.today.month
+    activity = self.activity.name
+
+    if self.height_diff_up.nil? || self.elevation_max.nil?
+      activity_score = 0
+      return activity_score
+    end
+
+    average_elevation = (self.height_diff_up / 2) + (self.elevation_max / self.height_diff_up)
+
+
+    winter_months = [12, 1, 2, 3]
+    intermediate_months = [11, 4, 5]
+    ski_months = [11, 12, 1, 2, 3, 4, 5]
+    activity_score = 1
+
+    if activity == "rock_climbing" && winter_months.include?(month) && average_elevation > 1500
+      activity_score = 0
+    elsif activity == "rock_climbing" && intermediate_months.include?(month) && average_elevation > 2500
+      activity_score = 0
+    elsif activity == "skitouring" && !ski_months.include?(month)
+      activity_score = 0
+    elsif activity == "skitouring" && intermediate_months.include?(month) && average_elevation < 2500 && self.orientations.include?("S")
+      activity_score = 0
+    elsif activity == "skitouring" && intermediate_months.include?(month) && average_elevation < 1750
+      activity_score = 0
+    elsif activity == "hiking" && ski_months.include?(month) && average_elevation > 1000
+      activity_score = 0
+    end
+
+    activity_score
+  end
+
+  def score_calculation
+    self.picture_url.nil? ? score = 0.9 : score = 1.0
+    score = score / 2 if (self.number_of_outing + self.outings.count) < 2
+    score = score / 2 if self.content.nil? || self.content.size < 500
+    self.outing_months[Date.today.month] > 0 ? score *= 5 : score = score * activity_score
     return score
   end
 

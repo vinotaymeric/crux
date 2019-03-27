@@ -1,16 +1,20 @@
+const searchResults = document.querySelector("#search-results");
+const searchBar = document.querySelector('#query');
+const greenSearch = document.querySelector('#green-search')
+
 
 const initItinerarySearch = () => {
-  const searchResults = document.querySelector("#search-results");
-  const searchBar = document.querySelector('#query');
-  if (searchBar === null) {return}
-
-  searchBar.addEventListener('keyup', (e) => {
-    // console.log(e.currentTarget.value.length);
-    // console.log(e.currentTarget.value.length);
-    Rails.fire(e.currentTarget.closest('form'), 'submit');
-    // if (e.currentTarget.value.length < 2) {console.log('youhou')};
-    if (e.currentTarget.value.length < 2) {searchResults.innerHTML = ""};
+  greenSearch.addEventListener('click', (e) => {
+    searchResults.innerHTML = "";
+    Rails.fire(searchBar.closest('form'), 'submit');
+  });
+  searchBar.addEventListener('keypress', (e) => {
+    if (e.keyCode === 13) {
+      searchResults.innerHTML = "";
+      Rails.fire(searchBar.closest('form'), 'submit');
+    }
   });
 }
 
 export default initItinerarySearch;
+
