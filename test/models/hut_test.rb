@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class HutTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "should not save hut without name" do
+    hut = Hut.new
+    assert_not hut.save, "testing test"
+  end
 end

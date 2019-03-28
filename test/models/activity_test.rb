@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class ActivityTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
+  # test "should not save activity without name" do
+  #   activity = Activity.new
+  #   assert_not activity.save, "testing test"
   # end
 end
