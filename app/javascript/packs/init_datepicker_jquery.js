@@ -2,7 +2,6 @@ import $ from "jquery";
 
 // Accept datepicker-start or datepicker-end, as we need to initialize both anyway.
 const initDatepicker = () => {
-  console.log('coucou');
   $("input[class*='datepicker-']").pickadate({
     selectMonths: true,
     selectYears: 100,
@@ -21,7 +20,6 @@ const initDatepicker = () => {
       let parent1 = thisPicker.closest("div.input-field");    // This picker's parent
       let parent2 = parent1.next("div.input-field");          // Next picker's parent
       let picker2 = document.querySelector(".datepicker-end");
-
       // Set end picker minimum date, or whatever you need.
       if(obj.select){
         let dt = new Date(obj.select);
