@@ -137,8 +137,7 @@ class Itinerary < ApplicationRecord
       return activity_score
     end
 
-    average_elevation = (self.height_diff_up / 2) + (self.elevation_max / self.height_diff_up)
-
+    average_elevation = (self.height_diff_up / 2) + (self.elevation_max - self.height_diff_up)
 
     winter_months = [12, 1, 2, 3]
     intermediate_months = [11, 4, 5]

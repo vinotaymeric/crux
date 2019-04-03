@@ -1,4 +1,5 @@
 class City < ApplicationRecord
+  attr_accessor :nb_itineraries, :nb_good_itineraries
   geocoded_by :location, latitude: :coord_lat, longitude: :coord_long
   belongs_to :mountain_range, optional: true
   belongs_to :weather, optional: true

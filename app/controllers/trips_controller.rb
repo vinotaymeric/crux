@@ -1,4 +1,6 @@
 class TripsController < ApplicationController
+  before_action :empty_top_cities
+
   def new
     user = current_or_guest_user
 
@@ -64,5 +66,9 @@ class TripsController < ApplicationController
     params[:trip][:start_date] = date_to_eng(params[:trip][:start_date])
     params[:trip][:end_date] = date_to_eng(params[:trip][:end_date])
     params
+  end
+
+  def empty_top_cities
+    session[:cities_activities] = nil
   end
 end
