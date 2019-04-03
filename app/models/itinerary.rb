@@ -162,7 +162,7 @@ class Itinerary < ApplicationRecord
   end
 
   def score_calculation
-    self.picture_url.nil? ? score = 0.9 : score = 1.0
+    self.picture_url.nil? ? score = 0.19 : score = 0.2
     score = score / 2 if (self.number_of_outing + self.outings.count) < 2
     score = score / 2 if self.content.nil? || self.content.size < 500
     self.outing_months[Date.today.month] > 0 ? score *= 5 : score = score * activity_score
