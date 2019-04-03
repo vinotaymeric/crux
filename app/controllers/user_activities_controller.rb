@@ -26,6 +26,7 @@ class UserActivitiesController < ApplicationController
       @itineraries = @trip.itineraries.distinct.order(picture_url: :asc)
     else
       @itineraries = @city.itineraries.where(activity_id: @activity.id, universal_difficulty: @user_activity.level.downcase)
+                                      # .where.not("equipment_rating = 'P1'")
     end
 
     @itineraries = @itineraries.to_a.sort_by { |itinerary| itinerary.score}.reverse

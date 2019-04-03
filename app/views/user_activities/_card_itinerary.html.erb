@@ -18,11 +18,15 @@
       </div>
 
         <div class="center-align">
-          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Altitude max"><%= itinerary.elevation_max %>m</span>
+          <% if itinerary.elevation_max != nil  %>
+            <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Altitude max"><%= itinerary.elevation_max %>m</span>
+          <% end %>
           <% if itinerary.height_diff_up != nil%>
             <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Dénivelé positif">+ <%= itinerary.height_diff_up %> m</span>
           <% end %>
-          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.universal_difficulty.capitalize[0..4] %>.</span>
+          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.difficulty %></span>
+          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Equipement"><%= itinerary.equipment_rating %></span>
+          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Engagement"><%= itinerary.engagement_rating %></span>
         </div>
 
         <div class="right-align" id="favorite">
