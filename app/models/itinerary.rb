@@ -144,9 +144,9 @@ class Itinerary < ApplicationRecord
     ski_months = [11, 12, 1, 2, 3, 4, 5]
     activity_score = 1
 
-    if activity == "rock_climbing" && winter_months.include?(month) && average_elevation > 1500
+    if activity == "rock_climbing" && winter_months.include?(month) && (average_elevation > 1200 || self.orientations.include?("N"))
       activity_score = 0
-    elsif activity == "rock_climbing" && intermediate_months.include?(month) && average_elevation > 2500
+    elsif activity == "rock_climbing" && intermediate_months.include?(month) && (average_elevation > 2000 || self.orientations.include?("N"))
       activity_score = 0
     elsif activity == "skitouring" && !ski_months.include?(month)
       activity_score = 0
