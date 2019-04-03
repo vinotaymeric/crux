@@ -7,15 +7,22 @@
 
     <div class="card-content">
       <p>
-
-        <span class="title-card ellsipsised card-title activator grey-text text-darken-4"><%= itinerary.short_name %></span>
+      <div class="title-card ellsipsised card-title activator grey-text text-darken-4">
+        <% if itinerary.score > 0.8 %>
+          <span class="strong-card-title"><%= itinerary.short_name %> <i class="fas fa-heart"></i></span>
+        <% elsif itinerary.score > 0 %>
+          <span class="strong-card-title" style="font-weight: lighter;"><%= itinerary.short_name %></span>
+        <% else %>
+          <span><%= itinerary.short_name %></span>
+        <% end %>
+      </div>
 
         <div class="center-align">
           <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Altitude max"><%= itinerary.elevation_max %>m</span>
           <% if itinerary.height_diff_up != nil%>
             <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Dénivelé positif">+ <%= itinerary.height_diff_up %> m</span>
           <% end %>
-          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.universal_difficulty.capitalize %></span>
+          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.universal_difficulty.capitalize[0..4] %>.</span>
         </div>
 
         <div class="right-align" id="favorite">

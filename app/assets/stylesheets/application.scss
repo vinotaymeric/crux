@@ -97,7 +97,6 @@ li {
   font-size: 1.1rem !important;
   line-height: 20px !important;
   color: black !important;
-  font-weight: bold !important;
   text-align: center !important;
 }
 
@@ -164,6 +163,11 @@ li {
   font-size: 1.3em !important;
   font-weight: bolder;
   color: #23B5D3;
+}
+
+.title-card > .strong-card-title {
+  color: #23B5D3;
+  font-weight: bolder;
 }
 
 .bigger {
