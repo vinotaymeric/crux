@@ -1,59 +1,12 @@
 class CitiesController < ApplicationController
   before_action :init_mark_down_parser, only: :show
 
-  def find_top_cities
-    if session[:cities_activities].blank?
-      cities_activities = []
-      current_or_guest_user.user_activities.each do |user_activity|
-
-        next if user_activity.level == "Niveau ?" || user_activity.level.nil?
-
-        activity = user_activity.activity
-
-        city_activity = City.select("cities.*, SUM(itineraries.score) as nb_good_itineraries, COUNT(itineraries.id) as nb_itineraries")
-        .joins(:itineraries)
-        .where(itineraries: {activity_id: activity.id, universal_difficulty: user_activity.level.downcase })
-        .group("cities.id HAVING SUM(itineraries.score) > 0")
-        .order("nb_good_itineraries")
-
-        city_activity.each { |city| city.temp_activity = activity.name}
-        cities_activities << city_activity
-      end
-
-      cities_activities.flatten!
-
-      # cities_activities.uniq! { |city_activity| city_activity.name }
-      # cities_activities.select! { |city_activity| city_activity.city != nil}
-
-      cities_activities.sort_by! do |city_activity|
-        city_activity.temp_score = score(city_activity, @trip)
-        [city_activity.temp_score, - @trip.distance_from(city_activity)]
-      end
-
-      # Take only top 18 and send them to the view
-      @cities = cities_activities.reverse[0..17]
-      # Store them in session
-      store_cities_activities_in_session(@cities)
-    else
-      @cities = []
-      session[:cities_activities].each do |city_activity|
-        city = City.find(city_activity["city_id"])
-        city.nb_itineraries = city_activity["nb_itineraries"]
-        city.nb_good_itineraries = city_activity["nb_good_itineraries"]
-        city.temp_activity = city_activity["temp_activity"]
-        city.temp_score = city_activity["temp_score"]
-        @cities << city
-      end
-    end
-  end
-
   def index
     @user = current_or_guest_user
     @trip = Trip.find(params[:trip_id])
+    @one_hour_polygon = @trip.isochrone_coordinates
 
     find_top_cities
-
-    @one_hour_polygon = @trip.isochrone_coordinates
 
     # Mapbox
     @markers = @cities.map do |city|
@@ -143,5 +96,56 @@ class CitiesController < ApplicationController
     end
 
     session[:cities_activities] = cities_activities
+  end
+
+  def find_top_cities
+    if session[:cities_activities].nil? || session[:cities_activities].empty?
+      cities_activities = []
+      current_or_guest_user.user_activities.each do |user_activity|
+
+        next if user_activity.level == "Niveau ?" || user_activity.level.nil?
+
+        activity = user_activity.activity
+
+        city_activity = City.select("cities.*, SUM(itineraries.score) as sql_nb_good_itineraries, COUNT(itineraries.id) as sql_nb_itineraries")
+        .joins(:itineraries)
+        .where(itineraries: {activity_id: activity.id, universal_difficulty: user_activity.level.downcase })
+        .group("cities.id HAVING SUM(itineraries.score) > 0")
+        .order("sql_nb_good_itineraries")
+
+        city_activity.each do |city|
+          city.temp_activity = activity.name
+          city.nb_itineraries = city. sql_nb_itineraries
+          city.nb_good_itineraries = city. sql_nb_good_itineraries
+        end
+
+        cities_activities << city_activity
+      end
+
+      cities_activities.flatten!
+
+      # cities_activities.uniq! { |city_activity| city_activity.name }
+      # cities_activities.select! { |city_activity| city_activity.city != nil}
+
+      cities_activities.sort_by! do |city_activity|
+        city_activity.temp_score = score(city_activity, @trip)
+        [city_activity.temp_score, - @trip.distance_from(city_activity)]
+      end
+
+      # Take only top 18 and send them to the view
+      @cities = cities_activities.reverse[0..13]
+      # Store them in session
+      store_cities_activities_in_session(@cities)
+    else
+      @cities = []
+      session[:cities_activities].each do |city_activity|
+        city = City.find(city_activity["city_id"])
+        city.nb_itineraries = city_activity["nb_itineraries"]
+        city.nb_good_itineraries = city_activity["nb_good_itineraries"]
+        city.temp_activity = city_activity["temp_activity"]
+        city.temp_score = city_activity["temp_score"]
+        @cities << city
+      end
+    end
   end
 end

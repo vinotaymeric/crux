@@ -60,7 +60,7 @@ class UserActivitiesController < ApplicationController
     @trip.save!
 
     if @trip.validated
-      flash[:notice] = "Vos itinéraires sont sauvegardés, directement accessibles depuis 'Mes sorties'"
+      flash[:notice] = "Tes itinéraires sont sauvegardés, directement accessibles depuis 'Mes sorties'"
     end
 
     redirect_back(fallback_location: root_path)
