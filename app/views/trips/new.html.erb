@@ -5,7 +5,7 @@
       <h5 class="form-title">Sélectionne une ou des activités</h5>
       <% @unset_activities.each do |user_activity| %>
       <div class="col s3">
-        <%= image_tag "icons/#{user_activity.activity.name}.png", class: 'circle responsive-img small icon-source tooltipped', 'data-position': "bottom", 'data-tooltip': user_activity.activity.short_name.capitalize, id: user_activity.activity.name %>
+        <%= image_tag "icons/#{user_activity.activity.name}.png", class: 'circle responsive-img small icon-source', id: user_activity.activity.name %>
       </div>
       <% end %>
 
