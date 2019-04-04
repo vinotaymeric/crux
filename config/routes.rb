@@ -6,8 +6,8 @@ Rails.application.routes.draw do
 
   resources :trips do
     resources :cities, only: [:show, :index, :update] do
-      resources :user_activities, only: :show
-      put '/user_activities/:id', to: 'user_activities#update_trip', as: 'update_trip'
+      resources :trip_activities, only: :show
+      put '/trip_activities/:id', to: 'trip_activities#update_trip', as: 'update_trip'
     end
     resources :requests, only: :create
     resources :favorite_itineraries, only: [:create, :destroy]

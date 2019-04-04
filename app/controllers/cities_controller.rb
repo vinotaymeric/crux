@@ -101,15 +101,15 @@ class CitiesController < ApplicationController
   def find_top_cities
     if session[:cities_activities].nil? || session[:cities_activities].empty?
       cities_activities = []
-      current_or_guest_user.user_activities.each do |user_activity|
+      @trip.trip_activities.each do |trip_activity|
 
-        next if user_activity.level == "Niveau ?" || user_activity.level.nil?
+        next if trip_activity.level == "Niveau ?" || trip_activity.level.nil?
 
-        activity = user_activity.activity
+        activity = trip_activity.activity
 
         city_activity = City.select("cities.*, SUM(itineraries.score) as sql_nb_good_itineraries, COUNT(itineraries.id) as sql_nb_itineraries")
         .joins(:itineraries)
-        .where(itineraries: {activity_id: activity.id, universal_difficulty: user_activity.level.downcase })
+        .where(itineraries: {activity_id: activity.id, universal_difficulty: trip_activity.level.downcase })
         .group("cities.id HAVING SUM(itineraries.score) > 0")
         .order("sql_nb_good_itineraries")
 

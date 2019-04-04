@@ -21,6 +21,12 @@ class TripsController < ApplicationController
     @trip = Trip.new(trip_params)
     @trip.user = current_or_guest_user
     @trip.save!
+
+    # Create trip_activities so that if the user changes its profile it wont change the results
+    current_or_guest_user.user_activities.where.not(level: nil).each do |user_activity|
+      TripActivity.create!(trip: @trip, activity: user_activity.activity, level: user_activity.level)
+    end
+
     redirect_to trip_cities_path(@trip)
   end
 

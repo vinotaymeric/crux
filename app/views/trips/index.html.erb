@@ -16,7 +16,7 @@
           </div>
           <div class="card-action">
             <% if trip.validated %>
-            <%= link_to 'Voir', trip_city_user_activity_path(trip, trip.city, trip.user_activity), class: 'green-link' %>
+            <%= link_to 'Voir', trip_city_trip_activity_path(trip, trip.city, trip.trip_activity), class: 'green-link' %>
             <% else %>
               <%= link_to 'Finir la séléction', trip_cities_path(trip), class: 'green-link' %>
             <% end %>

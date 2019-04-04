@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_21_115034) do
+ActiveRecord::Schema.define(version: 2019_04_04_095028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,16 @@ ActiveRecord::Schema.define(version: 2019_03_21_115034) do
     t.index ["trip_id"], name: "index_requests_on_trip_id"
   end
 
+  create_table "trip_activities", force: :cascade do |t|
+    t.bigint "trip_id"
+    t.bigint "activity_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "level"
+    t.index ["activity_id"], name: "index_trip_activities_on_activity_id"
+    t.index ["trip_id"], name: "index_trip_activities_on_trip_id"
+  end
+
   create_table "trips", force: :cascade do |t|
     t.string "title"
     t.date "start_date"
@@ -153,10 +163,10 @@ ActiveRecord::Schema.define(version: 2019_03_21_115034) do
     t.float "coord_lat"
     t.float "coord_long"
     t.boolean "validated"
-    t.bigint "user_activity_id"
     t.bigint "city_id"
+    t.bigint "trip_activity_id"
     t.index ["city_id"], name: "index_trips_on_city_id"
-    t.index ["user_activity_id"], name: "index_trips_on_user_activity_id"
+    t.index ["trip_activity_id"], name: "index_trips_on_trip_activity_id"
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
@@ -212,8 +222,10 @@ ActiveRecord::Schema.define(version: 2019_03_21_115034) do
   add_foreign_key "itineraries", "huts"
   add_foreign_key "outings", "itineraries"
   add_foreign_key "requests", "trips"
+  add_foreign_key "trip_activities", "activities"
+  add_foreign_key "trip_activities", "trips"
   add_foreign_key "trips", "cities"
-  add_foreign_key "trips", "user_activities"
+  add_foreign_key "trips", "trip_activities"
   add_foreign_key "trips", "users"
   add_foreign_key "trips_basecamps", "basecamps"
   add_foreign_key "trips_basecamps", "trips"
