@@ -26,11 +26,11 @@
 
   <% if @trip.validated == false %>
     <div class="fixed-action-btn card-panel sticky-cta", id="validation-basecamp-button">
-      <%= link_to "Valider la séléction", trip_city_update_trip_path(@trip, @city, @user_activity), method: :put, class: 'btn' %>
+      <%= link_to "Valider la séléction", trip_city_update_trip_path(@trip, @city, @trip_activity), method: :put, class: 'btn' %>
     </div>
   <% else %>
     <div class="fixed-action-btn card-panel sticky-cta">
-      <%= link_to "Ajouter des itinéraires", trip_city_update_trip_path(@trip, @city, @user_activity), method: :put, class: 'btn blue' %>
+      <%= link_to "Ajouter des itinéraires", trip_city_update_trip_path(@trip, @city, @trip_activity), method: :put, class: 'btn blue' %>
     </div>
   <% end %>
 
@@ -50,7 +50,7 @@
         <% if @trip.validated == false %>
 
             <div class="left-align font-1em">Choisis parmi <%= @itineraries.count %> itinéraires proches
-              <%= form_tag(trip_city_user_activity_path(@trip, @city, @user_activity), method: :get, remote: true) do %>
+              <%= form_tag(trip_city_trip_activity_path(@trip, @city, @trip_activity), method: :get, remote: true) do %>
                 <%= text_field_tag :query,
                   params[:query],
                   class: "form-control left-align font-1em smaller-width",

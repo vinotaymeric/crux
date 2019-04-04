@@ -5,6 +5,8 @@ class Trip < ApplicationRecord
   belongs_to :basecamps_activity, optional: true
   has_many :favorite_itineraries
   has_many :itineraries, through: :favorite_itineraries
+  has_many :trip_activities
+  has_one :trip_activity
   attribute :validated, default: false
   validates :start_date, presence: true
   validates :end_date, presence: true
