@@ -6,7 +6,7 @@ class ItinerariesController < ApplicationController
         @itineraries = Itinerary.where("name ILIKE ?", "%#{params[:query]}%")[0..10]
         @itineraries = @itineraries.to_a.sort_by { |itinerary| itinerary.score}.reverse
         respond_to do |format|
-          format.js { render partial: 'search-results', locals: {search_result_itineraries: @itineraries, favorite: @favorite_itinerary, trip: @trip}}
+          format.js { render partial: 'shared/search-results', locals: {search_result_itineraries: @itineraries, favorite: @favorite_itinerary, trip: @trip}}
         end
     end
   end
