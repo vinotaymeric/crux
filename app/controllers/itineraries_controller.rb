@@ -2,7 +2,13 @@ class ItinerariesController < ApplicationController
   before_action :init_mark_down_parser, only: [:show, :index]
 
   def index
-     @itineraries =Itinerary.all.order("number_of_outing desc")[0..20]
+    if params[:query].present? && !params[:query].blank?
+        @itineraries = Itinerary.where("name ILIKE ?", "%#{params[:query]}%")[0..10]
+        @itineraries = @itineraries.to_a.sort_by { |itinerary| itinerary.score}.reverse
+        respond_to do |format|
+          format.js { render partial: 'search-results', locals: {search_result_itineraries: @itineraries, favorite: @favorite_itinerary, trip: @trip}}
+        end
+    end
   end
 
   def show
