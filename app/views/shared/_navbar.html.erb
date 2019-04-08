@@ -7,6 +7,7 @@
         <li><%= link_to "Mes sorties", trips_path, class: "" %></li>
         <li><%= link_to "Nouvelle sortie", new_trip_path, class: "" %></li>
         <li><%= link_to "Itinéraires", itineraries_path %></li>
+        <li><%= link_to "Favoris", follows_path %></li>
         <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
       <% else %>
         <li><%= link_to "Nouvelle sortie", new_trip_path, class: "" %></li>
@@ -26,6 +27,8 @@
   <% if user_signed_in? %>
     <li><%= link_to "Mes sorties", trips_path, class: "" %></li>
     <li><%= link_to "Nouvelle sortie", new_trip_path, class: "" %></li>
+    <li><%= link_to "Itinéraires", itineraries_path %></li>
+    <li><%= link_to "Favoris", follows_path %></li>
     <li><%= link_to "Se déconnecter", destroy_user_session_path, :method => :delete %></li>
   <% else %>
     <li><%= link_to "Nouvelle sortie", new_trip_path, class: "" %></li>

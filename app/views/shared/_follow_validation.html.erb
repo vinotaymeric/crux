@@ -1,0 +1,15 @@
+<div class="right-align" id="favorite">
+
+  <% if followed_itineraries.include?(itinerary)%>
+  <% followed_itinerary = Follow.find_by(user: user, itinerary: itinerary) %>
+    <%= link_to "", follow_path(followed_itinerary), method: :delete, class: 'fas fa-trash add-itinerary' %>
+  <% else %>
+    <a onclick="M.toast({html: 'Itinéraire suivi', classes: 'toaster', displayLength: 500})" class="fas fa-plus-circle add-itinerary"></a>
+  <% end %>
+
+  <%= simple_form_for follow, remote: true, html: { class: "hidden"} do |f| %>
+    <%= f.input  :user_id, input_html: {value: user.id} %>
+    <%= f.input  :itinerary_id, input_html: {value: itinerary.id} %>
+  <% end %>
+
+</div>

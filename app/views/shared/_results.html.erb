@@ -1,4 +1,5 @@
 <% search_result_itineraries.each do |itinerary| %>
   <% next if itinerary.name.nil? || itinerary.universal_difficulty.nil? %>
-  <%= render partial: "shared/card_itinerary", locals: {itinerary: itinerary, favorite: favorite, trip: trip} %>
+  <%= render partial: "shared/card_itinerary", locals: {itinerary: itinerary, favorite: favorite, trip: trip,
+      follow: follow, followed_itineraries: followed_itineraries, user: user} %>
 <% end %>
