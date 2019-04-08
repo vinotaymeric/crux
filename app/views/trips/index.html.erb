@@ -20,6 +20,7 @@
             <% else %>
               <%= link_to 'Finir la séléction', trip_cities_path(trip), class: 'green-link' %>
             <% end %>
+            <%= link_to "", trip_path(trip), method: :delete, class: 'fas fa-trash add-itinerary' %>
           </div>
         </div>
       </div>

@@ -30,6 +30,15 @@ class TripsController < ApplicationController
     redirect_to trip_cities_path(@trip)
   end
 
+  def destroy
+    trip = Trip.find(params[:id])
+    trip.trip_activities.delete_all
+    trip.favorite_itineraries.delete_all
+    trip.delete
+    flash[:notice] = "La sortie a été supprimée."
+    redirect_back(fallback_location: root_path)
+  end
+
   private
 
   def trip_params
