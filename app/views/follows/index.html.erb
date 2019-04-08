@@ -4,7 +4,7 @@
       <% if !@itineraries.nil? %>
         <% @itineraries.each do |itinerary| %>
         <% next if itinerary.name.nil? || itinerary.universal_difficulty.nil? %>
-        <%= render partial: "shared/card_itinerary", locals: {itinerary: itinerary, followed_itineraries: @followed_itineraries, follow: @follow, user: @user} %>
+        <%= render partial: "shared/card_itinerary", locals: {itinerary: itinerary, followed_itineraries: @itineraries, follow: @follow, user: @user} %>
         <% end %>
       <% end %>
     </div>

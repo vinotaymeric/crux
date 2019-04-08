@@ -10,7 +10,9 @@ class FollowsController < ApplicationController
   end
 
   def index
-    @itineraries = current_user.itineraries
+    @user = current_user
+    @itineraries = @user.itineraries
+    @follow = Follow.new
   end
 
   def destroy
