@@ -191,5 +191,15 @@ class UpdateForecast
       end
     end
   end
+
+  # Update conditions for followed itineraries
+  def update_outings_on_followed_itineraries
+    Follow.itineraries.each do |itinerary|
+      itinerary.update_recent_conditions
+      p itinerary.id
+      sleep(2)
+      # envoyer le mail si conditions récentes
+    end
+  end
 end
 
