@@ -1,8 +1,32 @@
-<div id="my-itineraries">
-  <%= render @itineraries %>
+<div class="container">
+  <div class="row">
+    <div id="itineraries" style="margin: 10px;">
+
+      <div class="left-align font-1em">
+        <%= form_tag(itineraries_path, method: :get, remote: true) do %>
+          <%= text_field_tag :query,
+            params[:query],
+            class: "form-control left-align font-1em smaller-width",
+            placeholder: "nom de l'itinéraire recherché (e.g. \"whymper\")"
+          %>
+          <i class="fas fa-search" id="green-search"></i>
+        <% end %>
+      </div>
+
+      <div class="slide-container">
+
+        <div id="search-results">
+        </div>
+
+        <% if !@itineraries.nil? %>
+          <% @itineraries.each do |itinerary| %>
+          <% next if itinerary.name.nil? || itinerary.universal_difficulty.nil? %>
+          <%= render partial: "shared/card_itinerary", locals: {itinerary: itinerary, followed_itineraries: @followed_itineraries, follow: @follow, user: @user} %>
+          <% end %>
+        <% end %>
+
+      </div>
+
+    </div>
+  </div>
 </div>
-
-
-
-
-

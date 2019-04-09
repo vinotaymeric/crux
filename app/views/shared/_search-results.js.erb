@@ -1,8 +1,9 @@
-$("#search-results").html("<%= escape_javascript(render partial: 'results', locals: {search_result_itineraries: search_result_itineraries, favorite: favorite, trip: trip}) %>");
+$("#search-results").html("<%= escape_javascript(render partial: 'shared/results', locals: {search_result_itineraries: search_result_itineraries, favorite: @favorite, trip: @trip, follow: follow, followed_itineraries: followed_itineraries, user: user}) %>");
 
 var favoritesInModal = document.querySelectorAll('.fa-plus-circle');
 favoritesInModal.forEach( (element) => {
   element.addEventListener('click', (e) => {
+    console.log(e.currentTarget.nextElementSibling);
     Rails.fire(e.currentTarget.nextElementSibling, 'submit')
   });
 });

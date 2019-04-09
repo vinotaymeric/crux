@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <div id="itineraries" style="margin: 10px;">
+      <% if !@itineraries.nil? %>
+        <% @itineraries.each do |itinerary| %>
+        <% next if itinerary.name.nil? || itinerary.universal_difficulty.nil? %>
+        <%= render partial: "shared/card_itinerary", locals: {itinerary: itinerary, followed_itineraries: @itineraries, follow: @follow, user: @user} %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

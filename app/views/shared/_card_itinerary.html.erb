@@ -1,0 +1,47 @@
+<div class="col s12 m6">
+  <div class="card small">
+
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="<%= itinerary.picture_url_p %>">
+    </div>
+
+    <div class="card-content">
+      <p>
+        <div class="title-card ellsipsised card-title activator grey-text text-darken-4">
+          <% if itinerary.score > 0.8 %>
+            <span class="strong-card-title"><%= itinerary.short_name %> <i class="fas fa-heart"></i></span>
+          <% elsif itinerary.score > 0 %>
+            <span class="strong-card-title" style="font-weight: lighter;"><%= itinerary.short_name %></span>
+          <% else %>
+            <span><%= itinerary.short_name %></span>
+          <% end %>
+        </div>
+
+        <div class="center-align">
+          <% if itinerary.elevation_max != nil  %>
+            <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Altitude max"><%= itinerary.elevation_max %>m</span>
+          <% end %>
+          <% if itinerary.height_diff_up != nil%>
+            <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Dénivelé positif">+ <%= itinerary.height_diff_up %> m</span>
+          <% end %>
+          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Difficulté"><%= itinerary.difficulty %></span>
+          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Equipement"><%= itinerary.equipment_rating %></span>
+          <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Engagement"><%= itinerary.engagement_rating %></span>
+        </div>
+
+        <% if defined?(trip) && !trip.id.nil? %>
+          <%= render partial: "trip_validation", locals: {itinerary: itinerary, favorite: favorite, trip: trip} %>
+        <% elsif !follow.nil? %>
+          <%= render partial: "shared/follow_validation", locals: {itinerary: itinerary, follow: follow, followed_itineraries: followed_itineraries, user: user} %>
+        <% end %>
+
+      </p>
+    </div>
+
+    <div class="card-reveal">
+      <p class="card-title grey-text text-darken-4"><strong><%= itinerary.name %></strong><i class="material-icons right absolute">close</i></p>
+      <p><%= render partial: "shared/itinerary_description", locals: {itinerary: itinerary} %></p>
+    </div>
+
+  </div>
+</div>

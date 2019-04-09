@@ -5,17 +5,15 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :trips do
-    resources :cities, only: [:show, :index, :update] do
+    resources :cities, only: :index do
       resources :trip_activities, only: :show
       put '/trip_activities/:id', to: 'trip_activities#update_trip', as: 'update_trip'
     end
     resources :requests, only: :create
     resources :favorite_itineraries, only: [:create, :destroy]
-    resources :itineraries, only: [:index]
   end
 
   resources :itineraries, only: [:show, :index]
-
   resources :user_activities, only: [:create, :update]
-  post '/user_activities', to: 'user_activities#update_profile', as: 'update_profile'
+  resources :follows, only: [:create, :destroy, :index]
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_04_095028) do
+ActiveRecord::Schema.define(version: 2019_04_08_121914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(version: 2019_04_04_095028) do
     t.datetime "updated_at", null: false
     t.index ["itinerary_id"], name: "index_favorite_itineraries_on_itinerary_id"
     t.index ["trip_id"], name: "index_favorite_itineraries_on_trip_id"
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.bigint "itinerary_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["itinerary_id"], name: "index_follows_on_itinerary_id"
+    t.index ["user_id"], name: "index_follows_on_user_id"
   end
 
   create_table "huts", force: :cascade do |t|
@@ -217,6 +226,8 @@ ActiveRecord::Schema.define(version: 2019_04_04_095028) do
   add_foreign_key "cities", "weathers"
   add_foreign_key "favorite_itineraries", "itineraries"
   add_foreign_key "favorite_itineraries", "trips"
+  add_foreign_key "follows", "itineraries"
+  add_foreign_key "follows", "users"
   add_foreign_key "itineraries", "activities"
   add_foreign_key "itineraries", "basecamps"
   add_foreign_key "itineraries", "huts"
