@@ -53,12 +53,12 @@ class Itinerary < ApplicationRecord
     end
   end
 
-  def recent_outings
+  def recent_outings(days_to_look_back = 60)
     outings = self.outings
     recent_outings = []
     outings.each do |outing|
       date = Date.parse outing.date
-      if date.upto(Date.today).to_a.size < 60
+      if date.upto(Date.today).to_a.size < days_to_look_back
         recent_outings << [outing.date, outing.content]
       end
     end

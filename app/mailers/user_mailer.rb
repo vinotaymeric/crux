@@ -5,9 +5,9 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.follow_itinerary.subject
   #
-  def follow_basecamp(user, basecamp)
+  def alert(user, itinerary)
     @user = user
-    @basecamp = basecamp
-    mail(to: @user.email, subject: 'Infos camps de base #{@basecamp}')
+    @itinerary = itinerary
+    mail(to: @user.email, subject: "Nouvelle sortie sur #{itinerary.name}")
   end
 end
