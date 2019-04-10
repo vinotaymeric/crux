@@ -1,0 +1,46 @@
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+  color:#26a69a;
+}
+
+.card.horizontal .card-image img {
+    max-width: 100px;
+    height: 190px;
+}
+
+.title-card.ellsipsised {
+  font-size: 1.1rem !important;
+  line-height: 20px !important;
+  color: black !important;
+  text-align: center !important;
+}
+
+.title-card > .strong-card-title {
+  color: #23B5D3;
+  font-weight: bold;
+}
+
+.card.small .card-image, .card.medium .card-image, .card.large .card-image {
+  max-height: 50%;
+}
+
+.card.small .card-image + .card-content, .card.medium .card-image + .card-content, .card.large .card-image + .card-content {
+  max-height: 50%;
+}
+
+.card-image {
+  position: relative;
+}
+
+.add-itinerary {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.card-content {
+  color: black;
+}
