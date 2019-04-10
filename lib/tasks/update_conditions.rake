@@ -2,12 +2,12 @@ namespace :update_conditions do
 
   desc "Update BRA"
   task BRA: :environment do
-    UpdateForecast.new.update_mountain_ranges_cron
+    UpdateForecast.new.update_all_bra(Date.today.prev_day.to_s.delete("-").to_i)
   end
 
   desc "Update weather"
   task weather: :environment do
-    UpdateForecast.new.update_weather
+    UpdateWeather.new.update_weather
   end
 
   desc "Update itineraries scores"
