@@ -18,7 +18,6 @@ class TripActivitiesController < ApplicationController
       @itineraries = @trip.itineraries.distinct.order(picture_url: :asc)
     else
       @itineraries = @city.itineraries.where(activity_id: @activity.id, universal_difficulty: @trip_activity.level.downcase)
-                                      # .where.not("equipment_rating = 'P1'")
     end
 
     @itineraries = @itineraries.to_a.sort_by { |itinerary| itinerary.score}.reverse
@@ -60,11 +59,6 @@ class TripActivitiesController < ApplicationController
   end
 
   private
-
-  def init_mark_down_parser
-    renderer = Redcarpet::Render::HTML.new(no_images: true)
-    @markdown = Redcarpet::Markdown.new(renderer)
-  end
 
   def user_activity_params
     params.require(:user_activity).permit(:level, :activity_id)
