@@ -4,29 +4,6 @@ require "base64"
 
 class UpdateForecast
 
-  ##### UPADATE WEATHER  ####
-  def api_call(lat, lon)
-    url = "https://api.apixu.com/v1/forecast.json?key=#{ENV['WEATHER_KEY']}&q=#{lat},#{lon}&days=7"
-    JSON.parse(open(url).read)
-  end
-
-  def update_weather
-    Weather.all.each do |weather|
-      begin
-      city = weather.cities[0]
-      next if city.nil?
-      p weather.id
-      weather_hash = api_call(city.coord_lat, city.coord_long)
-      weather.forecast = weather_hash["forecast"]["forecastday"]
-      weather.save!
-      rescue Exception => e
-      puts e.message
-      end
-    end
-  end
-  ## END UPDATE WEATHER ##
-
-  ## UPDATE BRA
   RANGES=[
     ["ARAVIS",14417,45.846413,6.334947],
     ["CHABLAIS",14411,46.318140,6.626145],
@@ -53,11 +30,11 @@ class UpdateForecast
     ["VANOISE",0,45.354104,6.594064]
   ]
 
-  def update_mountain_ranges_cron
+  def update_bra
     begin
     date = Date.today.prev_day.to_s.delete("-").to_i
     update_mountain_ranges(date)
-    rescue Exception => e
+    rescue
       puts "bra_meteo_france indisponible "
     end
   end
@@ -180,4 +157,3 @@ class UpdateForecast
     end
   end
 end
-
