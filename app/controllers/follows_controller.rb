@@ -27,9 +27,4 @@ class FollowsController < ApplicationController
   def follow_params
     params.require(:follow).permit(:user_id, :itinerary_id)
   end
-
-  def init_mark_down_parser
-    renderer = Redcarpet::Render::HTML.new(no_images: true)
-    @markdown = Redcarpet::Markdown.new(renderer)
-  end
 end

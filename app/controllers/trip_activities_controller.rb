@@ -60,11 +60,6 @@ class TripActivitiesController < ApplicationController
 
   private
 
-  def init_mark_down_parser
-    renderer = Redcarpet::Render::HTML.new(no_images: true)
-    @markdown = Redcarpet::Markdown.new(renderer)
-  end
-
   def user_activity_params
     params.require(:user_activity).permit(:level, :activity_id)
   end

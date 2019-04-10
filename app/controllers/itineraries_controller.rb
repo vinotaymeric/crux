@@ -24,11 +24,6 @@ class ItinerariesController < ApplicationController
 
   private
 
-  def init_mark_down_parser
-    renderer = Redcarpet::Render::HTML.new(no_images: true)
-    @markdown = Redcarpet::Markdown.new(renderer)
-  end
-
   def get_and_show_itineraries
     @itineraries = Itinerary.where(activity_id: 13).paginate(:page => params[:page]).order('difficulty asc')
     respond_to do |format|

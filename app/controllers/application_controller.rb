@@ -58,10 +58,14 @@ class ApplicationController < ActionController::Base
 
   private
 
-def configure_permitted_parameters
- devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password, :phone)}
-end
+  def init_mark_down_parser
+    renderer = Redcarpet::Render::HTML.new(no_images: true)
+    @markdown = Redcarpet::Markdown.new(renderer)
+  end
 
+  def configure_permitted_parameters
+   devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password, :phone)}
+  end
 
 # called (once) when the user logs in
   def logging_in
