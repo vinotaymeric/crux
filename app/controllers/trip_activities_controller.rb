@@ -1,9 +1,8 @@
 class TripActivitiesController < ApplicationController
   before_action :init_mark_down_parser, only: :show
+  before_action :get_trip_and_city
 
   def show
-    @city = City.find(params[:city_id])
-    @trip = Trip.find(params[:trip_id])
     @trip_activity = TripActivity.find(params[:id])
     @activity = Activity.find(@trip_activity.activity_id)
     @mountain_range = @city.mountain_range
@@ -36,16 +35,13 @@ class TripActivitiesController < ApplicationController
 
   def update_trip
     redirect_to new_user_registration_path and return if current_user.nil?
-
-    @trip = Trip.find(params[:trip_id])
-    city = City.find(params[:city_id])
     trip_activity = TripActivity.find(params[:id])
 
     if @trip.validated
       @trip.validated = false
     else
       @trip.validated = true
-      @trip.city = city
+      @trip.city = @city
       @trip.trip_activity = trip_activity
     end
 
@@ -62,5 +58,10 @@ class TripActivitiesController < ApplicationController
 
   def user_activity_params
     params.require(:user_activity).permit(:level, :activity_id)
+  end
+
+  def get_trip_and_city
+    @trip = Trip.find(params[:trip_id])
+    @city = City.find(params[:city_id])
   end
 end

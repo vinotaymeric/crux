@@ -21,14 +21,4 @@ class ItinerariesController < ApplicationController
     @itinerary = Itinerary.find(params[:id])
     @itinerary.update_recent_conditions
   end
-
-  private
-
-  def get_and_show_itineraries
-    @itineraries = Itinerary.where(activity_id: 13).paginate(:page => params[:page]).order('difficulty asc')
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end
 end

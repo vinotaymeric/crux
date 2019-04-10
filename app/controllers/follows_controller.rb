@@ -2,10 +2,6 @@ class FollowsController < ApplicationController
   before_action :init_mark_down_parser, only: :index
 
   def create
-    # if @user.nil?
-    #   flash[:notice] = "Inscris-toi pour pouvoir suivre les conditions de cet itinéraire."
-    #   redirect_to new_user_registration_path and return
-    # end
     Follow.create!(follow_params) unless current_user.itineraries.include?(Itinerary.find(follow_params[:itinerary_id].to_s))
   end
 
