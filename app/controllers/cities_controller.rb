@@ -53,49 +53,18 @@ class CitiesController < ApplicationController
   end
 
   def score(city, trip)
-    # Define all variables
-    # bra = city.mountain_range
-    weather = city.weather
+    # Compute subscores
     itinerary_score = [city.nb_good_itineraries - 1, 0].max
+    weather_score = weather_trip_score(trip.start_date, trip.end_date, city.weather)
 
-    # Comupute subscores
-    # bra.nil? || bra.max_risk.nil? ? avalanche_score = 0 : avalanche_score = bra.max_risk
-    # Weather score
-    weather_score = weather_trip_score(trip.start_date, trip.end_date, weather)
-    # Distance score
     if city.included_in_polygon?(@one_hour_polygon)
       distance_score = 1
-    # elsif city.included_in_polygon?(double_polygon[1]) || city.included_in_polygon?(double_polygon[2]) || city.included_in_polygon?(double_polygon[3]) || city.included_in_polygon?(double_polygon[4])
-    #   distance_score = 2
     else
       distance_score = 1 + trip.distance_from(city) / 50
     end
 
-    # Compute final score
-    score = ([weather_score, [(itinerary_score / 2), trip.duration].min].min) / distance_score ** (1.05 - trip.duration / 20)
-
-    # Lines below make it easier to debug score via rails s
-    # p city.name
-    # p "weather_score: #{weather_score}"
-    # p "itinerary_score: #{itinerary_score}"
-    # p "distance_score: #{distance_score}"
-    # p "score: #{score}"
-    # return score
-  end
-
-  def store_cities_activities_in_session(cities)
-    cities_activities = []
-
-    cities.each do |city|
-      cities_activities << { "city_id" => city.id,
-                             "nb_itineraries" => city.nb_itineraries,
-                             "nb_good_itineraries" => city.nb_good_itineraries,
-                             "temp_activity" => city.temp_activity,
-                             "temp_score" => city.temp_score
-                           }
-    end
-
-    session[:cities_activities] = cities_activities
+    # Return final score
+    ([weather_score, [(itinerary_score / 2), trip.duration].min].min) / distance_score ** (1.05 - trip.duration / 20)
   end
 
   def find_top_cities
@@ -124,9 +93,6 @@ class CitiesController < ApplicationController
 
       cities_activities.flatten!
 
-      # cities_activities.uniq! { |city_activity| city_activity.name }
-      # cities_activities.select! { |city_activity| city_activity.city != nil}
-
       cities_activities.sort_by! do |city_activity|
         city_activity.temp_score = score(city_activity, @trip)
         [city_activity.temp_score, - @trip.distance_from(city_activity)]
@@ -135,17 +101,9 @@ class CitiesController < ApplicationController
       # Take only top 18 and send them to the view
       @cities = cities_activities.reverse[0..13]
       # Store them in session
-      store_cities_activities_in_session(@cities)
+      session[:cities_activities] = SessionStorage.new(@cities).convert_to_hashes
     else
-      @cities = []
-      session[:cities_activities].each do |city_activity|
-        city = City.find(city_activity["city_id"])
-        city.nb_itineraries = city_activity["nb_itineraries"]
-        city.nb_good_itineraries = city_activity["nb_good_itineraries"]
-        city.temp_activity = city_activity["temp_activity"]
-        city.temp_score = city_activity["temp_score"]
-        @cities << city
-      end
+      @cities = SessionStorage.new(session[:cities_activities]).convert_to_objects
     end
   end
 end
