@@ -1,11 +1,5 @@
-const interested = () => {
-  updateCTA();
-  const choices = document.querySelectorAll('#user_activity_level');
-  choices.forEach((choice) => {
-    choice.addEventListener('change', interested);
-  });
-}
-
+const formButton = document.querySelector("#letsGoBtn");
+const selectedActivities = document.querySelector(".selected-icon");
 
 const showForm = (activity) => {
   const formDiv = document.querySelector(`.icon-target#${activity}`)
@@ -25,7 +19,31 @@ const initActivityIcons = () => {
   });
 }
 
-export { interested, initActivityIcons };
+const countSelectedActivities = () => {
+  const chosenActivities = document.querySelectorAll(".selected");
+  var count = 0;
+  for(var i = 0; i < chosenActivities.length; ++i){
+      if(chosenActivities[i].innerText != "Niveau ?")
+        count++;
+  }
+  return count
+}
+
+const initManageButton = () => {
+  if (selectedActivities === null) {formButton.classList.add("hidden")};
+}
+
+const initUpdateButton = () => {
+  const li = document.querySelectorAll("li");
+  li.forEach( (element) => {
+    element.addEventListener('click', (e) => {
+      console.log(countSelectedActivities());
+      if (countSelectedActivities() > 0) {formButton.classList.remove("hidden")};
+    });
+  });
+}
+
+export { initActivityIcons, initManageButton, initUpdateButton };
 
 
 

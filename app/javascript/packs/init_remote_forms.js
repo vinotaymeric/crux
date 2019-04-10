@@ -1,5 +1,3 @@
- // Profile edition
-
 const initForm = () => {
   const activities = document.querySelectorAll('.form-control.select.optional');
   activities.forEach( (element) => {

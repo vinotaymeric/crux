@@ -21,7 +21,6 @@ class TripActivitiesController < ApplicationController
 
     @itineraries = @itineraries.to_a.sort_by { |itinerary| itinerary.score}.reverse
 
-
     # Mapbox
     @markers = @itineraries.map do |itinerary|
       {

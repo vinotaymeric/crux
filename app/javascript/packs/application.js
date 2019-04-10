@@ -9,7 +9,7 @@ import adjustBanner from './adjust_banner'
 import initItinerarySearch from './itinerary_search'
 import { initTransition} from '../components/transition';
 import { initToggleAdd, initFavorites } from './init_favorite';
-import { interested, initActivityIcons } from './trip_form';
+import { initActivityIcons, initManageButton, initUpdateButton } from './trip_form';
 import initAutocomplete from '../plugins/init_autocomplete';
 import initDrivingTimeOnTrips from './init_driving_time_on_trips'
 import initTabs from '../components/init_tabs';
@@ -31,7 +31,8 @@ initToggleAdd();
 adjustBanner();
 initItinerarySearch();
 initActivityIcons();
-
+initManageButton();
+initUpdateButton();
 
 // Init Materialize components
 
