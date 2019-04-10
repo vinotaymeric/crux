@@ -1,5 +1,4 @@
 namespace :update_conditions do
-
   desc "Update BRA"
   task BRA: :environment do
     UpdateForecast.new.update_all_bra(Date.today.prev_day.to_s.delete("-").to_i)
@@ -20,4 +19,8 @@ namespace :update_conditions do
     UpdateItinerary.new.update_outings_on_followed_itineraries
   end
 
+  task all: [:BRA, :weather, :itineraries, :followed_itineraries]
 end
+
+desc "Update everything"
+task update_conditions: "update_conditions:all"
