@@ -1,55 +1,27 @@
 // Graphical variables
 @import "config/fonts";
 @import "config/colors";
-@import "config/bootstrap_variables";
-
+@import "config/materialize_changes";
 
 // External libraries
 @import "@material/icon-button/mdc-icon-button";
-
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
 // Your CSS partials
-@import "layouts/index";
 @import "components/index";
 @import "pages/index";
-@import "basecamps_activities";
-@import "materialize_changes";
 
-
-// Below: parts of materialized which I customed
-
-nav {
- background-color: #23B5D3;
-}
+// Main elements style
+body {
+  background-image: linear-gradient(rgba(240,243,243,1), rgba(240,243,243,0.6)),url("https://res.cloudinary.com/deesjjv4h/image/upload/v1551794164/crux/images/background.png.png");
+  background-repeat: repeat;
+  background-size: 9em;
+ }
 
 p {
   text-align: left;
   font-size: 1em !important;
-}
-
-.tabs .tab a:hover, .tabs .tab a.active {
-  color: rgb(38,166,154);
-}
-
-.tabs .tab a {
-  color: rgba(38, 166, 154, 0.7);
-}
-
-.tabs .tab a:focus, .tabs .tab a:focus.active {
-  background-color: rgba(38, 166, 154, 0.2);
-  outline: none;
-}
-
-.tabs .tab.disabled a,
-.tabs .tab.disabled a:hover {
-  color: rgba(38, 166, 154, 0.4);
-  cursor: default;
-}
-
-.tabs .indicator {
-  background-color: #23B5D3;
 }
 
 a:hover {
@@ -64,12 +36,8 @@ a.green-link {
   color: #26a69a !important;
 }
 
-.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
-  color:#26a69a;
-}
-
-nav ul a {
-  font-size: 1em;
+li {
+  list-style-type: none;
 }
 
 label {
@@ -80,30 +48,8 @@ label {
   object-fit: scale-down;
 }
 
-li {
-  list-style-type: none;
-}
-
 .cover {
   object-fit: cover;
-}
-
-.card.horizontal .card-image img {
-    max-width: 100px;
-    height: 190px;
-}
-
-.title-card.ellsipsised {
-  font-size: 1.1rem !important;
-  line-height: 20px !important;
-  color: black !important;
-  text-align: center !important;
-}
-
-.toaster {
-  background-color: #23B5D3;
-  font-size: 1.5rem;
-  font-weight: bolder;
 }
 
 .remove {
@@ -120,37 +66,6 @@ li {
   background-color: #23B5D3;
 }
 
-
-// infinite scroll
-
-#load_more_itineraries {
-  display: none;
-  margin-bottom: 10px;
-}
-
-#static-pagination {
- border: #23B5D3 solid 10px;
-  position: fixed;
-  top: 30px;
-  opacity: 0.7;
-  &:hover {
-    opacity: 1;
-  }
-}
-
-
-#infinite-scrolling {
-  display: flex;
-  justify-content: center;
-  height: 5em;
-}
-
-#gifDelimiter{
-  display: flex;
-  justify-content: center;
-  height: 5em;
-}
-
 .ellipsis {
   text-overflow: ellipsis;
 
@@ -165,26 +80,6 @@ li {
   color: #23B5D3;
 }
 
-.title-card > .strong-card-title {
-  color: #23B5D3;
-  font-weight: bold;
-}
-
-.bigger {
-  font-size: 2rem;
-}
-
-.fixed-action-btn {
-  margin-bottom: -25px !important;
-  transition: margin ease 0.2s;
-  padding: 10px !important;
-}
-
-.hide-cta {
-  margin-bottom: -80px !important;
-  transition: margin ease 0.2s;
-}
-
 .row {
   padding-top: 15px;
 }
@@ -197,48 +92,23 @@ li {
   padding-top: 0;
 }
 
-
 .light-padding {
  padding-top: 20px;
 }
 
-
-// new trips css
-.marginClass{
-margin-top: 3.5em;
-}
-
-
-
-//test
-.border{
-  border: orange solid 5px;
-}
-
-
-#itinerary-content {
-  p {
-    text-align: justify;
-  }
-}
-
 .crux-blue {
-  color: rgba(35,181,211, 1) !important;
+  color: $blue !important;
 }
 
 #green-search {
-  background-color: #26a69a;
+  background-color: $green;
   color: white;
   padding: 5px;
   border-radius: 5px;
 }
 
 .crux-red {
-  color: #E71D36
-}
-
-.crux-black {
-  color: #071013;
+  color: $red
 }
 
 .no-padding {

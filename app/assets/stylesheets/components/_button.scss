@@ -1,14 +1,5 @@
-.btn-outline {
-    background-color: rgba(35,181,211, 0.8);
-    border: 1px solid rgba(35,181,211, 1);
-    padding: 0.8em;
-    color: white;
-    border-radius: 7px;
-    text-align: center;
-    font-size: 1.3em;
-    &:hover {
-      background-color: rgba(35,181,211, 1);
-    }
+.btn {
+  font-size: 1.3em;
 }
 
 .secondary {
@@ -34,9 +25,16 @@
   background-color: rgba(7,16,19,0.4);
 }
 
-  .btn-my-trips {
-    font-size: 1rem;
-  }
+.fixed-action-btn {
+  margin-bottom: -25px !important;
+  transition: margin ease 0.2s;
+  padding: 10px !important;
+}
+
+.hide-cta {
+  margin-bottom: -80px !important;
+  transition: margin ease 0.2s;
+}
 
 
 @media only screen and (max-width: 390px) {
