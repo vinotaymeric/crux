@@ -2,7 +2,6 @@ require "open-uri"
 require "nokogiri"
 
 class Basecamp < ApplicationRecord
-  has_many :basecamps_activities
   has_many :itineraries
   belongs_to :area, optional: true
   belongs_to :weather, optional: true
