@@ -7,7 +7,6 @@ gem 'geocoder', '~> 1.3', '>= 1.3.7'
 gem 'awesome_print'
 gem 'redcarpet'
 gem 'i18n'
-gem 'sendgrid-ruby'
 gem 'dotenv-rails', groups: [:development, :test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
