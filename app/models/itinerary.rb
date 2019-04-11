@@ -8,7 +8,6 @@ class Itinerary < ApplicationRecord
   has_many :trips, through: :favorite_itinerary
   has_many :outings
   geocoded_by :address, latitude: :coord_lat, longitude: :coord_long
-  self.per_page = 3
 
   def api_call(itinerary, id)
     url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"
