@@ -7,6 +7,7 @@ gem 'geocoder', '~> 1.3', '>= 1.3.7'
 gem 'awesome_print'
 gem 'redcarpet'
 gem 'i18n'
+gem 'sendgrid-ruby'
 #pagination
 gem 'will_paginate', '~> 3.0.5'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
