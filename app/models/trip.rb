@@ -2,10 +2,10 @@ class Trip < ApplicationRecord
   belongs_to :user
   belongs_to :city, optional: true
   belongs_to :user_activity, optional: true
-  has_many :favorite_itineraries
+  has_many :favorite_itineraries, dependent: :destroy
   has_many :itineraries, through: :favorite_itineraries
-  has_many :trip_activities
-  has_one :trip_activity
+  has_many :trip_activities, dependent: :destroy
+  has_one :trip_activity, dependent: :destroy
   attribute :validated, default: false
   validates :start_date, presence: true
   validates :end_date, presence: true
