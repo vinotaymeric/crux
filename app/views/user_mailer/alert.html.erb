@@ -1,10 +1,18 @@
-<h3>Nouvelle sortie sur <a href=<%= "https://www.camptocamp.org/routes/#{@itinerary.source_id}" %>><%= @itinerary.name %></a></h3>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3>Nouvelle sortie sur <a href=<%= "https://www.camptocamp.org/routes/#{@itinerary.source_id}" %>><%= @itinerary.name %></a></h3>
 
-<h4 class="strong">Sorties récentes</h4>
-<ul>
-  <% @itinerary.recent_outings.each do |outing| %>
-  <p><strong>Sortie du <%= outing[0] %></strong></p>
-  <p><i class="fas fa-quote-left crux-blue"></i> <em><%= outing[1] %></em> <i class="fas fa-quote-right crux-blue"></i></p>
-  <br>
-  <% end %>
-</ul>
+    <h4 class="strong">Sorties récentes</h4>
+    <ul>
+      <% @itinerary.recent_outings.each do |outing| %>
+      <p><strong>Sortie du <%= outing[0] %></strong></p>
+      <p><i class="fas fa-quote-left crux-blue"></i> <em><%= outing[1] %></em> <i class="fas fa-quote-right crux-blue"></i></p>
+      <br>
+      <% end %>
+    </ul>
+  </body>
+</html>

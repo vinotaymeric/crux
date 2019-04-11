@@ -20,7 +20,6 @@ class User < ApplicationRecord
 
   private
 
-
   def send_basecamp_email
     UserMailer.follow_basecamp(self).deliver_now
   end
