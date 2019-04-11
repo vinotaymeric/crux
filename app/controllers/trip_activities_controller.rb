@@ -11,7 +11,7 @@ class TripActivitiesController < ApplicationController
     if params[:query].present? && !params[:query].blank?
       @itineraries = Itinerary.where("name ILIKE ?", "%#{params[:query]}%")[0..10]
       respond_to do |format|
-        format.js { render partial: 'shared/search-results', locals: {search_result_itineraries: @itineraries, favorite: @favorite_itinerary, trip: @trip}}
+        format.js { render partial: 'shared/search-results', locals: {search_result_itineraries: @itineraries, favorite: @favorite_itinerary, trip: @trip, follow: nil, followed_itineraries: nil, user: nil}}
       end
     elsif @trip.validated
       @itineraries = @trip.itineraries.distinct.order(picture_url: :asc)
