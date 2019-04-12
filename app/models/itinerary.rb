@@ -11,10 +11,7 @@ class Itinerary < ApplicationRecord
 
   def api_call(itinerary, id)
     url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"
-    begin
     JSON.parse(open(url).read)
-    rescue Exception => e
-    end
   end
 
   def short_name
@@ -27,26 +24,27 @@ class Itinerary < ApplicationRecord
   end
 
   def update_recent_conditions
-    begin
     api_call("routes", self.source_id)["associations"]["recent_outings"]["documents"].each do |outing|
-      date = Date.parse outing["date_start"]
+      begin
+        date = Date.parse outing["date_start"]
 
-      if date.upto(Date.today).to_a.size < 60000
-        document_id = outing["document_id"]
-        saved_outing = Outing.find_by(source_id: document_id)
-        if saved_outing.nil?
-          saved_outing = Outing.create!(itinerary: self, date: outing["date_start"], source_id: outing["document_id"])
+        if date.upto(Date.today).to_a.size < 60000
+          document_id = outing["document_id"]
+          saved_outing = Outing.find_by(source_id: document_id)
+          if saved_outing.nil?
+            saved_outing = Outing.create!(itinerary: self, date: outing["date_start"], source_id: outing["document_id"])
+          end
+          recap = api_call("outings", document_id)["locales"][0]
+          content = ""
+          content += recap["timing"] if recap["timing"] != nil
+          content += "\n #{recap["route_description"]}" if recap["route_description"] != nil
+          content += "\n #{recap["conditions"]}" if recap["conditions"] != nil
+          content += "\n #{recap["description"]}" if recap["description"] != nil
+          saved_outing.update!(content: content)
         end
-        recap = api_call("outings", document_id)["locales"][0]
-        content = ""
-        content += recap["timing"] if recap["timing"] != nil
-        content += "\n #{recap["route_description"]}" if recap["route_description"] != nil
-        content += "\n #{recap["conditions"]}" if recap["conditions"] != nil
-        content += "\n #{recap["description"]}" if recap["description"] != nil
-        saved_outing.update!(content: content)
+      rescue StandardError => e
+        puts e.message
       end
-    end
-    rescue
     end
   end
 
@@ -89,9 +87,9 @@ class Itinerary < ApplicationRecord
 
   def small_picture
     if self.picture_url[-3..-1] = "svg"
-      small_picture = "#{self.picture_url[0..-5]}MI.jpg"
+      "#{self.picture_url[0..-5]}MI.jpg"
     else
-      small_picture = "#{self.picture_url[0..-5]}MI.#{self.picture_url[-3..-1]}"
+      "#{self.picture_url[0..-5]}MI.#{self.picture_url[-3..-1]}"
     end
   end
 

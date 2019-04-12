@@ -2,7 +2,6 @@ class Activity < ApplicationRecord
   has_many :users
   has_many :itineraries, dependent: :destroy
 
-  # tout est às dynamiser
   def placeholder_image
     cloudinary_url = "https://res.cloudinary.com/dbehokgcg/image/upload/v1553506008"
     if self.name == "skitouring"

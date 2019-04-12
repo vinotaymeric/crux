@@ -132,7 +132,7 @@ fr:
       odd: doit être impair
       other_than: doit être différent de %{count}
       present: doit être vide
-      required: doit exister
+      required: doit être rempli(e)
       taken: n'est pas disponible
       too_long:
         one: est trop long (pas plus d'un caractère)
