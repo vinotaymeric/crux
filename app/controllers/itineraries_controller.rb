@@ -2,9 +2,9 @@ class ItinerariesController < ApplicationController
   before_action :init_mark_down_parser, only: [:show, :index]
 
   def index
+    @user = current_user
     @followed_itineraries = current_user.itineraries
     @follow = Follow.new
-    @user = current_user
     @favorite = FavoriteItinerary.new
     @trip = Trip.new
 

@@ -65,6 +65,8 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
   gem 'factory_bot_rails'
+  gem 'database_cleaner', '~> 1.5'
+  gem 'faker'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'listen', '~> 3.0.5'

@@ -17,4 +17,8 @@ RSpec.describe Itinerary, type: :model do
   it "should have a short name, valid, less than 45 char" do
     expect(@itinerary.short_name.length).to be <= 45
   end
+
+  it "should have a score >= 0" do
+    expect(@itinerary.score).to be >= 0
+  end
 end
