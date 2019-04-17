@@ -1,7 +1,7 @@
 namespace :update_conditions do
   desc "Update BRA"
   task BRA: :environment do
-    UpdateForecast.new.update_all_bra(Date.today.prev_day.to_s.delete("-").to_i)
+    UpdateForecast.new.update_all_bra(Date.today)
   end
 
   desc "Update weather"

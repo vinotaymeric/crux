@@ -5,9 +5,15 @@ require_relative 'services_helpers'
 
 class UpdateForecast
 
+  def switch_to_date_before_yesterday
+    date = Date.today.prev_day.prev_day.to_s.delete("-").to_i
+    "https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/bra.#{date}.json"
+  end
+
   # MeteoFrance provides a JSON with all BRA keys (= ways to access XML) for a given date
   def get_bra_keys_for(date)
     url = "https://donneespubliques.meteofrance.fr/donnees_libres/Pdf/BRA/bra.#{date}.json"
+    url = switch_to_date_before_yesterday if open(url).read.include?("Fichier non trouvé")
     JSON.parse(open(url).read)
   end
 
