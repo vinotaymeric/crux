@@ -123,6 +123,16 @@ class Itinerary < ApplicationRecord
     outings_per_month
   end
 
+  def guessed_outing_months
+    outing_months.map do |key, value|
+      if key < 12
+        (outing_months[key + 1] > 0 && value = 0) ? value = 1  : value
+      else
+        (outing_months[1] > 0 && value = 0) ? value = 1  : value
+      end
+    end
+  end
+
   def activity_score
     month = Date.today.month
     activity = self.activity.name

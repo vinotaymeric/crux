@@ -17,6 +17,7 @@
           <% end %>
         </div>
 
+<hr />
         <div class="center-align">
           <% if itinerary.elevation_max != nil  %>
             <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Altitude max"><%= itinerary.elevation_max %>m</span>
@@ -28,6 +29,28 @@
           <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Equipement"><%= itinerary.equipment_rating %></span>
           <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Engagement"><%= itinerary.engagement_rating %></span>
         </div>
+
+<hr />
+
+<div class="center-align outings-calendar">
+  <span class="calendar-title">
+      Meilleurs mois :
+  </span>
+  <span class="calendar-months">
+    <% itinerary.guessed_outing_months.each_with_index do |count, index| %>
+      <% if count == 0 %>
+        <span class="case">
+      <% elsif count == 1 %>
+        <span class="blue-case">
+      <% else %>
+        <span class="strong-blue-case">
+      <% end %>
+      <%= index + 1 %>
+        </span>
+    <% end %>
+  </span>
+
+</div>
 
         <% if defined?(trip) && !trip.nil? %>
           <%= render partial: "trip_validation", locals: {itinerary: itinerary, favorite: favorite, trip: trip} %>

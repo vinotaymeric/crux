@@ -20,11 +20,11 @@
 }
 
 .card.small .card-image, .card.medium .card-image, .card.large .card-image {
-  max-height: 50%;
+  max-height: 40%;
 }
 
 .card.small .card-image + .card-content, .card.medium .card-image + .card-content, .card.large .card-image + .card-content {
-  max-height: 50%;
+  max-height: 60%;
 }
 
 .card-image {
@@ -44,3 +44,25 @@
 .card-content {
   color: black;
 }
+
+.outings-calendar{
+  padding: 5px;
+  font-size: 0.9rem;
+  .calendar-months {
+    width: 30px;
+    color: rgba(0, 0, 0, 0.4);
+    .case {
+    background-color: rgba(35,181,211, 0.2);
+    }
+    .blue-case {
+      background-color: $blue;
+      color: rgba(0, 0, 0, 0.7);
+    }
+    .strong-blue-case {
+      background-color: $blue;
+      color: rgba(0, 0, 0, 1);
+      font-weight: bolder;
+    }
+  }
+}
+

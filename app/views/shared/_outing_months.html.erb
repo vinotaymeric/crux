@@ -1,0 +1,16 @@
+<div class="center-align">
+  <% itinerary.guessed_outing_months.each_with_index do |outing, index| %>
+    <% if outing > 0  %>
+      <span class="tertiary" style="background-color: green">
+        <%= index + 1 %>
+      </span>
+    <% else %>
+      <span class="tertiary" style="background-color: grey">
+        <%= index + 1 %>
+      </span>
+    <% end %>
+  </span>
+  <% end %>
+</div>
+
+
