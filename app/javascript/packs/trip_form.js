@@ -30,6 +30,7 @@ const countSelectedActivities = () => {
 }
 
 const initManageButton = () => {
+  if (formButton === null) {return}
   if (selectedActivities === null) {formButton.classList.add("hidden")};
 }
 
@@ -37,7 +38,6 @@ const initUpdateButton = () => {
   const li = document.querySelectorAll("li");
   li.forEach( (element) => {
     element.addEventListener('click', (e) => {
-      console.log(countSelectedActivities());
       if (countSelectedActivities() > 0) {formButton.classList.remove("hidden")};
     });
   });
