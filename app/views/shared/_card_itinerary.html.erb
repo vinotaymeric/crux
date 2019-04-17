@@ -29,9 +29,9 @@
           <span class="tertiary tooltipped" data-position="bottom" data-tooltip="Engagement"><%= itinerary.engagement_rating %></span>
         </div>
 
-        <% if !trip.nil? %>
+        <% if defined?(trip) && !trip.nil? %>
           <%= render partial: "trip_validation", locals: {itinerary: itinerary, favorite: favorite, trip: trip} %>
-        <% elsif !follow.nil? %>
+        <% elsif defined?(follow) && !follow.nil? %>
           <%= render partial: "shared/follow_validation", locals: {itinerary: itinerary, follow: follow, followed_itineraries: followed_itineraries, user: user} %>
         <% end %>
 
