@@ -4,6 +4,7 @@ class UpdateItinerary
     Itinerary.all.each do |itinerary|
       begin
       itinerary.update!(score: itinerary.score_calculation)
+      puts "iti #{itinerary.id} updated"
       rescue Exception => e
         p e.message
       end

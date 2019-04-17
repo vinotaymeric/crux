@@ -133,29 +133,30 @@ class Itinerary < ApplicationRecord
     end
   end
 
+  def is_incomplete?
+    height_diff_up.nil? || elevation_max.nil? || orientations.nil?
+  end
+
   def activity_score
+    return 0 if is_incomplete?
+
     month = Date.today.month
     activity = self.activity.name
 
-    if self.height_diff_up.nil? || self.elevation_max.nil?
-      activity_score = 0
-      return activity_score
-    end
-
-    average_elevation = self.elevation_max - (self.height_diff_up / 2)
+    average_elevation = elevation_max - (height_diff_up / 2)
 
     winter_months = [12, 1, 2, 3]
     intermediate_months = [11, 4, 5]
     ski_months = [11, 12, 1, 2, 3, 4, 5]
     activity_score = 1
 
-    if activity == "rock_climbing" && winter_months.include?(month) && (average_elevation > 1200 || self.orientations.include?("N"))
+    if activity == "rock_climbing" && winter_months.include?(month) && (average_elevation > 1200 || orientations.include?("N"))
       activity_score = 0
-    elsif activity == "rock_climbing" && intermediate_months.include?(month) && (average_elevation > 2000 || self.orientations.include?("N"))
+    elsif activity == "rock_climbing" && intermediate_months.include?(month) && (average_elevation > 2000 || orientations.include?("N"))
       activity_score = 0
     elsif activity == "skitouring" && !ski_months.include?(month)
       activity_score = 0
-    elsif activity == "skitouring" && intermediate_months.include?(month) && average_elevation < 2500 && self.orientations.include?("S")
+    elsif activity == "skitouring" && intermediate_months.include?(month) && average_elevation < 2500 && orientations.include?("S")
       activity_score = 0
     elsif activity == "skitouring" && intermediate_months.include?(month) && average_elevation < 1750
       activity_score = 0
@@ -171,7 +172,7 @@ class Itinerary < ApplicationRecord
     score = score / 2 if (self.number_of_outing + self.outings.count) < 2
     score = score / 2 if self.content.nil? || self.content.size < 500
     self.outing_months[Date.today.month] > 0 ? score *= 5 : score = score * activity_score
-    return score
+    score
   end
 
   def clean_content
