@@ -1,16 +1,20 @@
-<div class="center-align">
-  <% itinerary.guessed_outing_months.each_with_index do |outing, index| %>
-    <% if outing > 0  %>
-      <span class="tertiary" style="background-color: green">
-        <%= index + 1 %>
-      </span>
-    <% else %>
-      <span class="tertiary" style="background-color: grey">
-        <%= index + 1 %>
-      </span>
+<div class="center-align outings-calendar">
+  <span class="calendar-title">
+      Meilleurs mois :
+  </span>
+  <span class="calendar-months">
+    <% itinerary.guessed_outing_months.each_with_index do |count, index| %>
+      <% if count == 0 %>
+        <span class="case">
+      <% elsif count == 1 %>
+        <span class="blue-case">
+      <% else %>
+        <span class="strong-blue-case">
+      <% end %>
+      <%= index + 1 %>
+        </span>
     <% end %>
   </span>
-  <% end %>
-</div>
 
+</div>
 
