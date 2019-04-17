@@ -7,7 +7,11 @@ class City < ApplicationRecord
   has_many :itineraries, through: :areas
 
   def clean_name
-    self.name.encode("iso-8859-1").force_encoding("utf-8")
+    name.encode("iso-8859-1").force_encoding("utf-8")
+  end
+
+  def slug_name
+    clean_name.gsub(" ", "-").downcase
   end
 
   def meteoblue_air_url
