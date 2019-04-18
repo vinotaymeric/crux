@@ -1,3 +1,5 @@
+include Rails.application.routes.url_helpers
+
 class UserMailer < ApplicationMailer
 
   def alert(user, itinerary)

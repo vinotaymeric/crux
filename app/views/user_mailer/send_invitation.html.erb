@@ -5,7 +5,8 @@
   </head>
   <body>
     <p>
-      Clique sur ce <a href="">lien</a> et rejoins ma sortie poto!
+      Clique sur ce <a href=<%= root_url.chomp + trip_city_trip_activity_path(@trip, @trip.city, @trip.trip_activity) %>>lien</a>
+      et rejoins ma sortie poto!
     </p>
   </body>
 </html>
