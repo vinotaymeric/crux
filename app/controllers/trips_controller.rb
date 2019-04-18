@@ -12,6 +12,16 @@ class TripsController < ApplicationController
     @trip = Trip.new
   end
 
+  def show
+    trip = Trip.find(params[:id])
+
+    if trip.validated?
+      redirect_to trip_city_trip_activity_path(trip, trip.city, trip.trip_activity)
+    else
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
   def index
     @trips = current_or_guest_user.trips.reverse
   end

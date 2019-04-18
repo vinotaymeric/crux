@@ -12,6 +12,10 @@ class Trip < ApplicationRecord
   geocoded_by :location, latitude: :coord_lat, longitude: :coord_long
   after_validation :geocode, if: :will_save_change_to_location?
 
+  def validated?
+    validated
+  end
+
   def duration
     self.start_date.upto(self.end_date).to_a.size
   end
