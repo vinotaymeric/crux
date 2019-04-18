@@ -23,10 +23,14 @@
       <span class="hide-on-med-and-up"><i class="fas fa-map-marked bigger"></i></span>
     </a>
   </li>
+  <% if trip.validated?  %>
+
   <li class="tab col s1">
     <a class="active" href="#participants">
       <span class="hide-on-small-only">Participants</span>
       <span class="hide-on-med-and-up"><i class="fas fa-user bigger"></i></span>
     </a>
   </li>
+
+  <% end %>
 </ul>

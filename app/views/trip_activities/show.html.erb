@@ -19,7 +19,7 @@
   <div class="row">
     <div class="col s12">
 
-      <%= render partial: "tabs" %>
+      <%= render partial: "tabs", locals: {trip: @trip} %>
 
       <div id="itineraries" style="margin: 10px;">
 
@@ -67,11 +67,15 @@
           <%= render partial: "mapbox" %>
         </div>
       </div>
+
+      <% if @trip.validated %>
       <div id="participants">
         <div class="row">
           <%= render partial: "participants", locals: {trip: @trip, invitation: @invitation} %>
         </div>
       </div>
+      <% end %>
+
     </div>
   </div>
 </div>
