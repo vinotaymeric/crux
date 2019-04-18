@@ -5,4 +5,9 @@ class UserMailer < ApplicationMailer
     @itinerary = itinerary
     mail(to: @user.email, subject: "Nouvelle sortie sur #{itinerary.name}")
   end
+
+  def send_invitation(invitation)
+    @trip = invitation.trip
+    mail(to: invitation.mailed_to, subject: "Rejoins ma sortie sur Crux")
+  end
 end
