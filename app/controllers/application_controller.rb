@@ -69,17 +69,21 @@ class ApplicationController < ActionController::Base
 
 # called (once) when the user logs in
   def logging_in
+    guest_trips = guest_user.trips.all
+    guest_trips.each do |trip|
+      trip.user_id = current_user.id
+      trip.save!
+    end
+
+    # Transmit trips, but not user activites if they already exist (otherwise causes duplicate)
+    return if current_user.user_activities.count > 0
+
     guest_user_activities = guest_user.user_activities.all
     guest_user_activities.each do |user_activity|
       user_activity.user_id = current_user.id
       user_activity.save!
     end
 
-    guest_trips = guest_user.trips.all
-    guest_trips.each do |trip|
-      trip.user_id = current_user.id
-      trip.save!
-    end
   end
 
   def store_location
