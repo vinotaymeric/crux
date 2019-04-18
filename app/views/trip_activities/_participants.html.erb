@@ -1,12 +1,23 @@
-<div class=" trip-tab" style="margin-top: 10px;">
+<div class="trip-tab light-padding light-margin">
+  <h6 class="strong">Participants actuels</h6>
+  <ul>
+    <% participants.each do |participant| %>
+    <li>
+      <%= participant.user.email %>
+    </li>
+    <% end %>
+  </ul>
+</div>
 
+<div class=" trip-tab light-padding light-margin">
+  <h6 class="strong">Invite tes compagnons</h6>
   <div class="form-container">
     <%= simple_form_for invitation, html: {:class => "form-inline"} do |f| %>
 
     <div class="flexbox-class">
-      <%= f.input  :mailed_to, label: false, placeholder: "email de ton compagnon de cordée" %>
+      <%= f.input  :mailed_to, label: false, placeholder: "reihnold@messner.com" %>
       <%= f.input  :trip_id, input_html: {value: trip.id}, as: :hidden %>
-      <%= f.button :submit, "Inviter", class: 'btn' %>
+      <%= f.button :submit, "Go", class: 'btn' %>
     </div>
     <% end %>
   </div>

@@ -71,7 +71,7 @@
       <% if @trip.validated %>
       <div id="participants">
         <div class="row">
-          <%= render partial: "participants", locals: {trip: @trip, invitation: @invitation} %>
+          <%= render partial: "participants", locals: {trip: @trip, invitation: @invitation, participants: @trip_activity.trip.participants} %>
         </div>
       </div>
       <% end %>
