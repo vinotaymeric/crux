@@ -20,6 +20,10 @@
                     required: false,
                     input_html: { autocomplete: "current-password" }
                      %>
+
+              <% if @token %>
+              <%= hidden_field_tag :invite_token, @token %>
+              <% end %>
               </div>
               <div class="center-align">
                 <%= f.button :submit, "Se connecter" %>

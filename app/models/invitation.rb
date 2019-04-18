@@ -1,4 +1,5 @@
 class Invitation < ApplicationRecord
+  before_create :generate_token
   after_create :send_invitation
 
   belongs_to :trip
@@ -8,5 +9,9 @@ class Invitation < ApplicationRecord
 
   def send_invitation
     UserMailer.send_invitation(self).deliver_now
+  end
+
+  def generate_token
+     self.token = Digest::SHA1.hexdigest([trip.id, Time.now, rand].join)
   end
 end

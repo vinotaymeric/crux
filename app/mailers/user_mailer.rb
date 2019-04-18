@@ -9,7 +9,13 @@ class UserMailer < ApplicationMailer
   end
 
   def send_invitation(invitation)
-    @trip = invitation.trip
+    @invitation_link = invitation_link(invitation)
     mail(to: invitation.mailed_to, subject: "Rejoins ma sortie sur Crux")
+  end
+
+  private
+
+  def invitation_link(invitation)
+    root_url.chomp + trip_path(invitation.trip)[1..-1] + "?invitation_token=#{invitation.token}"
   end
 end

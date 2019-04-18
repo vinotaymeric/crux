@@ -24,6 +24,10 @@
                 label: "Confirmation mot de passe:",
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
+
+                <% if @token %>
+                <%= hidden_field_tag :invite_token, @token %>
+                <% end %>
               </div>
               <div class="center-align">
                 <%= f.button :submit, "S'inscrire" %>

@@ -1,5 +1,7 @@
 class TripsController < ApplicationController
+  before_action :store_invitation_token
   before_action :empty_top_cities
+  before_action :authenticate_user!, only: :show
 
   def new
     user = current_or_guest_user
@@ -53,6 +55,10 @@ class TripsController < ApplicationController
 
   def trip_params
     params.require(:trip).permit(:start_date, :end_date, :location, :validated)
+  end
+
+  def store_invitation_token
+    session[:invitation_token] = params[:invitation_token]
   end
 
   # Some logic to allow french langage within the calendar
