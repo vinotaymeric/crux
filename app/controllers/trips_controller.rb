@@ -2,6 +2,7 @@ class TripsController < ApplicationController
   before_action :store_invitation_token
   before_action :empty_top_cities
   before_action :authenticate_user!, only: :show
+  before_action :check_that_user_is_participant
 
   def new
     user = current_or_guest_user
@@ -59,6 +60,15 @@ class TripsController < ApplicationController
 
   def store_invitation_token
     session[:invitation_token] = params[:invitation_token]
+  end
+
+  def check_that_user_is_participant
+    trip = Trip.find(params[:id])
+
+    if !trip.users.include?(current_user)
+      flash[:alert] = "Tu n'es pas invité sur cette sortie."
+      redirect_to root_path
+    end
   end
 
   # Some logic to allow french langage within the calendar
