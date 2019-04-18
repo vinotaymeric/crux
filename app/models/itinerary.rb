@@ -15,8 +15,8 @@ class Itinerary < ApplicationRecord
   end
 
   def short_name
-    if self.name.size > 40
-      name = self.name[0..40] + "..."
+    if self.name.size > 26
+      name = self.name[0..26] + "..."
     else
       name = self.name
     end
