@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :participant do
+    user { nil }
+    trip { nil }
+  end
+
 
   factory :itinerary do
     activity { Activity.new }
