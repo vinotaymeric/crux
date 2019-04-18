@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   resources :itineraries, only: [:show, :index]
   resources :user_activities, only: [:create, :update]
   resources :follows, only: [:create, :destroy, :index]
+  resources :invitations, only: :create
 end

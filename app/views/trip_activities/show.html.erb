@@ -67,6 +67,11 @@
           <%= render partial: "mapbox" %>
         </div>
       </div>
+      <div id="participants">
+        <div class="row">
+          <%= render partial: "participants", locals: {trip: @trip, invitation: @invitation} %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

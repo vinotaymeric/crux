@@ -1,0 +1,14 @@
+<div class=" trip-tab" style="margin-top: 10px;">
+
+  <div class="form-container">
+    <%= simple_form_for invitation, html: {:class => "form-inline"} do |f| %>
+
+    <div class="flexbox-class">
+      <%= f.input  :mailed_to, label: false, placeholder: "email de ton compagnon de cordée" %>
+      <%= f.input  :trip_id, input_html: {value: trip.id}, as: :hidden %>
+      <%= f.button :submit, "Inviter", class: 'btn' %>
+    </div>
+    <% end %>
+  </div>
+
+</div>

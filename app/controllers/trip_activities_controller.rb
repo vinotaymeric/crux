@@ -7,6 +7,7 @@ class TripActivitiesController < ApplicationController
     @activity = Activity.find(@trip_activity.activity_id)
     @mountain_range = @city.mountain_range
     @favorite_itinerary = FavoriteItinerary.new
+    @invitation = Invitation.new
 
     if params[:query].present? && !params[:query].blank?
       @itineraries = Itinerary.where("name ILIKE ?", "%#{params[:query]}%")[0..10]
