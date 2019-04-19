@@ -69,13 +69,15 @@ class ApplicationController < ActionController::Base
 
 # called (once) when the user logs in
   def logging_in
+    # Transmit trips and user participation...
     guest_trips = guest_user.trips.all
     guest_trips.each do |trip|
       trip.user_id = current_user.id
       trip.save!
+      Participant.create!(user: current_user, trip: trip)
     end
 
-    # Transmit trips, but not user activites if they already exist (otherwise causes duplicate)
+    # ... but not user activites if they already exist (otherwise causes duplicate)
     return if current_user.user_activities.count > 0
 
     guest_user_activities = guest_user.user_activities.all

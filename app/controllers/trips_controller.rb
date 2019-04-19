@@ -35,6 +35,9 @@ class TripsController < ApplicationController
     @trip.user = current_or_guest_user
     @trip.save!
 
+    # Add current user as participant to the trip
+    Participant.create!(user: current_or_guest_user, trip: @trip)
+
     # Create trip_activities so that if the user changes its profile it wont change the results
     current_or_guest_user.user_activities.where.not(level: nil).each do |user_activity|
       TripActivity.create!(trip: @trip, activity: user_activity.activity, level: user_activity.level)
@@ -45,9 +48,7 @@ class TripsController < ApplicationController
 
   def destroy
     trip = Trip.find(params[:id])
-    trip.trip_activities.delete_all
-    trip.favorite_itineraries.delete_all
-    trip.delete
+    trip.destroy
     flash[:notice] = "La sortie a été supprimée."
     redirect_back(fallback_location: root_path)
   end

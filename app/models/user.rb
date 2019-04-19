@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :invitations, through: :trips, dependent: :destroy
   has_many :follows, dependent: :destroy
   has_many :itineraries, through: :follows, dependent: :destroy
+  has_many :participants, dependent: :destroy
   after_create :create_user_activities
 
   def create_user_activities
