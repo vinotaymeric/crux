@@ -65,7 +65,7 @@ class TripsController < ApplicationController
   def check_that_user_is_participant
     trip = Trip.find(params[:id])
 
-    if !trip.users.include?(current_user)
+    unless trip.users.include?(current_user)
       flash[:alert] = "Tu n'es pas invité sur cette sortie."
       redirect_to root_path
     end

@@ -3,7 +3,7 @@ class Invitation < ApplicationRecord
   after_create :send_invitation
 
   belongs_to :trip
-  validates :mailed_to, presence: true, format: { with: /.+@.+\..+/i, message: "email incorrect"}
+  validates :mailed_to, presence: true, format: { with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i, message: "email incorrect"}
 
   private
 
