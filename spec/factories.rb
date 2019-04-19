@@ -39,4 +39,11 @@ FactoryBot.define do
     password { Faker::PhoneNumber.phone_number }
   end
 
+  factory :trip do
+    start_date { DateTime.now.to_date }
+    end_date { DateTime.now.to_date }
+    location { "Angers, Pays-de-la-Loire, France" }
+    user {FactoryBot.create(:user)}
+  end
+
 end
