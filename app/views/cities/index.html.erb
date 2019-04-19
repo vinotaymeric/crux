@@ -14,48 +14,9 @@
           <div id="list">
             <div class="slide-container">
             <% @cities.each do |city| %>
-              <div class="col s12 m6">
-                <% activity = Activity.find_by(name: city.temp_activity) %>
-                <% trip_activity = TripActivity.find_by(activity_id: activity.id, trip_id: @trip.id) %>
-                <%= link_to trip_city_trip_activity_path(@trip, city, trip_activity) do %>
-                  <div class="card card-basecamp-activity horizontal small">
-                    <div class="card-image">
-                      <%= cl_image_tag("#{Activity.find_by(name: city.temp_activity).placeholder_image}") %>
-                    </div>
-                    <div class="card-stacked black-font"">
-                      <div class="card-content" data-coords="<%= { ori_lat: @trip.coord_lat, ori_long: @trip.coord_long, desti_lat: city.coord_lat, desti_long: city.coord_long }.to_json %>">
-                        <p class="strong">
-                        <% if city.temp_score > @trip.duration / 2.5 %>
-                          <%= city.clean_name %><span>  <i class="fas fa-heart"></i></span>
-                        <% elsif city.temp_score > @trip.duration / 5 %>
-                          <strong style="font-weight: lighter;"><%= city.clean_name %><span></strong>
-                        <% else %>
-                          <strong style="color: rgba(7,16,19, 0.8); font-weight: lighter;"><%= city.clean_name %><span>  <i class="far fa-frown"></i></span></strong>
-                        <% end %>
-                        </p>
-                      <br>
-                      <p id="itinerary-number" ><strong><%= city.nb_itineraries %></strong> itinéraires de ton niveau en <strong><span class="crux-blue"><%= activity.short_name %></span></strong></p>
-                      <br>
-
-                      <% if city.mountain_range != nil && city.mountain_range.max_risk != nil && activity.name == "skitouring"    %>
-
-                        <% if city.mountain_range.max_risk > 2 %>
-                        <p><i class="fas fa-exclamation-triangle"></i> BRA risqué (<%= city.mountain_range.max_risk %> / 5)</p>
-                        <% else %>
-                        <p><i class="fas fa-thumbs-up"></i> BRA optimal</p>
-                        <% end %>
-                        <br>
-                        <p>
-                      <% end %>
-                      <% city.weather_icons(@trip).each do |icon_url| %>
-                        <img src="<%= "http:" + icon_url %>" style="width: 32px; height: 32px;">
-                      <% end %>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <% end %>
-              </div>
+              <% cache city do %>
+                <%= render partial: "city_card", locals: {city: city} %>
+              <% end %>
             <% end %>
             </div>
           </div>
