@@ -1,4 +1,14 @@
 FactoryBot.define do
+  factory :invitation do
+    trip { nil }
+    mailed_to { "MyString" }
+  end
+
+  factory :participant do
+    user { nil }
+    trip { nil }
+  end
+
 
   factory :itinerary do
     activity { Activity.new }

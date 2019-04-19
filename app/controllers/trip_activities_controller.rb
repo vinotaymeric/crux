@@ -7,6 +7,7 @@ class TripActivitiesController < ApplicationController
     @activity = Activity.find(@trip_activity.activity_id)
     @mountain_range = @city.mountain_range
     @favorite_itinerary = FavoriteItinerary.new
+    @invitation = Invitation.new
 
     if params[:query].present? && !params[:query].blank?
       @itineraries = Itinerary.where("name ILIKE ?", "%#{params[:query]}%")[0..10]
@@ -46,10 +47,7 @@ class TripActivitiesController < ApplicationController
 
     @trip.save!
 
-    if @trip.validated
-      flash[:notice] = "Tes itinéraires sont sauvegardés, directement accessibles depuis 'Mes sorties'"
-    end
-
+    flash[:notice] = "Tes itinéraires sont sauvegardés, directement accessibles depuis 'Mes sorties'" if @trip.validated
     redirect_back(fallback_location: root_path)
   end
 

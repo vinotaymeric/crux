@@ -1,5 +1,8 @@
 class TripsController < ApplicationController
+  before_action :store_invitation_token
   before_action :empty_top_cities
+  before_action :authenticate_user!, only: :show
+  before_action :check_that_user_is_participant, only: :show
 
   def new
     user = current_or_guest_user
@@ -10,6 +13,16 @@ class TripsController < ApplicationController
     @set_activities = @user_activities.where('level IS NOT NULL')
 
     @trip = Trip.new
+  end
+
+  def show
+    trip = Trip.find(params[:id])
+
+    if trip.validated?
+      redirect_to trip_city_trip_activity_path(trip, trip.city, trip.trip_activity)
+    else
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def index
@@ -43,6 +56,19 @@ class TripsController < ApplicationController
 
   def trip_params
     params.require(:trip).permit(:start_date, :end_date, :location, :validated)
+  end
+
+  def store_invitation_token
+    session[:invitation_token] = params[:invitation_token]
+  end
+
+  def check_that_user_is_participant
+    trip = Trip.find(params[:id])
+
+    unless trip.users.include?(current_user)
+      flash[:alert] = "Tu n'es pas invité sur cette sortie."
+      redirect_to root_path
+    end
   end
 
   # Some logic to allow french langage within the calendar

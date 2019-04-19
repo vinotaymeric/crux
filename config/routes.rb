@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
+  }
 
   root to: 'pages#home'
 
@@ -16,4 +19,5 @@ Rails.application.routes.draw do
   resources :itineraries, only: [:show, :index]
   resources :user_activities, only: [:create, :update]
   resources :follows, only: [:create, :destroy, :index]
+  resources :invitations, only: :create
 end

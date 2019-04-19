@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :user_activities, dependent: :destroy
   has_many :activities, through: :user_activities
   has_many :trips, dependent: :destroy
+  has_many :invitations, through: :trips, dependent: :destroy
   has_many :follows, dependent: :destroy
   has_many :itineraries, through: :follows, dependent: :destroy
   after_create :create_user_activities

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_121914) do
+ActiveRecord::Schema.define(version: 2019_04_18_134404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,15 @@ ActiveRecord::Schema.define(version: 2019_04_08_121914) do
     t.integer "source_id"
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.bigint "trip_id"
+    t.string "mailed_to"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "token"
+    t.index ["trip_id"], name: "index_invitations_on_trip_id"
+  end
+
   create_table "itineraries", force: :cascade do |t|
     t.string "name"
     t.text "content"
@@ -142,6 +151,15 @@ ActiveRecord::Schema.define(version: 2019_04_08_121914) do
     t.integer "source_id"
     t.text "content"
     t.index ["itinerary_id"], name: "index_outings_on_itinerary_id"
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "trip_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trip_id"], name: "index_participants_on_trip_id"
+    t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
   create_table "requests", force: :cascade do |t|
@@ -228,10 +246,13 @@ ActiveRecord::Schema.define(version: 2019_04_08_121914) do
   add_foreign_key "favorite_itineraries", "trips"
   add_foreign_key "follows", "itineraries"
   add_foreign_key "follows", "users"
+  add_foreign_key "invitations", "trips"
   add_foreign_key "itineraries", "activities"
   add_foreign_key "itineraries", "basecamps"
   add_foreign_key "itineraries", "huts"
   add_foreign_key "outings", "itineraries"
+  add_foreign_key "participants", "trips"
+  add_foreign_key "participants", "users"
   add_foreign_key "requests", "trips"
   add_foreign_key "trip_activities", "activities"
   add_foreign_key "trip_activities", "trips"

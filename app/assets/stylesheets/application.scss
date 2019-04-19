@@ -93,7 +93,11 @@ label {
 }
 
 .light-padding {
- padding-top: 20px;
+ padding: 0.5rem;
+}
+
+.light-margin {
+  margin: 0.5rem;
 }
 
 .crux-blue {
@@ -117,4 +121,8 @@ label {
 
 .font-1em {
   font-size: 1.1rem !important;
+}
+
+.bigger {
+  font-size: 1.6em;
 }
