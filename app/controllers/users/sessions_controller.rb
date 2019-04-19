@@ -15,8 +15,8 @@ class Users::SessionsController < Devise::SessionsController
 
     token = params[:invitation_token] || session[:invitation_token]
     if token
-      trip = Invitation.find_by(token: token).trip
-      Participant.create!(user: current_or_guest_user, trip: trip)
+      invitation = Invitation.find_by(token: token)
+      Participant.create!(user: current_or_guest_user, trip: invitation.trip) if invitation.mailed_to == current_user.email
     end
   end
 

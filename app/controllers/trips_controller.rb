@@ -2,7 +2,7 @@ class TripsController < ApplicationController
   before_action :store_invitation_token
   before_action :empty_top_cities
   before_action :authenticate_user!, only: :show
-  before_action :check_that_user_is_participant
+  before_action :check_that_user_is_participant, only: :show
 
   def new
     user = current_or_guest_user
