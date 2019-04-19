@@ -120,10 +120,12 @@ class Itinerary < ApplicationRecord
 
   def guessed_outing_months
     outing_months.map do |key, value|
-      if key < 12
-        (outing_months[key + 1] > 0 && value = 0) ? value = 1  : value
+      if key == 1
+        (outing_months[12] > 0 && outing_months[2] > 0 && value == 0) ? value = 1  : value
+      elsif key == 12
+        (outing_months[11] > 0 && outing_months[1] > 0 && value == 0) ? value = 1  : value
       else
-        (outing_months[1] > 0 && value = 0) ? value = 1  : value
+        (outing_months[key - 1] > 0 && outing_months[key + 1] > 0 && value == 0) ? value = 1  : value
       end
     end
   end
