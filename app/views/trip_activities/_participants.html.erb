@@ -21,5 +21,29 @@
     </div>
     <% end %>
   </div>
+</div>
 
+<div class=" trip-tab light-padding light-margin">
+  <div class="chat">
+    <% @trip_activity.trip.messages.each do |message| %>
+      <%= message.content %>
+    <% end %>
+  </div>
+
+  <%= simple_form_for [@trip, @message], remote: true do |form| %>
+    <div class="input-group mb-3">
+      <%= form.input :content, as: :string,
+                               wrapper: false,
+                               label: false,
+                               input_html: {
+                                 class: 'chat-input'
+                               } %>
+      <div class="input-group-append">
+        <%= form.submit "Send", class: 'btn btn-primary chat-input' %>
+      </div>
+    </div>
+
+    <%= form.input :user_id, as: :hidden %>
+    <%= form.input :trip_id, as: :hidden %>
+  <% end %>
 </div>
