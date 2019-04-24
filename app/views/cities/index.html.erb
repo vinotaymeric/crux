@@ -14,9 +14,7 @@
           <div id="list">
             <div class="slide-container">
             <% @cities.each do |city| %>
-              <% cache city do %>
-                <%= render partial: "city_card", locals: {city: city} %>
-              <% end %>
+              <%= render partial: "city_card", locals: {city: city} %>
             <% end %>
             </div>
           </div>
