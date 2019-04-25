@@ -21,10 +21,13 @@ RSpec.describe TripsController do
     end
   end
 
-  # describe "GET show/:id" do
+  # describe "POST create" do
   #   it "has a 200 status code" do
-  #     get :show, params: { id: @trip.id }
+  #     trip = FactoryBot.build(:trip)
+  #     post :create, params: attributes_for(trip)
+
   #     expect(response.status).to eq(200)
   #   end
   # end
+
 end
