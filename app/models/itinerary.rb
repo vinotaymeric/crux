@@ -9,6 +9,11 @@ class Itinerary < ApplicationRecord
   has_many :outings
   geocoded_by :address, latitude: :coord_lat, longitude: :coord_long
 
+
+  def to_slug
+    name.parameterize.truncate(80, omission: '')
+  end
+
   def api_call(itinerary, id)
     url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"
     JSON.parse(open(url).read)

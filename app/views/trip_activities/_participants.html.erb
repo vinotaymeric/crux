@@ -21,5 +21,49 @@
     </div>
     <% end %>
   </div>
+</div>
 
+<div class=" trip-tab light-padding light-margin">
+  <h6 class="strong">Papotez</h6>
+  <div class="chat" data-channel-subscribe="trip" data-trip-id="<%= @trip.id %>">
+    <ul>
+      <% @trip_activity.trip.messages.each do |message| %>
+        <li>
+          <em><%= message.content %></em> dit <%= message.user.email %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <%= simple_form_for [@trip, @message], remote: true do |form| %>
+    <div class="flexbox-class">
+      <%= form.input :content, as: :string,
+                               wrapper: false,
+                               label: false,
+                               input_html: {
+                                 class: 'chat-input'
+                               } %>
+      <%= form.submit "Send", class: 'btn btn-primary chat-input' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="d-none" data-role="message-template">
+  <div class="chat-message-container">
+    <div class="row no-gutters">
+      <div class="col-auto text-center">
+        <img src="" class="avatar" alt="" data-role="user-avatar">
+      </div>
+
+      <div class="col">
+        <div class="message-content">
+          <p class="mb-1" data-role="message-text"></p>
+
+          <div class="text-right">
+            <small data-role="message-date"></small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

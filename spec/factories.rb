@@ -1,4 +1,10 @@
 FactoryBot.define do
+  factory :message do
+    trip { nil }
+    user { nil }
+    content { "MyString" }
+  end
+
   factory :invitation do
     trip { nil }
     mailed_to { "MyString" }

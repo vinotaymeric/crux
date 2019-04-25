@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     end
     resources :requests, only: :create
     resources :favorite_itineraries, only: [:create, :destroy]
+    resources :messages, only: :create
   end
 
   resources :itineraries, only: [:show, :index]

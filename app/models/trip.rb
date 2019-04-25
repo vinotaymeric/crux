@@ -8,6 +8,7 @@ class Trip < ApplicationRecord
   has_many :itineraries, through: :favorite_itineraries, dependent: :destroy
   has_many :trip_activities, dependent: :destroy
   has_many :invitations, dependent: :destroy
+  has_many :messages, dependent: :destroy
   has_one :trip_activity, dependent: :destroy
   attribute :validated, default: false
   validates :start_date, presence: true

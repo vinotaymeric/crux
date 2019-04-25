@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_18_134404) do
+ActiveRecord::Schema.define(version: 2019_04_24_170719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,9 +123,20 @@ ActiveRecord::Schema.define(version: 2019_04_18_134404) do
     t.string "hiking_rating"
     t.float "score"
     t.string "universal_difficulty"
+    t.string "slug"
     t.index ["activity_id"], name: "index_itineraries_on_activity_id"
     t.index ["basecamp_id"], name: "index_itineraries_on_basecamp_id"
     t.index ["hut_id"], name: "index_itineraries_on_hut_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "trip_id"
+    t.bigint "user_id"
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trip_id"], name: "index_messages_on_trip_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "mountain_ranges", force: :cascade do |t|
@@ -250,6 +261,8 @@ ActiveRecord::Schema.define(version: 2019_04_18_134404) do
   add_foreign_key "itineraries", "activities"
   add_foreign_key "itineraries", "basecamps"
   add_foreign_key "itineraries", "huts"
+  add_foreign_key "messages", "trips"
+  add_foreign_key "messages", "users"
   add_foreign_key "outings", "itineraries"
   add_foreign_key "participants", "trips"
   add_foreign_key "participants", "users"
