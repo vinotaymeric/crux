@@ -68,3 +68,5 @@ const buttonTabs = () => {
 }
 
 buttonTabs();
+
+console.log(gon.user.email)
