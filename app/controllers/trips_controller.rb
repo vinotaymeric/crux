@@ -5,13 +5,8 @@ class TripsController < ApplicationController
   before_action :check_that_user_is_participant, only: :show
 
   def new
-    user = current_or_guest_user
-
-    @expert_activities_ids = Activity.expert_activities
-    @user_activities = user.user_activities.where.not(activity_id: @expert_activities_ids)
-    @unset_activities = @user_activities.where(level: nil)
-    @set_activities = @user_activities.where('level IS NOT NULL')
-
+    @user_activities = current_or_guest_user.user_activities
+                                            .where.not(activity_id: Activity.expert_activities)
     @trip = Trip.new
   end
 

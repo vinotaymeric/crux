@@ -6,5 +6,9 @@ class UserActivity < ApplicationRecord
     return if level.nil?
     Itinerary.where(activity: activity, universal_difficulty: level.downcase)
   end
+
+  def unset?
+    level.nil?
+  end
 end
 
