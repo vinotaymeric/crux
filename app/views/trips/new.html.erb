@@ -3,29 +3,22 @@
     <div class="col s12 m6 offset-m3">
 
       <h5 class="form-title">Sélectionne une ou des activités</h5>
-      <% @unset_activities.each do |user_activity| %>
-      <div class="col s3">
-        <%= image_tag "icons/#{user_activity.activity.name}.png", class: 'circle responsive-img small icon-source', id: user_activity.activity.name %>
-      </div>
-      <% end %>
-
-      <% @set_activities.each do |user_activity| %>
-      <div class="col s3">
-        <%= image_tag "icons/#{user_activity.activity.name}.png", class: 'circle responsive-img small icon-source selected-icon', id: user_activity.activity.name %>
-      </div>
+      <% @user_activities.each do |user_activity| %>
+        <div class="col s3">
+            <%= image_tag "icons/#{user_activity.activity.name}.png", class: "circle responsive-img small icon-source #{'selected-icon' if user_activity.set?}", id: user_activity.activity.name %>
+        </div>
       <% end %>
 
       <% @user_activities.each do |user_activity| %>
-      <% if user_activity.level == nil %>
-      <div class="input-field col s12 m6 icon-target hidden" id=<%= user_activity.activity.name %>>
-      <% else %>
-      <div class="input-field col s12 m6 icon-target" id=<%= user_activity.activity.name %>>
-      <% end %>
-        <%= simple_form_for user_activity, remote: true, data: { turbolinks: false }  do |f| %>
-        <%= f.input  :level, :collection => ["Niveau ?", "Débutant","Intermédiaire","Expérimenté"], label: user_activity.activity.short_name.capitalize, input_html: { class: user_activity.activity.name.split(" ")[0]},include_blank: false, include_hidden: false %>
-        <%= f.hidden_field  :activity_id %>
-        <% end %>
-      </div>
+
+        <div class="input-field col s12 m6 icon-target <%= 'hidden' if user_activity.level == nil %>" id=<%= user_activity.activity.name %>>
+
+          <%= simple_form_for user_activity, remote: true, data: { turbolinks: false }  do |f| %>
+            <%= f.input  :level, :collection => ["Niveau ?", "Débutant","Intermédiaire","Expérimenté"], label: user_activity.activity.short_name.capitalize, input_html: { class: user_activity.activity.name.split(" ")[0]},include_blank: false, include_hidden: false %>
+            <%= f.hidden_field  :activity_id %>
+          <% end %>
+
+        </div>
       <% end %>
 
       <h5 class="form-title col s12 m12 no-padding">Dis-nous d'où et quand tu pars</h5>
