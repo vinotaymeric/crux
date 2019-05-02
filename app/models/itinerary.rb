@@ -10,9 +10,9 @@ class Itinerary < ApplicationRecord
   geocoded_by :address, latitude: :coord_lat, longitude: :coord_long
 
 
-  def to_slug
-    name.parameterize.truncate(80, omission: '')
-  end
+  # def to_slug
+  #   name.parameterize.truncate(80, omission: '')
+  # end
 
   def api_call(itinerary, id)
     url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"
@@ -49,14 +49,10 @@ class Itinerary < ApplicationRecord
   end
 
   def recent_outings(days_to_look_back = 60)
-    outings = self.outings
-    recent_outings = []
-    outings.each do |outing|
-      date = Date.parse outing.date
-      if date.upto(Date.today).to_a.size < days_to_look_back
-        recent_outings << [outing.date, outing.content]
-      end
+    recent_outings = outings.map do |outing|
+      [outing.date, outing.content] if Date.parse(outing.date).upto(Date.today).to_a.size < days_to_look_back
     end
+
     recent_outings.sort_by! {|outing| outing[0]}.reverse
   end
 
