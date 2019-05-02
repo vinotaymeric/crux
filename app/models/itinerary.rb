@@ -9,11 +9,6 @@ class Itinerary < ApplicationRecord
   has_many :outings
   geocoded_by :address, latitude: :coord_lat, longitude: :coord_long
 
-
-  # def to_slug
-  #   name.parameterize.truncate(80, omission: '')
-  # end
-
   def api_call(itinerary, id)
     url = "https://api.camptocamp.org/#{itinerary}/#{id.to_s}"
     JSON.parse(open(url).read)
@@ -24,7 +19,7 @@ class Itinerary < ApplicationRecord
   end
 
   def update_recent_conditions
-    api_call("routes", self.source_id)["associations"]["recent_outings"]["documents"].each do |outing|
+    api_call("routes", source_id)["associations"]["recent_outings"]["documents"].each do |outing|
       begin
         date = Date.parse outing["date_start"]
 
@@ -53,7 +48,7 @@ class Itinerary < ApplicationRecord
       [outing.date, outing.content] if Date.parse(outing.date).upto(Date.today).to_a.size < days_to_look_back
     end
 
-    recent_outings.sort_by! {|outing| outing[0]}.reverse
+    recent_outings.compact.sort_by! {|outing| outing[0]}.reverse
   end
 
   def universal_difficulty
@@ -61,12 +56,12 @@ class Itinerary < ApplicationRecord
     intermédiaire = ["D-", "D", "D+", "AD-", "AD", "AD+", "T4", "T3", "4.1", "3.3", "3.2", "3.1", "S4", "S3"]
     débutant = ["PD-", "PD", "PD+", "F-", "F", "F+", "T2", "T1", "2.3", "2.2", "2.1", "1.3", "1.2", "1.1", "S2", "S1"]
 
-    if self.difficulty != nil
-      technical_difficulty = self.difficulty
-    elsif self.hiking_rating != nil
-      technical_difficulty = self.hiking_rating
-    elsif self.ski_rating != nil
-      technical_difficulty = self.ski_rating
+    if difficulty != nil
+      technical_difficulty = difficulty
+    elsif hiking_rating != nil
+      technical_difficulty = hiking_rating
+    elsif ski_rating != nil
+      technical_difficulty = ski_rating
     end
 
     if expérimenté.include?(technical_difficulty)
@@ -82,20 +77,19 @@ class Itinerary < ApplicationRecord
   end
 
   def small_picture
-    if self.picture_url[-3..-1] = "svg"
-      "#{self.picture_url[0..-5]}MI.jpg"
+    if picture_url[-3..-1] = "svg"
+      "#{picture_url[0..-5]}MI.jpg"
     else
-      "#{self.picture_url[0..-5]}MI.#{self.picture_url[-3..-1]}"
+      "#{picture_url[0..-5]}MI.#{picture_url[-3..-1]}"
     end
   end
 
   def picture_url_p
     placeholder = "https://res.cloudinary.com/dbehokgcg/image/upload/v1553511342/placeholder.png"
-    self.picture_url.nil? ? placeholder : small_picture
+    picture_url.nil? ? placeholder : small_picture
   end
 
   def outing_months
-    outings = self.outings
     outings_per_month = {
       1 => 0,
       2 => 0,
@@ -110,6 +104,7 @@ class Itinerary < ApplicationRecord
       11 => 0,
       12 => 0
     }
+
     outings.each do |outing|
       next if outing.date.nil?
       month = outing.date.split("-")[1].to_i
@@ -139,7 +134,7 @@ class Itinerary < ApplicationRecord
     return 0 if is_incomplete?
 
     month = Date.today.month
-    activity = self.activity.name
+    activity = activity.name
 
     average_elevation = elevation_max - (height_diff_up / 2)
 
@@ -166,15 +161,14 @@ class Itinerary < ApplicationRecord
   end
 
   def score_calculation
-    self.picture_url.nil? ? score = 0.19 : score = 0.2
-    score = score / 2 if (self.number_of_outing + self.outings.count) < 2
-    score = score / 2 if self.content.nil? || self.content.size < 500
-    self.outing_months[Date.today.month] > 0 ? score *= 5 : score = score * activity_score
+    picture_url.nil? ? score = 0.19 : score = 0.2
+    score = score / 2 if (number_of_outing + outings.count) < 2
+    score = score / 2 if content.nil? || content.size < 500
+    outing_months[Date.today.month] > 0 ? score *= 5 : score = score * activity_score
     score
   end
 
   def clean_content
-    content = self.content
     content.gsub(/\[(.*?)\]/) {|tag| tag.split("|")[1] }.gsub("[","").gsub("]","")
   end
 end
