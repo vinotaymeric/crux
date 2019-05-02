@@ -1,8 +1,7 @@
 <div class="container">
   <p class="ellipsis center-align strong" style="margin-bottom: -8px">
     <i class="fas fa-car"></i> du
-    <%= @trip.start_date.to_s[-2..-1] %>/<%= @trip.start_date.to_s[-5..-4] %>
-    depuis <%= @trip.short_address %>
+    <%= @trip.short_start_date %> depuis <%= @trip.short_address %>
   </p>
   <div class="basecamps-activities-container" data-ors-api-key="<%= ENV['OPENROUTE_API_KEY2'] %>">
     <div class="row">

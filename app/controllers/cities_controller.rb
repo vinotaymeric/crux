@@ -27,7 +27,7 @@ class CitiesController < ApplicationController
 
   def score(city, trip)
     # Compute subscores
-    itinerary_score = [city.nb_good_itineraries - 1, 0].max
+    itinerary_score = [city.nb_good_itineraries - 1, 0].max / 2
     weather_score = city.weather.score(trip.start_date, trip.end_date)
 
     if city.included_in_polygon?(@one_hour_polygon)
@@ -36,43 +36,42 @@ class CitiesController < ApplicationController
       distance_score = 1 + trip.distance_from(city) / 50
     end
     # Return final score
-    ([weather_score, [(itinerary_score / 2), trip.duration].min].min) / distance_score ** (1.05 - trip.duration / 20)
+    ([weather_score, [itinerary_score, trip.duration].min].min) / distance_score ** (1.05 - trip.duration / 20)
+  end
+
+  def define_city_activities
+    @trip.trip_activities.map do |trip_activity|
+      next if trip_activity.level == "Niveau ?" || trip_activity.level.nil?
+      activity = trip_activity.activity
+
+      city_activity = City.select("cities.*, SUM(itineraries.score) as nb_good_itineraries_from_query, COUNT(itineraries.id) as nb_itineraries_from_query")
+      .joins(:itineraries)
+      .where(itineraries: {activity_id: activity.id, universal_difficulty: trip_activity.level.downcase })
+      .group("cities.id HAVING SUM(itineraries.score) > 0")
+      .order("nb_good_itineraries_from_query")
+
+      city_activity.each do |city|
+        city.temp_activity = activity.name
+        city.nb_itineraries = city.nb_itineraries_from_query
+        city.nb_good_itineraries = city.nb_good_itineraries_from_query
+      end
+    end
   end
 
   def find_top_cities
-    if session[:cities_activities].nil? || session[:cities_activities].empty?
-      cities_activities = []
-      @trip.trip_activities.each do |trip_activity|
-        next if trip_activity.level == "Niveau ?" || trip_activity.level.nil?
-        activity = trip_activity.activity
-
-        city_activity = City.select("cities.*, SUM(itineraries.score) as nb_good_itineraries_from_query, COUNT(itineraries.id) as nb_itineraries_from_query")
-        .joins(:itineraries)
-        .where(itineraries: {activity_id: activity.id, universal_difficulty: trip_activity.level.downcase })
-        .group("cities.id HAVING SUM(itineraries.score) > 0")
-        .order("nb_good_itineraries_from_query")
-
-        city_activity.each do |city|
-          city.temp_activity = activity.name
-          city.nb_itineraries = city.nb_itineraries_from_query
-          city.nb_good_itineraries = city.nb_good_itineraries_from_query
-        end
-
-        cities_activities << city_activity
-      end
-
+    if session[:cities_activities].present?
+      @cities = SessionStorage.new(session[:cities_activities]).convert_to_objects
+    else
+      cities_activities = define_city_activities.flatten!
       # Order by score
-      cities_activities.flatten!
       cities_activities.sort_by! do |city_activity|
         city_activity.temp_score = score(city_activity, @trip)
         [city_activity.temp_score, - @trip.distance_from(city_activity)]
       end
-      # Take only top 18 and send them to the view
+      # Take only top 14 and send them to the view
       @cities = cities_activities.reverse[0..13]
       # Store them in session to avoid long reloads
       session[:cities_activities] = SessionStorage.new(@cities).convert_to_hashes
-    else
-      @cities = SessionStorage.new(session[:cities_activities]).convert_to_objects
     end
   end
 end

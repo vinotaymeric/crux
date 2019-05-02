@@ -1,10 +1,11 @@
 <div class="container">
-  <p class="ellipsis center-align strong" style="margin-bottom: -8px">
+
+  <div class="ellipsis center-align strong" style="margin-top: 15px;">
     <% if @trip.validated == false %>
       <%= link_to "", trip_cities_path(@trip), class: "fas fa-chevron-circle-left" %>
     <% end %>
-    <span style="padding-left: 10px;"><%= @activity.short_name.capitalize %> à <%= @city.clean_name %></span>
-  </p>
+    <%= @activity.short_name.capitalize %> à <%= @city.clean_name %>
+  </div>
 
   <% if @trip.validated == false %>
     <div class="fixed-action-btn card-panel sticky-cta", id="validation-basecamp-button">
@@ -19,7 +20,7 @@
   <div class="row">
     <div class="col s12">
 
-      <%= render partial: "tabs", locals: {trip: @trip} %>
+      <%= render partial: "tabs" %>
 
       <div id="itineraries" style="margin: 10px;">
 
@@ -52,13 +53,13 @@
 
       <div id="weather">
         <div class="row">
-          <%= render partial: "weather_infos", locals: {city: @city} %>
+          <%= render partial: "weather_infos" %>
         </div>
       </div>
       <% if @mountain_range %>
       <div id="avalanche">
         <div class="row">
-          <%= render partial: "avalanche_infos", locals: {mountain_range: @mountain_range} %>
+          <%= render partial: "avalanche_infos" %>
         </div>
       </div>
       <% end %>
@@ -71,7 +72,7 @@
       <% if @trip.validated %>
       <div id="participants">
         <div class="row">
-          <%= render partial: "participants", locals: {trip: @trip, invitation: @invitation, participants: @trip_activity.trip.participants} %>
+          <%= render partial: "participants", locals: {participants: @trip_activity.trip.participants} %>
         </div>
       </div>
       <% end %>

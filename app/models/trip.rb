@@ -28,4 +28,8 @@ class Trip < ApplicationRecord
     self.location.split(" ")[0].gsub(",", "")
   end
 
+  def short_start_date
+    "#{start_date.to_s[-2..-1]} / #{start_date.to_s[-5..-4]}"
+  end
+
 end
