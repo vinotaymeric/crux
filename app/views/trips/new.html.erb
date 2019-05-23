@@ -3,6 +3,7 @@
     <div class="col s12 m6 offset-m3">
 
       <h5 class="form-title">Sélectionne une ou des activités</h5>
+
       <% @user_activities.each do |user_activity| %>
         <div class="col s3">
             <%= image_tag "icons/#{user_activity.activity.name}.png", class: "circle responsive-img small icon-source #{'selected-icon' if user_activity.set?}", id: user_activity.activity.name %>
@@ -12,9 +13,8 @@
       <% @user_activities.each do |user_activity| %>
 
         <div class="input-field col s12 m6 icon-target <%= 'hidden' if user_activity.level == nil %>" id=<%= user_activity.activity.name %>>
-
           <%= simple_form_for user_activity, remote: true, data: { turbolinks: false }  do |f| %>
-            <%= f.input  :level, :collection => ["Niveau ?", "Débutant","Intermédiaire","Expérimenté"], label: user_activity.activity.short_name.capitalize, input_html: { class: user_activity.activity.name.split(" ")[0]},include_blank: false, include_hidden: false %>
+            <%= f.input :level, collection: ["Niveau ?", "Débutant","Intermédiaire","Expérimenté"], label: user_activity.activity.short_name.capitalize, input_html: { class: user_activity.activity.name.split(" ")[0]},include_blank: false, include_hidden: false %>
             <%= f.hidden_field  :activity_id %>
           <% end %>
         </div>

@@ -15,33 +15,6 @@ class ApplicationRecord < ActiveRecord::Base
     return polygon.points[0]
   end
 
-  def double_polygon
-    polygon = self.isochrone_coordinates
-    polygons = [polygon]
-
-    points = []
-    points << polygon[0]
-    slice = (polygon.size / 4).round.to_i
-    points << polygon[slice]
-    points << polygon[slice * 2]
-    points << polygon[slice * 3]
-
-    points.each do |point|
-      url = "https://api.openrouteservice.org/isochrones?api_key=#{ENV['OPENROUTE_API_KEY']}&locations=#{point[0]},#{point[1]}&profile=driving-car&range=3600"
-      p url
-      response = JSON.parse(open(url).read)["features"][0]["geometry"]["coordinates"][0]
-      polygon = Geokit::Polygon.new([
-        response.each do |coord|
-          lat = coord[1]
-          long = coord[0]
-          Geokit::LatLng.new(lat, long)
-        end
-      ])
-      polygons << polygon.points[0]
-    end
-    polygons
-  end
-
   def included_in_polygon?(polygon_array)
     last_point = polygon_array[-1]
     oddNodes = false
@@ -63,3 +36,30 @@ class ApplicationRecord < ActiveRecord::Base
     return oddNodes
   end
 end
+
+  # def double_polygon
+  #   polygon = self.isochrone_coordinates
+  #   polygons = [polygon]
+
+  #   points = []
+  #   points << polygon[0]
+  #   slice = (polygon.size / 4).round.to_i
+  #   points << polygon[slice]
+  #   points << polygon[slice * 2]
+  #   points << polygon[slice * 3]
+
+  #   points.each do |point|
+  #     url = "https://api.openrouteservice.org/isochrones?api_key=#{ENV['OPENROUTE_API_KEY']}&locations=#{point[0]},#{point[1]}&profile=driving-car&range=3600"
+  #     p url
+  #     response = JSON.parse(open(url).read)["features"][0]["geometry"]["coordinates"][0]
+  #     polygon = Geokit::Polygon.new([
+  #       response.each do |coord|
+  #         lat = coord[1]
+  #         long = coord[0]
+  #         Geokit::LatLng.new(lat, long)
+  #       end
+  #     ])
+  #     polygons << polygon.points[0]
+  #   end
+  #   polygons
+  # end

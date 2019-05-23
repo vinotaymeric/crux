@@ -23,7 +23,7 @@ class UpdateItinerary
     Follow.itineraries.each do |itinerary|
       itinerary.update_recent_conditions
       sleep(2)
-      send_alert_to_each_user(itinerary) if itinerary.recent_outings(2) != nil
+      send_alert_to_each_user(itinerary) unless itinerary.recent_outings(2) == nil
     end
   end
 end

@@ -12,8 +12,9 @@ class CitiesController < ApplicationController
         lng: city.coord_long,
         lat: city.coord_lat,
         infoWindow: render_to_string(partial: "infowindow", locals: {city: city, trip: @trip}),
-        image_url: "https://res.cloudinary.com/dbehokgcg/image/upload/v1553264629/#{city.temp_activity}.png",
+        image_url: "https://res.cloudinary.com/dbehokgcg/image/upload/v1558626248/crux/images/#{city.temp_activity}.png"
       }
+
     end
     # Add trip start location
     @markers << {
