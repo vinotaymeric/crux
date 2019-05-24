@@ -23,7 +23,7 @@ class Itinerary < ApplicationRecord
       begin
         date = Date.parse outing["date_start"]
 
-        if date.upto(Date.today).to_a.size < 60000
+        if (Date.today - date).to_i < 60000
           document_id = outing["document_id"]
           saved_outing = Outing.find_by(source_id: document_id)
           if saved_outing.nil?
@@ -45,7 +45,7 @@ class Itinerary < ApplicationRecord
 
   def recent_outings(days_to_look_back = 60)
     recent_outings = outings.map do |outing|
-      [outing.date, outing.content] if Date.parse(outing.date).upto(Date.today).to_a.size < days_to_look_back
+      [outing.date, outing.content] if (Date.today - Date.parse(outing.date)).to_i < days_to_look_back
     end
 
     recent_outings.compact.sort_by! {|outing| outing[0]}.reverse
