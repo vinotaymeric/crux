@@ -69,4 +69,28 @@ const buttonTabs = () => {
 
 buttonTabs();
 
-console.log(gon.user.email)
+let caldate = document.querySelectorAll('.circle');
+console.log(caldate);
+
+let infoWindow = document.querySelectorAll
+
+caldate.forEach(date => {
+  date.addEventListener('click', (e) => {
+    function
+  });
+});
+
+const flatpickr = require("flatpickr");
+
+flatpickr("#myID", {
+    onChange: function(dateObj, dateStr) {
+        console.log(dateStr);
+        var url = window.location.href.split("?")[0];
+        if (url.indexOf('?') > -1){
+           url += `?date=${dateStr}`
+        }else{
+           url += `?date=${dateStr}`
+        }
+        window.location.href = url;
+    }
+});
