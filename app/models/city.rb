@@ -16,7 +16,7 @@ class City < ApplicationRecord
 
   def meteoblue_air_url
     url = "https://www.meteoblue.com/fr/meteo/prevision/air/_france_#{self.geoname}"
-    html_content = open(url).read
+    html_content = open(url, "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36").read
     doc = Nokogiri::HTML(html_content)
     meteoblue_15min_valid_path = doc.search('#blooimage').search('img').attr('data-original').value
     "https://#{meteoblue_15min_valid_path}"
@@ -24,7 +24,7 @@ class City < ApplicationRecord
 
   def meteoblue_semaine_url
     url = "https://www.meteoblue.com/fr/meteo/prevision/semaine/_france_#{self.geoname}"
-    html_content = open(url).read
+    html_content = open(url, "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36").read
     doc = Nokogiri::HTML(html_content)
     meteoblue_15min_valid_path = doc.search('.bloo_content').children[2].attr('data-original')
     "https://#{meteoblue_15min_valid_path}"
