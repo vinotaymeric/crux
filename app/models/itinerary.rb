@@ -77,7 +77,7 @@ class Itinerary < ApplicationRecord
   end
 
   def small_picture
-    if picture_url[-3..-1] = "svg"
+    if picture_url[-3..-1] == "svg"
       "#{picture_url[0..-5]}MI.jpg"
     else
       "#{picture_url[0..-5]}MI.#{picture_url[-3..-1]}"
