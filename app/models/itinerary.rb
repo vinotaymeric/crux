@@ -15,7 +15,7 @@ class Itinerary < ApplicationRecord
   end
 
   def short_name
-    name.size > 20 ? name[0..20] + "..." : name
+    name.size > 50 ? name[0..50] + "..." : name
   end
 
   def update_recent_conditions
