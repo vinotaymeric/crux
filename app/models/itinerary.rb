@@ -45,7 +45,7 @@ class Itinerary < ApplicationRecord
 
   def recent_outings(days_to_look_back = 60)
     recent_outings = outings.map do |outing|
-      [outing.date, outing.content] if Date.parse(outing.date).upto(Date.today).to_a.size < days_to_look_back
+      [outing.date, outing.content] if (Date.today - Date.parse(outing.date)) < days_to_look_back
     end
 
     recent_outings.compact.sort_by! {|outing| outing[0]}.reverse
