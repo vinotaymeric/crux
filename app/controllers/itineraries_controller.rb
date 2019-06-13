@@ -25,11 +25,7 @@ class ItinerariesController < ApplicationController
 
   def best_itineraries_for_this_user
     user_activities =  @user.user_activities.where.not(level: nil)
-    itineraries = []
-    user_activities.each do |user_activity|
-      itineraries << user_activity.itineraries.where('score >= 1').to_a
-    end
-    itineraries.flatten.sort_by(&:score).reverse[0..9]
-    # user_activities.map { |user_activity| user_activity.itineraries}.flatten
+
+    user_activities.map { |act| act.itineraries.where('score >= 1') }.flatten.sort_by(&:score).reverse[0..9]
   end
 end
