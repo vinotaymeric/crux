@@ -16,7 +16,7 @@ gem 'rabl-rails'
 ## 'Basic' gems, for usual non-core features
 
 gem 'cloudinary', '~> 1.9.1'
-gem 'geocoder', '~> 1.3', '>= 1.3.7'
+gem 'geocoder', '~> 1.6'
 gem 'awesome_print'
 gem "algoliasearch-rails"
 gem 'geokit-rails'
