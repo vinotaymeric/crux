@@ -67,7 +67,7 @@ gem 'webpacker'
 # cloudinary
 gem 'jquery-rails'
 #carrierwave
-gem 'carrierwave', '~> 1.2'
+gem 'carrierwave', '~> 1.3'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 gem 'autoprefixer-rails'
